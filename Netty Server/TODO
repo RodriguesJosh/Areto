@@ -1,0 +1,124 @@
+OOP:
+1. Abstraction (player, npc, object, item).
+2. Encalpsulation (setters and getters).
+3. Inheritance (entity, packethandler, commandhandler).
+4. Message passing (packet, packetbuilder).
+5. Modular programming (everything).
+
+Performance:
+1. Server VM.
+2. Methods and fields should become final and/or static.
+3. Use large classes, not small ones.
+4. Avoid interfaces and abstract classes - avoid OOP.
+5. Create large methods instead of smaller one.
+6. Avoid synchronization.
+7. Avoid creating lots of short-lived Objects.
+8. Use smaller primitive data types when possible.
+9. Use a boolean if an int value is 0 or 1.
+
+TODO:
+1. Create all the spells via scripts, xml as well as java.
+2. Add more scripts other than python, ruby and javascript; such as xml, jni, perl, lisp, etc.
+3. Add more OOP - forget about performance for now.
+4. Finish the quests.
+5. Finish the minigames.
+6. Finish the skills.
+7. Finish the random events.
+8. Get the server to actually connect to a client.
+9. Create sql files for the items, spells, npcs, etc.
+10. Finish the file server.
+11. Finish the task system.
+12. Create more shops.
+13. Finish the dialogues.
+14. Finish the grand exchange system.
+15. Finsih the clue scrolls.
+16. Finish the donation system.
+17. Finish the eating system.
+18. Finish the bank.
+19. Finish the combat system.
+20. Finish the demo system.
+21. Finish the lobby system.
+22. Finish the bot system.
+23. Finish the login server.
+24. Finish the trade system.
+25. Finish the wilderness for pking.
+26. Create more packets.
+27. Add multiple worlds - up to five or ten.
+28. Add multiple languages.
+29. Add javadocs.
+30. Make Google Translate be used throughout the whole server.
+31. Transfer Google Translate over to the client.
+32. A performance/OOP distribution for preference of others.
+33. Check for a collection filled with enums.
+34. Synchronize add/remove methods for collections.
+35. Create multiple networking API supportage.
+36. Switch networking APIs while playing (ByteBuffer -> ChannelBuffer -> IoBuffer)!
+37. Thread priorities for player/NPC updating.
+38. Override classes/methods when it comes to networking APIs other than Netty.
+
+Programs:
+1. Netty Server will be the main server.
+2. Netty Cache Editor will edit the cache.
+3. Netty Client will be the connecting client for this server.
+4. Netty Interface Editor will edit any interface on the client and/or add new ones.
+5. Netty Map Editor will edit any map on the client and/or add new ones.
+6. RuneRoid will be a Java interpreter for the RuneRoid scripting language.
+
+Design Patterns (could be wrong on some, if not all): How the software is being designed.
+
+Creational:
+1. Abstract Factory: Is a superclass that is the mother to a bunch of related Objects.
+2. Builder: Separate the actual building code from the actual Objects you are building.
+3. Factory Method: A superclass that will let subclasses allow what class to instantiate.
+4. Lazy Initialization: Delaying an important task until the first time it is created.
+5. Multiton: Only has one instance per key in a Map.
+6. Object Pool (singleton design when using this!): A pool/group filled with Objects to reuse over and over.
+If one is not used, clean it up. If they're all in use, create more for more users to use.
+7. Prototype: Creates numerous clones and uses them to your advantage. This is to save the use of "new" for
+Object creation.
+8. Resource Acquisition is Initialization: Call things need be in constructor, let the destructor handle the closing.
+9. Singleton: Only has one instance and can be accessed anywhere.
+
+Structural:
+1. Adapter: Allows classes to "adapt" or "come together" in a way with each other; simplicity as its peak for this one.
+2. Bridge: Decouples (separates) the abstraction from the implementation but also builds a bridge between them somehow.
+3. Composite: Represents a group and a single Object at the same time.
+4. Decorator: A "wrapper" to decorate a specific Object more so than what it is already.
+5. Facade: A client that can only see the face of something and no internal wiring; the client asks a "keeper" for
+"hidden" Objects.
+6. Front Controller: Handle tasks/events that are common.
+7. Flyweight: Store Objects (usually in a Collection) and there will only be instance to it to save memory.
+8. Private Class: Encapsilate class declaration and instance variables/attributes.
+9. Proxy: Provides a "holder" for another Object of that type to gain access to it.
+
+Behavioral:
+1. Chain of Responsibility: Creates a "chain" or a "line" of Objects to pass from one to another.
+2. Command: "Hide" information to be used at a later time/date.
+3. Interpreter: Evaluates sentences in a language.
+4. Iterator: Accesses the elements in an Collection without showing any "hidden" material.
+5. Mediator: The main logic for a class for other classes.
+6. Memento: Rollback/undo an Object's previous state.
+7. Null Object: Avoid using null when possible; create an "empty" primitive data type/Object.
+8. Observer: Observers that observe the subject Object and if the Object changes its state, everyone is notified.
+9. Servant: Define one thing in a class instead of numerous classes.
+10. Specification: A single method that will return a specific value; basically, you will not have to use useless methods.
+11. State: Change an Object's state.
+12. Strategy: Create multiple classes for each algorithm being used; makes them independant.
+13. Template Method: Define/execute the steps of an algorithm and will be used by subclasses.
+14. Visitor: Provide methods that take input for Objects they wish to visit.
+
+Concurrency:
+1. Active Object: Breaks apart the execution of a method from the invocation of the method; concurreny at its finest.
+2. Balking: Execute an Object when it is in a specific state.
+3. Binding Properties: Combine multiple Observers to force the synchronization of properties in different Objects.
+4. Messaging: Information passed between applications and components.
+5. Double-checked Locking: Test the beforehand lock and if successful, lock it permanently.
+6. Event-based Asynchronous: State problems within the asynchronous pattern in multithreaded programs.
+7. Guarded Suspension: Executes a task but only if the thread is locked and a precondition (before task) to be done.
+8. Lock: Prevent a thread from accessing this locked thread.
+9. Monitor Object: Prevents Objects from using a thread at the same time; one must be patient.
+10. Reactor: Handle requests to a service by one or more inputs and then dispatches them to the appropriate handlers.
+11. Read-write Lock: Concurrents the read access to an Object but requires much more access for writing access.
+12. Scheduler: Control when threads can execute single-threaded code.
+13. Thread Pool: A bundle of Threads that have tasks to execute when need be; pretty much the same as the Object Pool.
+14. Thread-specific Storage: Give data of a separate insance in a multi-threaded environment.
