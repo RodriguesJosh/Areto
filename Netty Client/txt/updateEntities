@@ -1,0 +1,226 @@
+	private void updateEntities() {
+		try {
+			int size = World.getWorld().getPlayerList().size();
+			int anInt974 = 0;
+			for (int j = -1; j < (size + this.npcCount); j++) {
+				Object obj;
+				if (j == -1) {
+					obj = Client.myPlayer;
+				} else if (j < size) {
+					obj = World.getWorld().getPlayerList().get(j);
+				} else {
+					obj = this.npcArray[this.npcIndices[j - size]];
+				}
+				if ((obj == null) || !((Entity) (obj)).isVisible()) {
+					continue;
+				}
+				if (obj instanceof NPC) {
+					EntityDef entityDef = ((NPC) obj).desc;
+					if (entityDef.childrenIDs != null) {
+						entityDef = entityDef.method161();
+					}
+					if (entityDef == null) {
+						continue;
+					}
+				}
+				if (j < size) {
+					int l = 30;
+					Player player = (Player) obj;
+					if (player.headIcon != 0) {
+						this.npcScreenPos(((Entity) (obj)), ((Entity) (obj)).height + 15);
+						if (this.spriteDrawX > -1) {
+							for (int i2 = 0; i2 < 8; i2++) {
+								if ((player.headIcon & (1 << i2)) != 0) {
+									this.headIcons[i2].drawSprite(this.spriteDrawX - 12, this.spriteDrawY - l);
+									l -= 25;
+								}
+							}
+						}
+					}
+					Player otherPlayer = World.getWorld().getPlayerList().get(j);
+					int position = World.getWorld().getPlayerList().indexOf(otherPlayer);
+					if ((j >= 0) && (this.anInt855 == 10) && (this.anInt933 == position)) {
+						this.npcScreenPos(((Entity) (obj)), ((Entity) (obj)).height + 15);
+						if (this.spriteDrawX > -1) {
+							this.headIcons[7].drawSprite(this.spriteDrawX - 12, this.spriteDrawY - l);
+						}
+					}
+				} else {
+					EntityDef entityDef_1 = ((NPC) obj).desc;
+					if ((entityDef_1.headIcon >= 0) && (entityDef_1.headIcon < this.headIcons.length)) {
+						this.npcScreenPos(((Entity) (obj)), ((Entity) (obj)).height + 15);
+						if (this.spriteDrawX > -1) {
+							this.headIcons[entityDef_1.headIcon].drawSprite(this.spriteDrawX - 12, this.spriteDrawY - 30);
+						}
+					}
+					if ((this.anInt855 == 1) && (this.anInt1222 == this.npcIndices[j - size]) && ((Client.loopCycle % 20) < 10)) {
+						this.npcScreenPos(((Entity) (obj)), ((Entity) (obj)).height + 15);
+						if (this.spriteDrawX > -1) {
+							this.headIcons[2].drawSprite(this.spriteDrawX - 12, this.spriteDrawY - 28);
+						}
+					}
+				}
+				if ((((Entity) (obj)).textSpoken != null) && ((j >= size) || (this.publicChatMode == 0) || (this.publicChatMode == 3) || ((this.publicChatMode == 1) && this.isFriendOrSelf(((Player)obj).name)))) {
+					this.npcScreenPos(((Entity) (obj)), ((Entity) (obj)).height);
+					if ((this.spriteDrawX > -1) && (anInt974 < this.anInt975)) {
+						this.anIntArray979[anInt974] = this.chatTextDrawingArea.method384(((Entity) (obj)).textSpoken) / 2;
+						this.anIntArray978[anInt974] = this.chatTextDrawingArea.charHeight;
+						this.anIntArray976[anInt974] = this.spriteDrawX;
+						this.anIntArray977[anInt974] = this.spriteDrawY;
+						this.anIntArray980[anInt974] = ((Entity) (obj)).fancyTextColourType;
+						this.anIntArray981[anInt974] = ((Entity) (obj)).fancyTextDrawType;
+						this.anIntArray982[anInt974] = ((Entity) (obj)).textCycle;
+						this.aStringArray983[anInt974++] = ((Entity) (obj)).textSpoken;
+						if ((this.anInt1249 == 0) && (((Entity) (obj)).fancyTextDrawType >= 1) && (((Entity) (obj)).fancyTextDrawType <= 3)) {
+							this.anIntArray978[anInt974] += 10;
+							this.anIntArray977[anInt974] += 5;
+						}
+						if ((this.anInt1249 == 0) && (((Entity) (obj)).fancyTextDrawType == 4)) {
+							this.anIntArray979[anInt974] = 60;
+						}
+						if ((this.anInt1249 == 0) && (((Entity) (obj)).fancyTextDrawType == 5)) {
+							this.anIntArray978[anInt974] += 5;
+						}
+					}
+				}
+				if (((Entity) (obj)).loopCycleStatus > Client.loopCycle) {
+					try {
+						this.npcScreenPos(((Entity) (obj)), ((Entity) (obj)).height + 15);
+						if (this.spriteDrawX > -1) {
+							int i1 = (((Entity) (obj)).currentHealth * 30) / ((Entity) (obj)).maxHealth;
+							if (i1 > 30) {
+								i1 = 30;
+							}
+							DrawingArea.method336(5, this.spriteDrawY - 3, this.spriteDrawX - 15, 65280, i1);
+							DrawingArea.method336(5, this.spriteDrawY - 3, (this.spriteDrawX - 15) + i1, 0xff0000, 30 - i1);
+						}
+					} catch (Exception e) {}
+				}
+				for (int j1 = 0; j1 < 4; j1++) {
+					if (((Entity) (obj)).hitsLoopCycle[j1] > Client.loopCycle) {
+						this.npcScreenPos(((Entity) (obj)), ((Entity) (obj)).height / 2);
+						if (this.spriteDrawX > -1) {
+							if (j1 == 1) {
+								this.spriteDrawY -= 20;
+							}
+							if (j1 == 2) {
+								this.spriteDrawX -= 15;
+								this.spriteDrawY -= 10;
+							}
+							if (j1 == 3) {
+								this.spriteDrawX += 15;
+								this.spriteDrawY -= 10;
+							}
+							this.hitMarks[((Entity) (obj)).hitMarkTypes[j1]].drawSprite(this.spriteDrawX - 12, this.spriteDrawY - 12);
+							this.aTextDrawingArea_1270.drawText(0, String.valueOf(((Entity) (obj)).hitDamages[j1]), this.spriteDrawY + 4, this.spriteDrawX);
+							this.aTextDrawingArea_1270.drawText(0xffffff, String.valueOf(((Entity) (obj)).hitDamages[j1]), this.spriteDrawY + 3, this.spriteDrawX - 1);
+						}
+					}
+				}
+			}
+			for (int k = 0; k < anInt974; k++) {
+				int k1 = this.anIntArray976[k];
+				int l1 = this.anIntArray977[k];
+				int j2 = this.anIntArray979[k];
+				int k2 = this.anIntArray978[k];
+				boolean flag = true;
+				while (flag) {
+					flag = false;
+					for (int l2 = 0; l2 < k; l2++) {
+						if (((l1 + 2) > (this.anIntArray977[l2] - this.anIntArray978[l2])) && ((l1 - k2) < (this.anIntArray977[l2] + 2)) && ((k1 - j2) < (this.anIntArray976[l2] + this.anIntArray979[l2])) && ((k1 + j2) > (this.anIntArray976[l2] - this.anIntArray979[l2])) && ((this.anIntArray977[l2] - this.anIntArray978[l2]) < l1)) {
+							l1 = this.anIntArray977[l2] - this.anIntArray978[l2];
+							flag = true;
+						}
+					}
+				}
+				this.spriteDrawX = this.anIntArray976[k];
+				this.spriteDrawY = this.anIntArray977[k] = l1;
+				String s = this.aStringArray983[k];
+				if (this.anInt1249 == 0) {
+					int i3 = 0xffff00;
+					if (this.anIntArray980[k] < 6) {
+						i3 = this.anIntArray965[this.anIntArray980[k]];
+					}
+					if (this.anIntArray980[k] == 6) {
+						i3 = (this.anInt1265 % 20) >= 10 ? 0xffff00 : 0xff0000;
+					}
+					if (this.anIntArray980[k] == 7) {
+						i3 = (this.anInt1265 % 20) >= 10 ? 65535 : 255;
+					}
+					if (this.anIntArray980[k] == 8) {
+						i3 = (this.anInt1265 % 20) >= 10 ? 0x80ff80 : 45056;
+					}
+					if (this.anIntArray980[k] == 9) {
+						int j3 = 150 - this.anIntArray982[k];
+						if (j3 < 50) {
+							i3 = 0xff0000 + (1280 * j3);
+						} else if (j3 < 100) {
+							i3 = 0xffff00 - (0x50000 * (j3 - 50));
+						} else if (j3 < 150) {
+							i3 = 65280 + (5 * (j3 - 100));
+						}
+					}
+					if (this.anIntArray980[k] == 10) {
+						int k3 = 150 - this.anIntArray982[k];
+						if (k3 < 50) {
+							i3 = 0xff0000 + (5 * k3);
+						} else if (k3 < 100) {
+							i3 = 0xff00ff - (0x50000 * (k3 - 50));
+						} else if (k3 < 150) {
+							i3 = (255 + (0x50000 * (k3 - 100))) - (5 * (k3 - 100));
+						}
+					}
+					if (this.anIntArray980[k] == 11) {
+						int l3 = 150 - this.anIntArray982[k];
+						if (l3 < 50) {
+							i3 = 0xffffff - (0x50005 * l3);
+						} else if (l3 < 100) {
+							i3 = 65280 + (0x50005 * (l3 - 50));
+						} else if (l3 < 150) {
+							i3 = 0xffffff - (0x50000 * (l3 - 100));
+						}
+					}
+					if (this.anIntArray981[k] == 0) {
+						this.chatTextDrawingArea.drawText(0, s, this.spriteDrawY + 1, this.spriteDrawX);
+						this.chatTextDrawingArea.drawText(i3, s, this.spriteDrawY, this.spriteDrawX);
+					}
+					if (this.anIntArray981[k] == 1) {
+						this.chatTextDrawingArea.method386(0, s, this.spriteDrawX, this.anInt1265, this.spriteDrawY + 1);
+						this.chatTextDrawingArea.method386(i3, s, this.spriteDrawX, this.anInt1265, this.spriteDrawY);
+					}
+					if (this.anIntArray981[k] == 2) {
+						this.chatTextDrawingArea.method387(this.spriteDrawX, s, this.anInt1265, this.spriteDrawY + 1, 0);
+						this.chatTextDrawingArea.method387(this.spriteDrawX, s, this.anInt1265, this.spriteDrawY, i3);
+					}
+					if (this.anIntArray981[k] == 3) {
+						this.chatTextDrawingArea.method388(150 - this.anIntArray982[k], s, this.anInt1265, this.spriteDrawY + 1, this.spriteDrawX, 0);
+						this.chatTextDrawingArea.method388(150 - this.anIntArray982[k], s, this.anInt1265, this.spriteDrawY, this.spriteDrawX, i3);
+					}
+					if (this.anIntArray981[k] == 4) {
+						int i4 = this.chatTextDrawingArea.method384(s);
+						int k4 = ((150 - this.anIntArray982[k]) * (i4 + 100)) / 150;
+						DrawingArea.setDrawingArea(334, this.spriteDrawX - 50, this.spriteDrawX + 50, 0);
+						this.chatTextDrawingArea.method385(0, s, this.spriteDrawY + 1, (this.spriteDrawX + 50) - k4);
+						this.chatTextDrawingArea.method385(i3, s, this.spriteDrawY, (this.spriteDrawX + 50) - k4);
+						DrawingArea.defaultDrawingAreaSize();
+					}
+					if (this.anIntArray981[k] == 5) {
+						int j4 = 150 - this.anIntArray982[k];
+						int l4 = 0;
+						if (j4 < 25) {
+							l4 = j4 - 25;
+						} else if (j4 > 125) {
+							l4 = j4 - 125;
+						}
+						DrawingArea.setDrawingArea(this.spriteDrawY + 5, 0, 512, this.spriteDrawY - this.chatTextDrawingArea.charHeight - 1);
+						this.chatTextDrawingArea.drawText(0, s, this.spriteDrawY + 1 + l4, this.spriteDrawX);
+						this.chatTextDrawingArea.drawText(i3, s, this.spriteDrawY + l4, this.spriteDrawX);
+						DrawingArea.defaultDrawingAreaSize();
+					}
+				} else {
+					this.chatTextDrawingArea.drawText(0, s, this.spriteDrawY + 1, this.spriteDrawX);
+					this.chatTextDrawingArea.drawText(0xffff00, s, this.spriteDrawY, this.spriteDrawX);
+				}
+			}
+		} catch (Exception e) {}
+	}

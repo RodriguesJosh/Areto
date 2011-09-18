@@ -1,0 +1,18 @@
+	private void refreshMiniMap(RGBImage rGBImage, int j, int k) {
+		int l = (k * k) + (j * j);
+		if ((l > 4225) && (l < 0x15f90)) {
+			int i1 = (this.minimapInt1 + this.minimapInt2) & 0x7ff;
+			int j1 = Model.sine[i1];
+			int k1 = Model.cosine[i1];
+			j1 = (j1 * 256) / (this.minimapInt3 + 256);
+			k1 = (k1 * 256) / (this.minimapInt3 + 256);
+			int l1 = ((j * j1) + (k * k1)) >> 16;
+			int i2 = ((j * k1) - (k * j1)) >> 16;
+			double d = Math.atan2(l1, i2);
+			int j2 = (int)(Math.sin(d) * 63D);
+			int k2 = (int)(Math.cos(d) * 57D);
+			this.mapEdge.method353(83 - k2 - 20, d, (94 + j2 + 4) - 10);
+		} else {
+			this.markMinimap(rGBImage, k, j);
+		}
+	}

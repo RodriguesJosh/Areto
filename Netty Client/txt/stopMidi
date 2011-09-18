@@ -1,0 +1,4 @@
+	private void stopMidi() {
+		SignLink.midifade = 0;
+		SignLink.midi = "stop";
+	}

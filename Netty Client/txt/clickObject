@@ -1,0 +1,33 @@
+	private boolean clickObject(int i, int j, int k) {
+		int i1 = (i >> 14) & 0x7fff;
+		int j1 = this.sceneGraph.method304(this.plane, k, j, i);
+		if (j1 == -1) {
+			return false;
+		}
+		int k1 = j1 & 0x1f;
+		int l1 = (j1 >> 6) & 3;
+		if ((k1 == 10) || (k1 == 11) || (k1 == 22)) {
+			ObjectDef class46 = ObjectDef.forID(i1);
+			int i2;
+			int j2;
+			if ((l1 == 0) || (l1 == 2)) {
+				i2 = class46.sizeX;
+				j2 = class46.sizeY;
+			} else {
+				i2 = class46.sizeY;
+				j2 = class46.sizeX;
+			}
+			int k2 = class46.anInt768;
+			if (l1 != 0) {
+				k2 = ((k2 << l1) & 0xf) + (k2 >> (4 - l1));
+			}
+			this.doWalkTo(2, 0, j2, 0, Client.myPlayer.smallY[0], i2, k2, j, Client.myPlayer.smallX[0], false, k);
+		} else {
+			this.doWalkTo(2, l1, 0, k1 + 1, Client.myPlayer.smallY[0], 0, 0, j, Client.myPlayer.smallX[0], false, k);
+		}
+		this.crossX = super.saveClickX;
+		this.crossY = super.saveClickY;
+		this.crossType = 2;
+		this.crossIndex = 0;
+		return true;
+	}

@@ -1,0 +1,28 @@
+	private void method115() {
+		if (this.loadingStage == 2) {
+			for (GameObjectSpawnRequest class30_sub1 = (GameObjectSpawnRequest)this.aClass19_1179.reverseGetFirst(); class30_sub1 != null; class30_sub1 = (GameObjectSpawnRequest)this.aClass19_1179.reverseGetNext()) {
+				if (class30_sub1.anInt1294 > 0) {
+					class30_sub1.anInt1294--;
+				}
+				if (class30_sub1.anInt1294 == 0) {
+					if ((class30_sub1.id < 0) || MapRegion.method178(class30_sub1.id, class30_sub1.type)) {
+						this.method142(class30_sub1.y, class30_sub1.plane, class30_sub1.face, class30_sub1.type, class30_sub1.x, class30_sub1.anInt1296, class30_sub1.id);
+						class30_sub1.unlink();
+					}
+				} else {
+					if (class30_sub1.anInt1302 > 0) {
+						class30_sub1.anInt1302--;
+					}
+					if ((class30_sub1.anInt1302 == 0) && (class30_sub1.x >= 1) && (class30_sub1.y >= 1) && (class30_sub1.x <= 102) && (class30_sub1.y <= 102) && ((class30_sub1.id2 < 0) || MapRegion.method178(class30_sub1.id2, class30_sub1.type2))) {
+						this.method142(class30_sub1.y, class30_sub1.plane, class30_sub1.face2, class30_sub1.type2, class30_sub1.x, class30_sub1.anInt1296, class30_sub1.id2);
+						class30_sub1.anInt1302 = -1;
+						if ((class30_sub1.id2 == class30_sub1.id) && (class30_sub1.id == -1)) {
+							class30_sub1.unlink();
+						} else if ((class30_sub1.id2 == class30_sub1.id) && (class30_sub1.face2 == class30_sub1.face) && (class30_sub1.type2 == class30_sub1.type)) {
+							class30_sub1.unlink();
+						}
+					}
+				}
+			}
+		}
+	}

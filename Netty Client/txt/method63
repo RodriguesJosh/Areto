@@ -1,0 +1,11 @@
+	private void method63() {
+		GameObjectSpawnRequest class30_sub1 = (GameObjectSpawnRequest)this.aClass19_1179.reverseGetFirst();
+		for (; class30_sub1 != null; class30_sub1 = (GameObjectSpawnRequest)this.aClass19_1179.reverseGetNext()) {
+			if (class30_sub1.anInt1294 == -1) {
+				class30_sub1.anInt1302 = 0;
+				this.method89(class30_sub1);
+			} else {
+				class30_sub1.unlink();
+			}
+		}
+	}

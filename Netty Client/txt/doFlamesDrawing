@@ -1,0 +1,74 @@
+	private void doFlamesDrawing() {
+		char c = '\u0100';
+		if (this.anInt1040 > 0) {
+			for (int i = 0; i < 256; i++) {
+				if (this.anInt1040 > 768) {
+					this.anIntArray850[i] = this.rotateFlamesColor(this.anIntArray851[i], this.anIntArray852[i], 1024 - this.anInt1040);
+				} else if (this.anInt1040 > 256) {
+					this.anIntArray850[i] = this.anIntArray852[i];
+				} else {
+					this.anIntArray850[i] = this.rotateFlamesColor(this.anIntArray852[i], this.anIntArray851[i], 256 - this.anInt1040);
+				}
+			}
+		} else if (this.anInt1041 > 0) {
+			for (int j = 0; j < 256; j++) {
+				if (this.anInt1041 > 768) {
+					this.anIntArray850[j] = this.rotateFlamesColor(this.anIntArray851[j], this.anIntArray853[j], 1024 - this.anInt1041);
+				} else if (this.anInt1041 > 256) {
+					this.anIntArray850[j] = this.anIntArray853[j];
+				} else {
+					this.anIntArray850[j] = this.rotateFlamesColor(this.anIntArray853[j], this.anIntArray851[j], 256 - this.anInt1041);
+				}
+			}
+		} else {
+			System.arraycopy(this.anIntArray851, 0, this.anIntArray850, 0, 256);
+		}
+		System.arraycopy(this.aClass30_Sub2_Sub1_Sub1_1201.myPixels, 0, this.aRSImageProducer_1110.componentPixels, 0, 33920);
+		int i1 = 0;
+		int j1 = 1152;
+		for (int k1 = 1; k1 < (c - 1); k1++) {
+			int l1 = (this.anIntArray969[k1] * (c - k1)) / c;
+			int j2 = 22 + l1;
+			if (j2 < 0) {
+				j2 = 0;
+			}
+			i1 += j2;
+			for (int l2 = j2; l2 < 128; l2++) {
+				int j3 = this.anIntArray828[i1++];
+				if (j3 != 0) {
+					int l3 = j3;
+					int j4 = 256 - j3;
+					j3 = this.anIntArray850[j3];
+					int l4 = this.aRSImageProducer_1110.componentPixels[j1];
+					this.aRSImageProducer_1110.componentPixels[j1++] = (((((j3 & 0xff00ff) * l3) + ((l4 & 0xff00ff) * j4)) & 0xff00ff00) + ((((j3 & 0xff00) * l3) + ((l4 & 0xff00) * j4)) & 0xff0000)) >> 8;
+				} else {
+					j1++;
+				}
+			}
+			j1 += j2;
+		}
+		this.aRSImageProducer_1110.drawGraphics(0, super.graphics, 0);
+		System.arraycopy(this.aClass30_Sub2_Sub1_Sub1_1202.myPixels, 0, this.aRSImageProducer_1111.componentPixels, 0, 33920);
+		i1 = 0;
+		j1 = 1176;
+		for (int k2 = 1; k2 < (c - 1); k2++) {
+			int i3 = (this.anIntArray969[k2] * (c - k2)) / c;
+			int k3 = 103 - i3;
+			j1 += i3;
+			for (int i4 = 0; i4 < k3; i4++) {
+				int k4 = this.anIntArray828[i1++];
+				if (k4 != 0) {
+					int i5 = k4;
+					int j5 = 256 - k4;
+					k4 = this.anIntArray850[k4];
+					int k5 = this.aRSImageProducer_1111.componentPixels[j1];
+					this.aRSImageProducer_1111.componentPixels[j1++] = (((((k4 & 0xff00ff) * i5) + ((k5 & 0xff00ff) * j5)) & 0xff00ff00) + ((((k4 & 0xff00) * i5) + ((k5 & 0xff00) * j5)) & 0xff0000)) >> 8;
+				} else {
+					j1++;
+				}
+			}
+			i1 += 128 - k3;
+			j1 += 128 - k3 - i3;
+		}
+		this.aRSImageProducer_1111.drawGraphics(0, super.graphics, 637);
+	}

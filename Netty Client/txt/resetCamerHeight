@@ -1,0 +1,7 @@
+	private int resetCameraHeight() {
+		int j = this.getFloorDrawHeight(this.plane, this.yCameraPos, this.xCameraPos);
+		if (((j - this.zCameraPos) < 800) && ((this.byteGroundArray[this.plane][this.xCameraPos >> 7][this.yCameraPos >> 7] & 4) != 0)) {
+			return this.plane;
+		}
+		return 3;
+	}

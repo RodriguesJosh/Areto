@@ -1,0 +1,14 @@
+	private void tutorialIsland() {
+		this.anInt1251 = 0;
+		int x = (Client.myPlayer.x >> 7) + this.baseX;
+		int y = (Client.myPlayer.y >> 7) + this.baseY;
+		if ((x >= 3053) && (x <= 3156) && (y >= 3056) && (y <= 3136)) {
+			this.anInt1251 = 1;
+		}
+		if ((x >= 3072) && (x <= 3118) && (y >= 9492) && (y <= 9535)) {
+			this.anInt1251 = 1;
+		}
+		if ((this.anInt1251 == 1) && (x >= 3139) && (x <= 3199) && (y >= 3008) && (y <= 3062)) {
+			this.anInt1251 = 0;
+		}
+	}

@@ -1,0 +1,28 @@
+	private void method55() {
+		for (Projectile projectile = (Projectile) this.aClass19_1013.reverseGetFirst(); projectile != null; projectile = (Projectile)this.aClass19_1013.reverseGetNext()) {
+			if ((projectile.plane != this.plane) || (Client.loopCycle > projectile.speedTime)) {
+				projectile.unlink();
+			} else if (Client.loopCycle >= projectile.delayTime) {
+				if (projectile.lockOn > 0) {
+					NPC npc = this.npcArray[projectile.lockOn - 1];
+					if ((npc != null) && (npc.x >= 0) && (npc.x < 13312) && (npc.y >= 0) && (npc.y < 13312)) {
+						projectile.method455(Client.loopCycle, npc.y, this.getFloorDrawHeight(projectile.plane, npc.y, npc.x) - projectile.endHeight, npc.x);
+					}
+				}
+				if (projectile.lockOn < 0) {
+					int j = -projectile.lockOn - 1;
+					Player player;
+					if (j == this.unknownInt10) {
+						player = Client.myPlayer;
+					} else {
+						player = World.getWorld().getPlayerList().get(j);
+					}
+					if ((player != null) && (player.x >= 0) && (player.x < 13312) && (player.y >= 0) && (player.y < 13312)) {
+						projectile.method455(Client.loopCycle, player.y, this.getFloorDrawHeight(projectile.plane, player.y, player.x) - projectile.endHeight, player.x);
+					}
+				}
+				projectile.method456(this.anInt945);
+				this.sceneGraph.method285(this.plane, projectile.anInt1595, (int) projectile.aDouble1587, -1, (int) projectile.aDouble1586, 60, (int) projectile.aDouble1585, projectile, false);
+			}
+		}
+	}

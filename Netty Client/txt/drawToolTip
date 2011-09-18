@@ -1,0 +1,17 @@
+	private void drawTooltip() {
+		if ((this.menuActionRow < 2) && (this.itemSelected == 0) && (this.spellSelected == 0)) {
+			return;
+		}
+		String s;
+		if ((this.itemSelected == 1) && (this.menuActionRow < 2)) {
+			s = "Use " + this.selectedItemName + " with...";
+		} else if ((this.spellSelected == 1) && (this.menuActionRow < 2)) {
+			s = this.spellTooltip + "...";
+		} else {
+			s = this.menuActionName[this.menuActionRow - 1];
+		}
+		if (this.menuActionRow > 2) {
+			s = s + "@whi@ / " + (this.menuActionRow - 2) + " more options";
+		}
+		this.chatTextDrawingArea.method390(4, 0xffffff, s, Client.loopCycle / 1000, 15);
+	}

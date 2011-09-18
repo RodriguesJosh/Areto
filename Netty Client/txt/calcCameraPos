@@ -1,0 +1,93 @@
+	private void calcCameraPos() {
+		int i = (this.anInt1098 * 128) + 64;
+		int j = (this.anInt1099 * 128) + 64;
+		int k = this.getFloorDrawHeight(this.plane, j, i) - this.anInt1100;
+		if (this.xCameraPos < i) {
+			this.xCameraPos += this.anInt1101 + (((i - this.xCameraPos) * this.anInt1102) / 1000);
+			if (this.xCameraPos > i) {
+				this.xCameraPos = i;
+			}
+		}
+		if (this.xCameraPos > i) {
+			this.xCameraPos -= this.anInt1101 + (((this.xCameraPos - i) * this.anInt1102) / 1000);
+			if (this.xCameraPos < i) {
+				this.xCameraPos = i;
+			}
+		}
+		if (this.zCameraPos < k) {
+			this.zCameraPos += this.anInt1101 + (((k - this.zCameraPos) * this.anInt1102) / 1000);
+			if (this.zCameraPos > k) {
+				this.zCameraPos = k;
+			}
+		}
+		if (this.zCameraPos > k) {
+			this.zCameraPos -= this.anInt1101 + (((this.zCameraPos - k) * this.anInt1102) / 1000);
+			if (this.zCameraPos < k) {
+				this.zCameraPos = k;
+			}
+		}
+		if (this.yCameraPos < j) {
+			this.yCameraPos += this.anInt1101 + (((j - this.yCameraPos) * this.anInt1102) / 1000);
+			if (this.yCameraPos > j) {
+				this.yCameraPos = j;
+			}
+		}
+		if (this.yCameraPos > j) {
+			this.yCameraPos -= this.anInt1101 + (((this.yCameraPos - j) * this.anInt1102) / 1000);
+			if (this.yCameraPos < j) {
+				this.yCameraPos = j;
+			}
+		}
+		i = (this.anInt995 * 128) + 64;
+		j = (this.anInt996 * 128) + 64;
+		k = this.getFloorDrawHeight(this.plane, j, i) - this.anInt997;
+		int l = i - this.xCameraPos;
+		int i1 = k - this.zCameraPos;
+		int j1 = j - this.yCameraPos;
+		int k1 = (int)Math.sqrt((l * l) + (j1 * j1));
+		int l1 = (int)(Math.atan2(i1, k1) * 325.94900000000001D) & 0x7ff;
+		int i2 = (int)(Math.atan2(l, j1) * -325.94900000000001D) & 0x7ff;
+		if (l1 < 128) {
+			l1 = 128;
+		}
+		if (l1 > 383) {
+			l1 = 383;
+		}
+		if (this.yCameraCurve < l1) {
+			this.yCameraCurve += this.anInt998 + (((l1 - this.yCameraCurve) * this.anInt999) / 1000);
+			if (this.yCameraCurve > l1) {
+				this.yCameraCurve = l1;
+			}
+		}
+		if (this.yCameraCurve > l1) {
+			this.yCameraCurve -= this.anInt998 + (((this.yCameraCurve - l1) * this.anInt999) / 1000);
+			if (this.yCameraCurve < l1) {
+				this.yCameraCurve = l1;
+			}
+		}
+		int j2 = i2 - this.xCameraCurve;
+		if (j2 > 1024) {
+			j2 -= 2048;
+		}
+		if (j2 < -1024) {
+			j2 += 2048;
+		}
+		if (j2 > 0) {
+			this.xCameraCurve += this.anInt998 + ((j2 * this.anInt999) / 1000);
+			this.xCameraCurve &= 0x7ff;
+		}
+		if (j2 < 0) {
+			this.xCameraCurve -= this.anInt998 + ((-j2 * this.anInt999) / 1000);
+			this.xCameraCurve &= 0x7ff;
+		}
+		int k2 = i2 - this.xCameraCurve;
+		if (k2 > 1024) {
+			k2 -= 2048;
+		}
+		if (k2 < -1024) {
+			k2 += 2048;
+		}
+		if (((k2 < 0) && (j2 > 0)) || ((k2 > 0) && (j2 < 0))) {
+			this.xCameraCurve = i2;
+		}
+	}

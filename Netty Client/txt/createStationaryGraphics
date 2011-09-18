@@ -1,0 +1,15 @@
+	private void createStationaryGraphics() {
+		StillGraphic stillGraphic = (StillGraphic)this.aClass19_1056.reverseGetFirst();
+		for (; stillGraphic != null; stillGraphic = (StillGraphic) this.aClass19_1056.reverseGetNext()) {
+			if ((stillGraphic.plane != this.plane) || stillGraphic.transformCompleted) {
+				stillGraphic.unlink();
+			} else if (Client.loopCycle >= stillGraphic.stillGraphicsLoopCycle) {
+				stillGraphic.method454(this.anInt945);
+				if (stillGraphic.transformCompleted) {
+					stillGraphic.unlink();
+				} else {
+					this.sceneGraph.method285(stillGraphic.plane, 0, stillGraphic.worldZ, -1, stillGraphic.y, 60, stillGraphic.x, stillGraphic, false);
+				}
+			}
+		}
+	}

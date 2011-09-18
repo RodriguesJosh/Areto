@@ -1,0 +1,298 @@
+	private void login(String name, String pass, boolean isReconnecting) {
+		SignLink.errorname = name;
+		try {
+			if (!isReconnecting) {
+				this.loginMessage1 = "";
+				this.loginMessage2 = "Connecting to server...";
+				this.drawLoginScreen(true);
+			}
+			this.socketStream = new RSSocket(this, this.openSocket(43594 + Client.portOff));
+			long l = TextClass.longForName(name);
+			int i = (int) ((l >> 16) & 31L);
+			this.packet.setPosition(0);
+			this.packet.writeWordBigEndian(14);
+			this.packet.writeWordBigEndian(i);
+			this.socketStream.queueBytes(2, this.packet.buffer);
+			for (int j = 0; j < 8; j++) {
+				this.socketStream.read();
+			}
+			int k = this.socketStream.read();
+			int i1 = k;
+			if (k == 0) {
+				this.socketStream.flushInputStream(this.inStream.buffer, 8);
+				this.inStream.setPosition(0);
+				this.aLong1215 = this.inStream.getLong();
+				int ai[] = new int[4];
+				ai[0] = (int) (Math.random() * 99999999D);
+				ai[1] = (int) (Math.random() * 99999999D);
+				ai[2] = (int) (this.aLong1215 >> 32);
+				ai[3] = (int) this.aLong1215;
+				this.packet.setPosition(0);
+				this.packet.writeWordBigEndian(10);
+				this.packet.putInt(ai[0]);
+				this.packet.putInt(ai[1]);
+				this.packet.putInt(ai[2]);
+				this.packet.putInt(ai[3]);
+				this.packet.putInt(SignLink.uid);
+				this.packet.putString(name);
+				this.packet.putString(pass);
+				this.packet.doKeys();
+				this.aStream_847.setPosition(0);
+				if (isReconnecting) {
+					this.aStream_847.writeWordBigEndian(18);
+				} else {
+					this.aStream_847.writeWordBigEndian(16);
+				}
+				this.aStream_847.writeWordBigEndian(this.packet.getPosition() + 40);
+				this.aStream_847.writeWordBigEndian(255);
+				this.aStream_847.putShort(317);
+				this.aStream_847.writeWordBigEndian(Client.lowMem ? 1 : 0);
+				for (int l1 = 0; l1 < 9; l1++) {
+					this.aStream_847.putInt(this.expectedCRCs[l1]);
+				}
+
+				this.aStream_847.putBytes(this.packet.buffer, this.packet.getPosition(), 0);
+				this.packet.encryption = new ISAACRandomGen(ai);
+				for (int j2 = 0; j2 < 4; j2++) {
+					ai[j2] += 50;
+				}
+				this.encryption = new ISAACRandomGen(ai);
+				this.socketStream.queueBytes(this.aStream_847.getPosition(), this.aStream_847.buffer);
+				k = this.socketStream.read();
+			}
+			if (k == 1) {
+				try {
+					Thread.sleep(2000L);
+				} catch (Exception e) {}
+				this.login(name, pass, isReconnecting);
+				return;
+			}
+			if (k == 2) {
+				this.myPrivilege = this.socketStream.read();
+				Client.flagged = this.socketStream.read() == 1;
+				this.aLong1220 = 0L;
+				this.anInt1022 = 0;
+				this.mouseDetection.coordsIndex = 0;
+				super.awtFocus = true;
+				this.aBoolean954 = true;
+				this.loggedIn = true;
+				this.packet.setPosition(0);
+				this.inStream.setPosition(0);
+				this.pktType = -1;
+				this.anInt841 = -1;
+				this.anInt842 = -1;
+				this.anInt843 = -1;
+				this.pktSize = 0;
+				this.anInt1009 = 0;
+				this.anInt1104 = 0;
+				this.anInt1011 = 0;
+				this.anInt855 = 0;
+				this.menuActionRow = 0;
+				this.menuOpen = false;
+				super.idleTime = 0;
+				for (int j1 = 0; j1 < 100; j1++) {
+					this.chatMessages[j1] = null;
+				}
+				this.itemSelected = 0;
+				this.spellSelected = 0;
+				this.loadingStage = 0;
+				this.anInt1062 = 0;
+				this.anInt1278 = (int) (Math.random() * 100D) - 50;
+				this.anInt1131 = (int) (Math.random() * 110D) - 55;
+				this.anInt896 = (int) (Math.random() * 80D) - 40;
+				this.minimapInt2 = (int) (Math.random() * 120D) - 60;
+				this.minimapInt3 = (int) (Math.random() * 30D) - 20;
+				this.minimapInt1 = ((int) (Math.random() * 20D) - 10) & 0x7ff;
+				this.anInt1021 = 0;
+				this.anInt985 = -1;
+				this.destX = 0;
+				this.destY = 0;
+				this.npcCount = 0;
+				for (int i2 = 0; i2 < Constants.MAX_PLAYERS; i2++) {
+					World.getWorld().getPlayerList().clear();
+					this.aStreamArray895s[i2] = null;
+				}
+				for (int k2 = 0; k2 < 16384; k2++) {
+					this.npcArray[k2] = null;
+				}
+				@SuppressWarnings("unused")
+				Player myPlayerInstance = World.getWorld().getPlayerList().get(Constants.MAX_PLAYERS - 1);
+				Client.myPlayer = myPlayerInstance = new Player();
+				this.aClass19_1013.removeAll();
+				this.aClass19_1056.removeAll();
+				for (int l2 = 0; l2 < 4; l2++) {
+					for (int i3 = 0; i3 < 104; i3++) {
+						for (int k3 = 0; k3 < 104; k3++) {
+							this.groundArray[l2][i3][k3] = null;
+						}
+					}
+				}
+				this.aClass19_1179 = new Deque();
+				this.anInt900 = 0;
+				this.friendsCount = 0;
+				this.dialogID = -1;
+				this.backDialogID = -1;
+				this.openInterfaceID = -1;
+				this.invOverlayInterfaceID = -1;
+				this.anInt1018 = -1;
+				this.aBoolean1149 = false;
+				this.tabID = 3;
+				this.inputDialogState = 0;
+				this.menuOpen = false;
+				this.messagePromptRaised = false;
+				this.aString844 = null;
+				this.anInt1055 = 0;
+				this.anInt1054 = -1;
+				this.aBoolean1047 = true;
+				this.method45();
+				for (int j3 = 0; j3 < 5; j3++) {
+					this.anIntArray990[j3] = 0;
+				}
+				for (int l3 = 0; l3 < 5; l3++) {
+					this.atPlayerActions[l3] = null;
+					this.atPlayerArray[l3] = false;
+				}
+				Client.anInt1175 = 0;
+				Client.anInt1134 = 0;
+				Client.anInt986 = 0;
+				Client.anInt1288 = 0;
+				Client.anInt924 = 0;
+				Client.anInt1188 = 0;
+				Client.anInt1155 = 0;
+				Client.anInt1226 = 0;
+				this.resetImageProducers2();
+				return;
+			}
+			if (k == 3) {
+				this.loginMessage1 = "";
+				this.loginMessage2 = "Invalid username or password.";
+				return;
+			}
+			if (k == 4) {
+				this.loginMessage1 = "Your account has been disabled.";
+				this.loginMessage2 = "Please check your message-center for details.";
+				return;
+			}
+			if (k == 5) {
+				this.loginMessage1 = "Your account is already logged in.";
+				this.loginMessage2 = "Try again in 60 secs...";
+				return;
+			}
+			if (k == 6) {
+				this.loginMessage1 = "RuneScape has been updated!";
+				this.loginMessage2 = "Please reload this page.";
+				return;
+			}
+			if (k == 7) {
+				this.loginMessage1 = "This world is full.";
+				this.loginMessage2 = "Please use a different world.";
+				return;
+			}
+			if (k == 8) {
+				this.loginMessage1 = "Unable to connect.";
+				this.loginMessage2 = "Login server offline.";
+				return;
+			}
+			if (k == 9) {
+				this.loginMessage1 = "Login limit exceeded.";
+				this.loginMessage2 = "Too many connections from your address.";
+				return;
+			}
+			if (k == 10) {
+				this.loginMessage1 = "Unable to connect.";
+				this.loginMessage2 = "Bad session id.";
+				return;
+			}
+			if (k == 11) {
+				this.loginMessage2 = "Login server rejected session.";
+				this.loginMessage2 = "Please try again.";
+				return;
+			}
+			if (k == 12) {
+				this.loginMessage1 = "You need a members account to login to this world.";
+				this.loginMessage2 = "Please subscribe, or use a different world.";
+				return;
+			}
+			if (k == 13) {
+				this.loginMessage1 = "Could not complete login.";
+				this.loginMessage2 = "Please try using a different world.";
+				return;
+			}
+			if (k == 14) {
+				this.loginMessage1 = "The server is being updated.";
+				this.loginMessage2 = "Please wait 1 minute and try again.";
+				return;
+			}
+			if (k == 15) {
+				this.loggedIn = true;
+				this.packet.setPosition(0);
+				this.inStream.setPosition(0);
+				this.pktType = -1;
+				this.anInt841 = -1;
+				this.anInt842 = -1;
+				this.anInt843 = -1;
+				this.pktSize = 0;
+				this.anInt1009 = 0;
+				this.anInt1104 = 0;
+				this.menuActionRow = 0;
+				this.menuOpen = false;
+				this.aLong824 = System.currentTimeMillis();
+				return;
+			}
+			if (k == 16) {
+				this.loginMessage1 = "Login attempts exceeded.";
+				this.loginMessage2 = "Please wait 1 minute and try again.";
+				return;
+			}
+			if (k == 17) {
+				this.loginMessage1 = "You are standing in a members-only area.";
+				this.loginMessage2 = "To play on this world move to a free area first";
+				return;
+			}
+			if (k == 20) {
+				this.loginMessage1 = "Invalid loginserver requested";
+				this.loginMessage2 = "Please try using a different world.";
+				return;
+			}
+			if (k == 21) {
+				for (int k1 = this.socketStream.read(); k1 >= 0; k1--) {
+					this.loginMessage1 = "You have only just left another world";
+					this.loginMessage2 = "Your profile will be transferred in: " + k1 + " seconds";
+					this.drawLoginScreen(true);
+					try {
+						Thread.sleep(1000L);
+					} catch (Exception e) {}
+				}
+				this.login(name, pass, isReconnecting);
+				return;
+			}
+			if (k == -1) {
+				if (i1 == 0) {
+					if (this.loginFailures < 2) {
+						try {
+							Thread.sleep(2000L);
+						} catch(Exception e) {}
+						this.loginFailures++;
+						this.login(name, pass, isReconnecting);
+						return;
+					} else {
+						this.loginMessage1 = "No response from loginserver";
+						this.loginMessage2 = "Please wait 1 minute and try again.";
+						return;
+					}
+				} else {
+					this.loginMessage1 = "No response from server";
+					this.loginMessage2 = "Please try using a different world.";
+					return;
+				}
+			} else {
+				System.out.println("response:" + k);
+				this.loginMessage1 = "Unexpected server response";
+				this.loginMessage2 = "Please try using a different world.";
+				return;
+			}
+		} catch (IOException _ex) {
+			this.loginMessage1 = "";
+		}
+		this.loginMessage2 = "Error connecting to server.";
+	}

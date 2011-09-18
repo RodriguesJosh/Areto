@@ -1,0 +1,84 @@
+	private int setCameraLocation() {
+		int j = 3;
+		if (this.yCameraCurve < 310) {
+			int k = this.xCameraPos >> 7;
+			System.out.println("K: " + k);
+			int l = this.yCameraPos >> 7;
+			System.out.println("L: " + l);
+			int i1 = Client.myPlayer.x >> 7;
+			System.out.println("I1: " + i1);
+			int j1 = Client.myPlayer.y >> 7;
+			System.out.println("J1: " + j1);
+			System.out.println("Plane: " + this.plane);
+			if ((this.byteGroundArray[this.plane][k][l] & 4) != 0) {
+				j = this.plane;
+			}
+			int k1;
+			if (i1 > k) {
+				k1 = i1 - k;
+			} else {
+				k1 = k - i1;
+			}
+			int l1;
+			if (j1 > l) {
+				l1 = j1 - l;
+			} else {
+				l1 = l - j1;
+			}
+			if (k1 > l1) {
+				int i2 = (l1 * 0x10000) / k1;
+				int k2 = 32768;
+				while (k != i1) {
+					if (k < i1) {
+						k++;
+					} else if (k > i1) {
+						k--;
+					}
+					if ((this.byteGroundArray[this.plane][k][l] & 4) != 0) {
+						j = this.plane;
+					}
+					k2 += i2;
+					if (k2 >= 0x10000) {
+						k2 -= 0x10000;
+						if (l < j1) {
+							l++;
+						} else if (l > j1) {
+							l--;
+						}
+						if ((this.byteGroundArray[this.plane][k][l] & 4) != 0) {
+							j = this.plane;
+						}
+					}
+				}
+			} else {
+				int j2 = (k1 * 0x10000) / l1;
+				int l2 = 32768;
+				while (l != j1) {
+					if (l < j1) {
+						l++;
+					} else if (l > j1) {
+						l--;
+					}
+					if ((this.byteGroundArray[this.plane][k][l] & 4) != 0) {
+						j = this.plane;
+					}
+					l2 += j2;
+					if (l2 >= 0x10000) {
+						l2 -= 0x10000;
+						if (k < i1) {
+							k++;
+						} else if (k > i1) {
+							k--;
+						}
+						if ((this.byteGroundArray[this.plane][k][l] & 4) != 0) {
+							j = this.plane;
+						}
+					}
+				}
+			}
+		}
+		if ((this.byteGroundArray[this.plane][Client.myPlayer.x >> 7][Client.myPlayer.y >> 7] & 4) != 0) {
+			j = this.plane;
+		}
+		return j;
+	}

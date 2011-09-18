@@ -1,0 +1,9 @@
+	private void forceNPCUpdate() {
+		for (int j = 0; j < this.npcCount; j++) {
+			int k = this.npcIndices[j];
+			NPC npc = this.npcArray[k];
+			if (npc != null) {
+				this.entityUpdateBlock(npc);
+			}
+		}
+	}

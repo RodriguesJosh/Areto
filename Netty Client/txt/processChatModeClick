@@ -1,0 +1,69 @@
+	private void processChatModeClick() {
+		if (super.mouseButtonPressed == 1) {
+			if ((super.saveClickX >= 6) && (super.saveClickX <= 106) && (super.saveClickY >= 467) && (super.saveClickY <= 499)) {
+				this.publicChatMode = (this.publicChatMode + 1) % 4;
+				this.aBoolean1233 = true;
+				this.inputTaken = true;
+				this.packet.putOpcode(95);
+				this.packet.writeWordBigEndian(this.publicChatMode);
+				this.packet.writeWordBigEndian(this.privateChatMode);
+				this.packet.writeWordBigEndian(this.tradeMode);
+			}
+			if ((super.saveClickX >= 135) && (super.saveClickX <= 235) && (super.saveClickY >= 467) && (super.saveClickY <= 499)) {
+				this.privateChatMode = (this.privateChatMode + 1) % 3;
+				this.aBoolean1233 = true;
+				this.inputTaken = true;
+				this.packet.putOpcode(95);
+				this.packet.writeWordBigEndian(this.publicChatMode);
+				this.packet.writeWordBigEndian(this.privateChatMode);
+				this.packet.writeWordBigEndian(this.tradeMode);
+			}
+			if ((super.saveClickX >= 273) && (super.saveClickX <= 373) && (super.saveClickY >= 467) && (super.saveClickY <= 499)) {
+				this.tradeMode = (this.tradeMode + 1) % 3;
+				this.aBoolean1233 = true;
+				this.inputTaken = true;
+				this.packet.putOpcode(95);
+				this.packet.writeWordBigEndian(this.publicChatMode);
+				this.packet.writeWordBigEndian(this.privateChatMode);
+				this.packet.writeWordBigEndian(this.tradeMode);
+			}
+			if ((super.saveClickX >= 412) && (super.saveClickX <= 512) && (super.saveClickY >= 467) && (super.saveClickY <= 499)) {
+				if (this.openInterfaceID == -1) {
+					this.clearTopInterfaces();
+					this.reportAbuseInput = "";
+					this.canMute = false;
+					for (int i = 0; i < RSInterface.interfaceCache.length; i++) {
+						if ((RSInterface.interfaceCache[i] == null) || (RSInterface.interfaceCache[i].contentType != 600)) {
+							continue;
+						}
+						this.reportAbuseInterfaceID = this.openInterfaceID = RSInterface.interfaceCache[i].parentID;
+						break;
+					}
+				} else {
+					this.pushMessage("Please close the interface you have open before using 'report abuse'", 0, "");
+				}
+			}
+			Client.anInt940++;
+			if (Client.anInt940 > 1386) {
+				Client.anInt940 = 0;
+				this.packet.putOpcode(165);
+				this.packet.writeWordBigEndian(0);
+				int position = this.packet.getPosition();
+				this.packet.writeWordBigEndian(139);
+				this.packet.writeWordBigEndian(150);
+				this.packet.putShort(32131);
+				this.packet.writeWordBigEndian((int)(Math.random() * 256D));
+				this.packet.putShort(3250);
+				this.packet.writeWordBigEndian(177);
+				this.packet.putShort(24859);
+				this.packet.writeWordBigEndian(119);
+				if ((int)(Math.random() * 2D) == 0) {
+					this.packet.putShort(47234);
+				}
+				if ((int)(Math.random() * 2D) == 0) {
+					this.packet.writeWordBigEndian(21);
+				}
+				this.packet.putBytes(this.packet.getPosition() - position);
+			}
+		}
+	}

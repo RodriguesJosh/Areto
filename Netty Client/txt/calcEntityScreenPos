@@ -1,0 +1,28 @@
+	private void calcEntityScreenPos(int i, int j, int l) {
+		if ((i < 128) || (l < 128) || (i > 13056) || (l > 13056)) {
+			this.spriteDrawX = -1;
+			this.spriteDrawY = -1;
+			return;
+		}
+		int i1 = this.getFloorDrawHeight(this.plane, l, i) - j;
+		i -= this.xCameraPos;
+		i1 -= this.zCameraPos;
+		l -= this.yCameraPos;
+		int j1 = Model.sine[this.yCameraCurve];
+		int k1 = Model.cosine[this.yCameraCurve];
+		int l1 = Model.sine[this.xCameraCurve];
+		int i2 = Model.cosine[this.xCameraCurve];
+		int j2 = ((l * l1) + (i * i2)) >> 16;
+			l = ((l * i2) - (i * l1)) >> 16;
+		i = j2;
+		j2 = ((i1 * k1) - (l * j1)) >> 16;
+			l = ((i1 * j1) + (l * k1)) >> 16;
+		i1 = j2;
+		if (l >= 50) {
+			this.spriteDrawX = Rasterizer.textureInt1 + ((i << 9) / l);
+			this.spriteDrawY = Rasterizer.textureInt2 + ((i1 << 9) / l);
+		} else {
+			this.spriteDrawX = -1;
+			this.spriteDrawY = -1;
+		}
+	}

@@ -1,0 +1,34 @@
+	private void randomizeBackground(IndexedImage indexedImage) {
+		int j = 256;
+		for (int k = 0; k < this.anIntArray1190.length; k++) {
+			this.anIntArray1190[k] = 0;
+		}
+		for (int l = 0; l < 5000; l++) {
+			int i1 = (int)(Math.random() * 128D * j);
+			this.anIntArray1190[i1] = (int)(Math.random() * 256D);
+		}
+		for (int j1 = 0; j1 < 20; j1++) {
+			for (int k1 = 1; k1 < (j - 1); k1++) {
+				for (int i2 = 1; i2 < 127; i2++) {
+					int k2 = i2 + (k1 << 7);
+					this.anIntArray1191[k2] = (this.anIntArray1190[k2 - 1] + this.anIntArray1190[k2 + 1] + this.anIntArray1190[k2 - 128] + this.anIntArray1190[k2 + 128]) / 4;
+				}
+			}
+			int ai[] = this.anIntArray1190;
+			this.anIntArray1190 = this.anIntArray1191;
+			this.anIntArray1191 = ai;
+		}
+		if (indexedImage != null) {
+			int l1 = 0;
+			for (int j2 = 0; j2 < indexedImage.imgHeight; j2++) {
+				for (int l2 = 0; l2 < indexedImage.imgWidth; l2++) {
+					if (indexedImage.imgPixels[l1++] != 0) {
+						int i3 = l2 + 16 + indexedImage.xDrawOffset;
+						int j3 = j2 + 16 + indexedImage.yDrawOffset;
+						int k3 = i3 + (j3 << 7);
+						this.anIntArray1190[k3] = 0;
+					}
+				}
+			}
+		}
+	}

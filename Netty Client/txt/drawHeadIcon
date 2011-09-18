@@ -1,0 +1,9 @@
+	private void drawHeadIcon() {
+		if (this.anInt855 != 2) {
+			return;
+		}
+		this.calcEntityScreenPos(((this.anInt934 - this.baseX) << 7) + this.anInt937, this.anInt936 * 2, ((this.anInt935 - this.baseY) << 7) + this.anInt938);
+		if ((this.spriteDrawX > -1) && ((Client.loopCycle % 20) < 10)) {
+			this.headIcons[2].drawSprite(this.spriteDrawX - 12, this.spriteDrawY - 28);
+		}
+	}

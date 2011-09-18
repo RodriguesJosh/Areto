@@ -1,0 +1,21 @@
+	public static void main(String args[]) {
+		try {
+			System.out.println("RS2 user client - release #" + 317);
+			Client.nodeID = 10;
+			Client.portOff = 0;
+			if (args[2].equals("lowmem")) {
+				Client.setLowMem();
+			} else if (args[2].equals("highmem")) {
+				Client.setHighMem();
+			}
+			if (args[3].equals("free")) {
+				Client.isMembers = false;
+			} else if (args[3].equals("members")) {
+				Client.isMembers = true;
+			}
+			SignLink.storeid = 32;
+			SignLink.startpriv(InetAddress.getLocalHost());
+			Client client1 = new Client();
+			client1.initializeApplication(765, 503);
+		} catch (Exception exception) {}
+	}

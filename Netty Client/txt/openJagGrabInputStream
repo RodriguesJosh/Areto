@@ -1,0 +1,14 @@
+	private DataInputStream openJagGrabInputStream(String s) throws IOException {
+		if (this.aSocket832 != null) {
+			try {
+				this.aSocket832.close();
+			} catch (Exception _ex) {}
+			this.aSocket832 = null;
+		}
+		this.aSocket832 = this.openSocket(43595);
+		this.aSocket832.setSoTimeout(10000);
+		InputStream inputstream = this.aSocket832.getInputStream();
+		OutputStream outputstream = this.aSocket832.getOutputStream();
+		outputstream.write(("JAGGRAB /" + s + "\n\n").getBytes());
+		return new DataInputStream(inputstream);
+	}

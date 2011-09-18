@@ -1,0 +1,15 @@
+	private void printDebug() {
+		System.out.println("============");
+		System.out.println("flame-cycle: " + this.anInt1208);
+		if (this.onDemandFetcher != null) {
+			System.out.println("Od-cycle: " + this.onDemandFetcher.onDemandCycle);
+		}
+		System.out.println("loop-cycle: " + Client.loopCycle);
+		System.out.println("draw-cycle: " + Client.anInt1061);
+		System.out.println("ptype: " + this.pktType);
+		System.out.println("psize: " + this.pktSize);
+		if (this.socketStream != null) {
+			this.socketStream.printDebug();
+		}
+		super.shouldDebug = true;
+	}

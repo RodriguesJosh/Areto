@@ -1,0 +1,18 @@
+OOP:
+1. Create more packets.
+2. Add multiple worlds - up to five or ten.
+3. Add multiple languages.
+4. Add javadocs.
+5. Make Google Translate be used throughout the whole server.
+6. Transfer Google Translate over to the client.
+7. A performance/OOP distribution for preference of others.
+
+Performance:
+2. Methods and fields should become final and/or static.
+3. Use large classes, not small ones.
+4. Avoid interfaces and abstract classes - avoid OOP.
+5. Create large methods instead of smaller one.
+6. Avoid synchronization.
+7. Avoid creating lots of short-lived Objects.
+8. Use smaller primitive data types when possible.
+9. Use a boolean if an int value is 0 or 1.

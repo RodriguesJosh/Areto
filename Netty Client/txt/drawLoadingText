@@ -1,0 +1,35 @@
+	@Override
+	void drawLoadingText(int percentage, String message) {
+		this.anInt1079 = percentage;
+		this.aString1049 = message;
+		this.resetImageProducers();
+		if (this.titleStreamLoader == null) {
+			super.drawLoadingText(percentage, message);
+			return;
+		}
+		this.aRSImageProducer_1109.initDrawingArea();
+		char c = '\u0168';
+		char c1 = '\310';
+		byte byte1 = 20;
+		this.chatTextDrawingArea.drawText(0xffffff, "RuneScape is loading - please wait...", (c1 / 2) - 26 - byte1, c / 2);
+		int j = (c1 / 2) - 18 - byte1;
+		DrawingArea.fillPixels((c / 2) - 152, 304, 34, 0x8c1111, j);
+		DrawingArea.fillPixels((c / 2) - 151, 302, 32, 0, j + 1);
+		DrawingArea.method336(30, j + 2, (c / 2) - 150, 0x8c1111, percentage * 3);
+		DrawingArea.method336(30, j + 2, ((c / 2) - 150) + (percentage * 3), 0, 300 - (percentage * 3));
+		this.chatTextDrawingArea.drawText(0xffffff, message, ((c1 / 2) + 5) - byte1, c / 2);
+		this.aRSImageProducer_1109.drawGraphics(171, super.graphics, 202);
+		if (this.welcomeScreenRaised) {
+			this.welcomeScreenRaised = false;
+			if (!this.aBoolean831) {
+				this.aRSImageProducer_1110.drawGraphics(0, super.graphics, 0);
+				this.aRSImageProducer_1111.drawGraphics(0, super.graphics, 637);
+			}
+			this.aRSImageProducer_1107.drawGraphics(0, super.graphics, 128);
+			this.aRSImageProducer_1108.drawGraphics(371, super.graphics, 202);
+			this.aRSImageProducer_1112.drawGraphics(265, super.graphics, 0);
+			this.aRSImageProducer_1113.drawGraphics(265, super.graphics, 562);
+			this.aRSImageProducer_1114.drawGraphics(171, super.graphics, 128);
+			this.aRSImageProducer_1115.drawGraphics(171, super.graphics, 562);
+		}
+	}

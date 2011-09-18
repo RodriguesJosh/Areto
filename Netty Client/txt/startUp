@@ -1,0 +1,360 @@
+	@Override
+	void startUp() {
+		this.drawLoadingText(20, "Starting up");
+		if (SignLink.sunjava) {
+			super.minDelay = 5;
+		}
+		Client.aBoolean993 = true;
+		boolean flag = true;
+		if (!flag) {
+			this.genericLoadingError = true;
+			return;
+		}
+		if (SignLink.cache_dat != null) {
+			for (int i = 0; i < 5; i++) {
+				this.jagexResourceCaches[i] = new JagexResourceCache(SignLink.cache_dat, SignLink.cache_idx[i], i + 1);
+			}
+		}
+		try {
+			this.titleStreamLoader = this.streamLoaderForName(1, "title screen", "title", this.expectedCRCs[1], 25);
+			this.aTextDrawingArea_1270 = new RSFont(false, "p11_full", this.titleStreamLoader);
+			this.aTextDrawingArea_1271 = new RSFont(false, "p12_full", this.titleStreamLoader);
+			this.chatTextDrawingArea = new RSFont(false, "b12_full", this.titleStreamLoader);
+			RSFont aTextDrawingArea_1273 = new RSFont(true, "q8_full", this.titleStreamLoader);
+			this.drawLogo();
+			this.loadTitleScreen();
+			JagexArchive jagexArchive = this.streamLoaderForName(2, "config", "config", this.expectedCRCs[2], 30);
+			JagexArchive streamLoader_1 = this.streamLoaderForName(3, "interface", "interface", this.expectedCRCs[3], 35);
+			JagexArchive streamLoader_2 = this.streamLoaderForName(4, "2d graphics", "media", this.expectedCRCs[4], 40);
+			JagexArchive streamLoader_3 = this.streamLoaderForName(6, "textures", "textures", this.expectedCRCs[6], 45);
+			JagexArchive streamLoader_4 = this.streamLoaderForName(7, "chat system", "wordenc", this.expectedCRCs[7], 50);
+			JagexArchive streamLoader_5 = this.streamLoaderForName(8, "sound effects", "sounds", this.expectedCRCs[8], 55);
+			this.byteGroundArray = new byte[4][104][104];
+			this.intGroundArray = new int[4][105][105];
+			this.sceneGraph = new SceneGraph(this.intGroundArray);
+			for (int j = 0; j < 4; j++) {
+				this.aClass11Array1230[j] = new TileSetting();
+			}
+			this.aClass30_Sub2_Sub1_Sub1_1263 = new RGBImage(512, 512);
+			JagexArchive streamLoader_6 = this.streamLoaderForName(5, "update list", "versionlist", this.expectedCRCs[5], 60);
+			this.drawLoadingText(60, "Connecting to update server");
+			this.onDemandFetcher = new OnDemandFetcher();
+			this.onDemandFetcher.start(streamLoader_6, this);
+			Animation.method528(this.onDemandFetcher.getAnimCount());
+			Model.initialize(this.onDemandFetcher.getVersionCount(0), this.onDemandFetcher);
+			if (!Client.lowMem) {
+				this.nextSong = 0;
+				try {
+					this.nextSong = Integer.parseInt(this.getParameter("music"));
+				} catch(Exception _ex) {}
+				this.songChanging = true;
+				this.onDemandFetcher.method558(2, this.nextSong);
+				while (this.onDemandFetcher.getNodeCount() > 0) {
+					this.processOnDemandQueue();
+					try {
+						Thread.sleep(100L);
+					} catch (Exception e) {}
+					if (this.onDemandFetcher.anInt1349 > 3) {
+						this.loadError();
+						return;
+					}
+				}
+			}
+			this.drawLoadingText(65, "Requesting animations");
+			int k = this.onDemandFetcher.getVersionCount(1);
+			for (int i1 = 0; i1 < k; i1++) {
+				this.onDemandFetcher.method558(1, i1);
+			}
+			while (this.onDemandFetcher.getNodeCount() > 0) {
+				int j1 = k - this.onDemandFetcher.getNodeCount();
+				if (j1 > 0) {
+					this.drawLoadingText(65, "Loading animations - " + ((j1 * 100) / k) + "%");
+				}
+				this.processOnDemandQueue();
+				try {
+					Thread.sleep(100L);
+				} catch (Exception e) {}
+				if (this.onDemandFetcher.anInt1349 > 3) {
+					this.loadError();
+					return;
+				}
+			}
+			this.drawLoadingText(70, "Requesting models");
+			k = this.onDemandFetcher.getVersionCount(0);
+			for (int k1 = 0; k1 < k; k1++) {
+				int l1 = this.onDemandFetcher.getModelIndex(k1);
+				if ((l1 & 1) != 0) {
+					this.onDemandFetcher.method558(0, k1);
+				}
+			}
+			k = this.onDemandFetcher.getNodeCount();
+			while (this.onDemandFetcher.getNodeCount() > 0) {
+				int i2 = k - this.onDemandFetcher.getNodeCount();
+				if (i2 > 0) {
+					this.drawLoadingText(70, "Loading models - " + ((i2 * 100) / k) + "%");
+				}
+				this.processOnDemandQueue();
+				try {
+					Thread.sleep(100L);
+				} catch (Exception e) {}
+			}
+			if (this.jagexResourceCaches[0] != null) {
+				this.drawLoadingText(75, "Requesting maps");
+				this.onDemandFetcher.method558(3, this.onDemandFetcher.method562(0, 48, 47));
+				this.onDemandFetcher.method558(3, this.onDemandFetcher.method562(1, 48, 47));
+				this.onDemandFetcher.method558(3, this.onDemandFetcher.method562(0, 48, 48));
+				this.onDemandFetcher.method558(3, this.onDemandFetcher.method562(1, 48, 48));
+				this.onDemandFetcher.method558(3, this.onDemandFetcher.method562(0, 48, 49));
+				this.onDemandFetcher.method558(3, this.onDemandFetcher.method562(1, 48, 49));
+				this.onDemandFetcher.method558(3, this.onDemandFetcher.method562(0, 47, 47));
+				this.onDemandFetcher.method558(3, this.onDemandFetcher.method562(1, 47, 47));
+				this.onDemandFetcher.method558(3, this.onDemandFetcher.method562(0, 47, 48));
+				this.onDemandFetcher.method558(3, this.onDemandFetcher.method562(1, 47, 48));
+				this.onDemandFetcher.method558(3, this.onDemandFetcher.method562(0, 148, 48));
+				this.onDemandFetcher.method558(3, this.onDemandFetcher.method562(1, 148, 48));
+				k = this.onDemandFetcher.getNodeCount();
+				while (this.onDemandFetcher.getNodeCount() > 0) {
+					int j2 = k - this.onDemandFetcher.getNodeCount();
+					if (j2 > 0) {
+						this.drawLoadingText(75, "Loading maps - " + ((j2 * 100) / k) + "%");
+					}
+					this.processOnDemandQueue();
+					try {
+						Thread.sleep(100L);
+					} catch (Exception e) {}
+				}
+			}
+			k = this.onDemandFetcher.getVersionCount(0);
+			for (int k2 = 0; k2 < k; k2++) {
+				int l2 = this.onDemandFetcher.getModelIndex(k2);
+				byte byte0 = 0;
+				if ((l2 & 8) != 0) {
+					byte0 = 10;
+				} else if ((l2 & 0x20) != 0) {
+					byte0 = 9;
+				} else if ((l2 & 0x10) != 0) {
+					byte0 = 8;
+				} else if ((l2 & 0x40) != 0) {
+					byte0 = 7;
+				} else if ((l2 & 0x80) != 0) {
+					byte0 = 6;
+				} else if ((l2 & 2) != 0) {
+					byte0 = 5;
+				} else if ((l2 & 4) != 0) {
+					byte0 = 4;
+				}
+				if ((l2 & 1) != 0) {
+					byte0 = 3;
+				}
+				if (byte0 != 0) {
+					this.onDemandFetcher.method563(byte0, 0, k2);
+				}
+			}
+			this.onDemandFetcher.method554(Client.isMembers);
+			if (!Client.lowMem) {
+				int l = this.onDemandFetcher.getVersionCount(2);
+				for (int i3 = 1; i3 < l; i3++) {
+					if (this.onDemandFetcher.method569(i3)) {
+						this.onDemandFetcher.method563((byte)1, 2, i3);
+					}
+				}
+			}
+			this.drawLoadingText(80, "Unpacking media");
+			this.invBack = new IndexedImage(streamLoader_2, "invback", 0);
+			this.chatBack = new IndexedImage(streamLoader_2, "chatback", 0);
+			this.mapBack = new IndexedImage(streamLoader_2, "mapback", 0);
+			this.backBase1 = new IndexedImage(streamLoader_2, "backbase1", 0);
+			this.backBase2 = new IndexedImage(streamLoader_2, "backbase2", 0);
+			this.backHmid1 = new IndexedImage(streamLoader_2, "backhmid1", 0);
+			for (int j3 = 0; j3 < 13; j3++) {
+				this.sideIcons[j3] = new IndexedImage(streamLoader_2, "sideicons", j3);
+			}
+			this.compass = new RGBImage(streamLoader_2, "compass", 0);
+			this.mapEdge = new RGBImage(streamLoader_2, "mapedge", 0);
+			this.mapEdge.method345();
+			try {
+				for (int k3 = 0; k3 < 100; k3++) {
+					this.mapScenes[k3] = new IndexedImage(streamLoader_2, "mapscene", k3);
+				}
+			} catch (Exception _ex) {}
+			try {
+				for (int l3 = 0; l3 < 100; l3++) {
+					this.mapFunctions[l3] = new RGBImage(streamLoader_2, "mapfunction", l3);
+				}
+			} catch (Exception _ex) {}
+			try {
+				for (int i4 = 0; i4 < 20; i4++) {
+					this.hitMarks[i4] = new RGBImage(streamLoader_2, "hitmarks", i4);
+				}
+			} catch (Exception _ex) {}
+			try {
+				for (int j4 = 0; j4 < 20; j4++) {
+					this.headIcons[j4] = new RGBImage(streamLoader_2, "headicons", j4);
+				}
+			}
+			catch(Exception _ex) { }
+			this.mapFlag = new RGBImage(streamLoader_2, "mapmarker", 0);
+			this.mapMarker = new RGBImage(streamLoader_2, "mapmarker", 1);
+			for (int k4 = 0; k4 < 8; k4++) {
+				this.crosses[k4] = new RGBImage(streamLoader_2, "cross", k4);
+			}
+			this.mapDotItem = new RGBImage(streamLoader_2, "mapdots", 0);
+			this.mapDotNPC = new RGBImage(streamLoader_2, "mapdots", 1);
+			this.mapDotPlayer = new RGBImage(streamLoader_2, "mapdots", 2);
+			this.mapDotFriend = new RGBImage(streamLoader_2, "mapdots", 3);
+			this.mapDotTeam = new RGBImage(streamLoader_2, "mapdots", 4);
+			this.scrollBar1 = new IndexedImage(streamLoader_2, "scrollbar", 0);
+			this.scrollBar2 = new IndexedImage(streamLoader_2, "scrollbar", 1);
+			this.redStone1 = new IndexedImage(streamLoader_2, "redstone1", 0);
+			this.redStone2 = new IndexedImage(streamLoader_2, "redstone2", 0);
+			this.redStone3 = new IndexedImage(streamLoader_2, "redstone3", 0);
+			this.redStone1_2 = new IndexedImage(streamLoader_2, "redstone1", 0);
+			this.redStone1_2.method358();
+			this.redStone2_2 = new IndexedImage(streamLoader_2, "redstone2", 0);
+			this.redStone2_2.method358();
+			this.redStone1_3 = new IndexedImage(streamLoader_2, "redstone1", 0);
+			this.redStone1_3.method359();
+			this.redStone2_3 = new IndexedImage(streamLoader_2, "redstone2", 0);
+			this.redStone2_3.method359();
+			this.redStone3_2 = new IndexedImage(streamLoader_2, "redstone3", 0);
+			this.redStone3_2.method359();
+			this.redStone1_4 = new IndexedImage(streamLoader_2, "redstone1", 0);
+			this.redStone1_4.method358();
+			this.redStone1_4.method359();
+			this.redStone2_4 = new IndexedImage(streamLoader_2, "redstone2", 0);
+			this.redStone2_4.method358();
+			this.redStone2_4.method359();
+			for (int l4 = 0; l4 < 2; l4++) {
+				this.modIcons[l4] = new IndexedImage(streamLoader_2, "mod_icons", l4);
+			}
+			RGBImage rGBImage = new RGBImage(streamLoader_2, "backleft1", 0);
+			this.backLeftIP1 = new GraphicsBuffer(rGBImage.myWidth, rGBImage.myHeight, this.getGameComponent());
+			rGBImage.method346(0, 0);
+			rGBImage = new RGBImage(streamLoader_2, "backleft2", 0);
+			this.backLeftIP2 = new GraphicsBuffer(rGBImage.myWidth, rGBImage.myHeight, this.getGameComponent());
+			rGBImage.method346(0, 0);
+			rGBImage = new RGBImage(streamLoader_2, "backright1", 0);
+			this.backRightIP1 = new GraphicsBuffer(rGBImage.myWidth, rGBImage.myHeight, this.getGameComponent());
+			rGBImage.method346(0, 0);
+			rGBImage = new RGBImage(streamLoader_2, "backright2", 0);
+			this.backRightIP2 = new GraphicsBuffer(rGBImage.myWidth, rGBImage.myHeight, this.getGameComponent());
+			rGBImage.method346(0, 0);
+			rGBImage = new RGBImage(streamLoader_2, "backtop1", 0);
+			this.backTopIP1 = new GraphicsBuffer(rGBImage.myWidth, rGBImage.myHeight, this.getGameComponent());
+			rGBImage.method346(0, 0);
+			rGBImage = new RGBImage(streamLoader_2, "backvmid1", 0);
+			this.backVmidIP1 = new GraphicsBuffer(rGBImage.myWidth, rGBImage.myHeight, this.getGameComponent());
+			rGBImage.method346(0, 0);
+			rGBImage = new RGBImage(streamLoader_2, "backvmid2", 0);
+			this.backVmidIP2 = new GraphicsBuffer(rGBImage.myWidth, rGBImage.myHeight, this.getGameComponent());
+			rGBImage.method346(0, 0);
+			rGBImage = new RGBImage(streamLoader_2, "backvmid3", 0);
+			this.backVmidIP3 = new GraphicsBuffer(rGBImage.myWidth, rGBImage.myHeight, this.getGameComponent());
+			rGBImage.method346(0, 0);
+			rGBImage = new RGBImage(streamLoader_2, "backhmid2", 0);
+			this.backVmidIP2_2 = new GraphicsBuffer(rGBImage.myWidth, rGBImage.myHeight, this.getGameComponent());
+			rGBImage.method346(0, 0);
+			int i5 = (int)(Math.random() * 21D) - 10;
+			int j5 = (int)(Math.random() * 21D) - 10;
+			int k5 = (int)(Math.random() * 21D) - 10;
+			int l5 = (int)(Math.random() * 41D) - 20;
+			for (int i6 = 0; i6 < 100; i6++) {
+				if (this.mapFunctions[i6] != null) {
+					this.mapFunctions[i6].method344(i5 + l5, j5 + l5, k5 + l5);
+				}
+				if (this.mapScenes[i6] != null) {
+					this.mapScenes[i6].method360(i5 + l5, j5 + l5, k5 + l5);
+				}
+			}
+			this.drawLoadingText(83, "Unpacking textures");
+			Rasterizer.method368(streamLoader_3);
+			Rasterizer.method372(0.80000000000000004D);
+			Rasterizer.method367();
+			this.drawLoadingText(86, "Unpacking config");
+			Sequence.unpackConfig(jagexArchive);
+			ObjectDef.unpackConfig(jagexArchive);
+			Floor.unpackConfig(jagexArchive);
+			ItemDef.unpackConfig(jagexArchive);
+			EntityDef.unpackConfig(jagexArchive);
+			IdentityKit.unpackConfig(jagexArchive);
+			SpotAnim.unpackConfig(jagexArchive);
+			SettingUsagePointers.unpackConfig(jagexArchive);
+			VarBit.unpackConfig(jagexArchive);
+			ItemDef.isMembers = Client.isMembers;
+			if (!Client.lowMem) {
+				this.drawLoadingText(90, "Unpacking sounds");
+				byte abyte0[] = streamLoader_5.getDataForName("sounds.dat");
+				Packet packet = new Packet(abyte0);
+				Sound.unpack(packet);
+			}
+			this.drawLoadingText(95, "Unpacking interfaces");
+			RSFont aclass30_sub2_sub1_sub4s[] = {
+					this.aTextDrawingArea_1270, this.aTextDrawingArea_1271, this.chatTextDrawingArea, aTextDrawingArea_1273
+			};
+			RSInterface.unpack(streamLoader_1, aclass30_sub2_sub1_sub4s, streamLoader_2);
+			this.drawLoadingText(100, "Preparing game engine");
+			for (int j6 = 0; j6 < 33; j6++) {
+				int k6 = 999;
+				int i7 = 0;
+				for (int k7 = 0; k7 < 34; k7++) {
+					if (this.mapBack.imgPixels[k7 + (j6 * this.mapBack.imgWidth)] == 0) {
+						if (k6 == 999) {
+							k6 = k7;
+						}
+						continue;
+					}
+					if (k6 == 999) {
+						continue;
+					}
+					i7 = k7;
+					break;
+				}
+				this.anIntArray968[j6] = k6;
+				this.anIntArray1057[j6] = i7 - k6;
+			}
+			for (int l6 = 5; l6 < 156; l6++) {
+				int j7 = 999;
+				int l7 = 0;
+				for (int j8 = 25; j8 < 172; j8++) {
+					if ((this.mapBack.imgPixels[j8 + (l6 * this.mapBack.imgWidth)] == 0) && ((j8 > 34) || (l6 > 34)))
+					{
+						if (j7 == 999) {
+							j7 = j8;
+						}
+						continue;
+					}
+					if (j7 == 999) {
+						continue;
+					}
+					l7 = j8;
+					break;
+				}
+				this.anIntArray1052[l6 - 5] = j7 - 25;
+				this.anIntArray1229[l6 - 5] = l7 - j7;
+			}
+			Rasterizer.method365(479, 96);
+			this.anIntArray1180 = Rasterizer.anIntArray1472;
+			Rasterizer.method365(190, 261);
+			this.anIntArray1181 = Rasterizer.anIntArray1472;
+			Rasterizer.method365(512, 334);
+			this.anIntArray1182 = Rasterizer.anIntArray1472;
+			int ai[] = new int[9];
+			for (int i8 = 0; i8 < 9; i8++) {
+				int k8 = 128 + (i8 * 32) + 15;
+				int l8 = 600 + (k8 * 3);
+				int i9 = Rasterizer.anIntArray1470[k8];
+				ai[i8] = (l8 * i9) >> 16;
+			}
+			SceneGraph.method310(500, 800, 512, 334, ai);
+			Censor.loadConfig(streamLoader_4);
+			this.mouseDetection = new MouseDetection(this);
+			this.startRunnable(this.mouseDetection, 10);
+			ObjectOnTile.clientInstance = this;
+			ObjectDef.clientInstance = this;
+			EntityDef.clientInstance = this;
+			return;
+		} catch (Exception exception) {
+			SignLink.reporterror("loaderror " + this.aString1049 + " " + this.anInt1079);
+		}
+		this.loadingError = true;
+	}

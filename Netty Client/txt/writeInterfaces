@@ -1,0 +1,15 @@
+	// Packet 208!
+	private void writeInterfaces(int i) {
+		RSInterface class9 = RSInterface.interfaceCache[i];
+		for (int j = 0; j < class9.children.length; j++) {
+			if (class9.children[j] == -1) {
+				break;
+			}
+			RSInterface class9_1 = RSInterface.interfaceCache[class9.children[j]];
+			if (class9_1.type == 1) {
+				this.writeInterfaces(class9_1.id);
+			}
+			class9_1.animFrame = 0;
+			class9_1.duration = 0;
+		}
+	}

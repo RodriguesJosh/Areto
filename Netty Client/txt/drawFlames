@@ -1,0 +1,28 @@
+	private void drawFlames() {
+		this.drawingFlames = true;
+		try {
+			long l = System.currentTimeMillis();
+			int i = 0;
+			int j = 20;
+			while (this.aBoolean831) {
+				this.anInt1208++;
+				this.calcFlamesPosition();
+				this.calcFlamesPosition();
+				this.doFlamesDrawing();
+				if (++i > 10) {
+					long l1 = System.currentTimeMillis();
+					int k = ((int)(l1 - l) / 10) - j;
+					j = 40 - k;
+					if (j < 5) {
+						j = 5;
+					}
+					i = 0;
+					l = l1;
+				}
+				try {
+					Thread.sleep(j);
+				} catch (Exception e) {}
+			}
+		} catch (Exception e) {}
+		this.drawingFlames = false;
+	}

@@ -1,0 +1,25 @@
+	public void updatePlayers(int i, Packet packet) {
+		this.anInt839 = 0;
+		this.anInt893 = 0;
+		this.updatePlayerMovement(packet);
+		this.updatePlayer(packet);
+		this.updateOtherPlayerMovement(packet, i);
+		this.refreshUpdateMasks(packet);
+		for (int k = 0; k < this.anInt839; k++) {
+			int l = this.anIntArray840[k];
+			if (World.getWorld().getPlayerList().get(l).time != Client.loopCycle) {
+				World.getWorld().getPlayerList().clear();
+			}
+		}
+		if (packet.getPosition() != i) {
+			SignLink.reporterror("Error packet size mismatch in getplayer pos:" + packet.getPosition() + " psize:" + i);
+			throw new RuntimeException("eek");
+		}
+		for (Player player : World.getWorld().getPlayerList()) {
+			if (player == null) {
+				int position = World.getWorld().getPlayerList().indexOf(player);
+				SignLink.reporterror(this.myUsername + " null entry in pl list - pos:" + position + " size:" + World.getWorld().getPlayerList().size());
+				throw new RuntimeException("eek");
+			}
+		}
+	}

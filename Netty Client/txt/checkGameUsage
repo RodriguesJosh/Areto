@@ -1,0 +1,93 @@
+	private void checkGameUsage() {
+		try {
+			int j = Client.myPlayer.x + this.anInt1278;
+			int k = Client.myPlayer.y + this.anInt1131;
+			if (((this.anInt1014 - j) < -500) || ((this.anInt1014 - j) > 500) || ((this.anInt1015 - k) < -500) || ((this.anInt1015 - k) > 500)) {
+				this.anInt1014 = j;
+				this.anInt1015 = k;
+			}
+			if (this.anInt1014 != j) {
+				this.anInt1014 += (j - this.anInt1014) / 16;
+			}
+			if (this.anInt1015 != k) {
+				this.anInt1015 += (k - this.anInt1015) / 16;
+			}
+			if (super.keyStatus[1] == 1) {
+				this.anInt1186 += (-24 - this.anInt1186) / 2;
+			} else if (super.keyStatus[2] == 1) {
+				this.anInt1186 += (24 - this.anInt1186) / 2;
+			} else {
+				this.anInt1186 /= 2;
+			}
+			if (super.keyStatus[3] == 1) {
+				this.anInt1187 += (12 - this.anInt1187) / 2;
+			} else if (super.keyStatus[4] == 1) {
+				this.anInt1187 += (-12 - this.anInt1187) / 2;
+			} else {
+				this.anInt1187 /= 2;
+			}
+			this.minimapInt1 = (this.minimapInt1 + (this.anInt1186 / 2)) & 0x7ff;
+			this.anInt1184 += this.anInt1187 / 2;
+			if (this.anInt1184 < 128) {
+				this.anInt1184 = 128;
+			}
+			if (this.anInt1184 > 383) {
+				this.anInt1184 = 383;
+			}
+			int l = this.anInt1014 >> 7;
+			int i1 = this.anInt1015 >> 7;
+			int j1 = this.getFloorDrawHeight(this.plane, this.anInt1015, this.anInt1014);
+			int k1 = 0;
+			if ((l > 3) && (i1 > 3) && (l < 100) && (i1 < 100)) {
+				for (int l1 = l - 4; l1 <= (l + 4); l1++) {
+					for (int k2 = i1 - 4; k2 <= (i1 + 4); k2++) {
+						int l2 = this.plane;
+						if ((l2 < 3) && ((this.byteGroundArray[1][l1][k2] & 2) == 2)) {
+							l2++;
+						}
+						int i3 = j1 - this.intGroundArray[l2][l1][k2];
+						if (i3 > k1) {
+							k1 = i3;
+						}
+					}
+				}
+			}
+			Client.anInt1005++;
+			if (Client.anInt1005 > 1512) {
+				Client.anInt1005 = 0;
+				this.packet.putOpcode(77);
+				this.packet.writeWordBigEndian(0);
+				int i2 = this.packet.getPosition();
+				this.packet.writeWordBigEndian((int)(Math.random() * 256D));
+				this.packet.writeWordBigEndian(101);
+				this.packet.writeWordBigEndian(233);
+				this.packet.putShort(45092);
+				if ((int) (Math.random() * 2D) == 0) {
+					this.packet.putShort(35784);
+				}
+				this.packet.writeWordBigEndian((int)(Math.random() * 256D));
+				this.packet.writeWordBigEndian(64);
+				this.packet.writeWordBigEndian(38);
+				this.packet.putShort((int)(Math.random() * 65536D));
+				this.packet.putShort((int)(Math.random() * 65536D));
+				this.packet.putBytes(this.packet.getPosition() - i2);
+			}
+			int j2 = k1 * 192;
+			if (j2 > 0x17f00) {
+				j2 = 0x17f00;
+			}
+			if (j2 < 32768) {
+				j2 = 32768;
+			}
+			if (j2 > this.anInt984) {
+				this.anInt984 += (j2 - this.anInt984) / 24;
+				return;
+			}
+			if (j2 < this.anInt984) {
+				this.anInt984 += (j2 - this.anInt984) / 80;
+			}
+		} catch (Exception _ex) {
+			SignLink.reporterror("glfc_ex " + Client.myPlayer.x + "," + Client.myPlayer.y + "," + this.anInt1014 + "," + this.anInt1015 + "," + this.anInt1069 + "," + this.anInt1070 + "," + this.baseX + "," + this.baseY);
+			throw new RuntimeException("eek");
+		}
+	}

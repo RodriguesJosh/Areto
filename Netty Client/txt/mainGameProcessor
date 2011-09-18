@@ -1,0 +1,334 @@
+	private void mainGameProcessor() {
+		if (this.anInt1104 > 1) {
+			this.anInt1104--;
+		}
+		if (this.anInt1011 > 0) {
+			this.anInt1011--;
+		}
+		for (int j = 0; j < 5; j++) {
+			if (!this.parsePacket()) {
+				break;
+			}
+		}
+		if (!this.loggedIn) {
+			return;
+		}
+		synchronized (this.mouseDetection.syncObject) {
+			if (Client.flagged) {
+				if ((super.mouseButtonPressed != 0) || (this.mouseDetection.coordsIndex >= 40)) {
+					this.packet.putOpcode(45);
+					this.packet.writeWordBigEndian(0);
+					int j2 = this.packet.getPosition();
+					int j3 = 0;
+					for (int j4 = 0; j4 < this.mouseDetection.coordsIndex; j4++) {
+						if ((j2 - this.packet.getPosition()) >= 240) {
+							break;
+						}
+						j3++;
+						int l4 = this.mouseDetection.coordsY[j4];
+						if (l4 < 0) {
+							l4 = 0;
+						} else if (l4 > 502) {
+							l4 = 502;
+						}
+						int k5 = this.mouseDetection.coordsX[j4];
+						if (k5 < 0) {
+							k5 = 0;
+						} else if (k5 > 764) {
+							k5 = 764;
+						}
+						int i6 = (l4 * 765) + k5;
+						if ((this.mouseDetection.coordsY[j4] == -1) && (this.mouseDetection.coordsX[j4] == -1)) {
+							k5 = -1;
+							l4 = -1;
+							i6 = 0x7ffff;
+						}
+						if ((k5 == this.anInt1237) && (l4 == this.anInt1238)) {
+							if (this.anInt1022 < 2047) {
+								this.anInt1022++;
+							}
+						} else {
+							int j6 = k5 - this.anInt1237;
+							this.anInt1237 = k5;
+							int k6 = l4 - this.anInt1238;
+							this.anInt1238 = l4;
+							if ((this.anInt1022 < 8) && (j6 >= -32) && (j6 <= 31) && (k6 >= -32) && (k6 <= 31)) {
+								j6 += 32;
+								k6 += 32;
+								this.packet.putShort((this.anInt1022 << 12) + (j6 << 6) + k6);
+								this.anInt1022 = 0;
+							} else if (this.anInt1022 < 8) {
+								this.packet.writeDWordBigEndian(0x800000 + (this.anInt1022 << 19) + i6);
+								this.anInt1022 = 0;
+							} else {
+								this.packet.putInt(0xc0000000 + (this.anInt1022 << 19) + i6);
+								this.anInt1022 = 0;
+							}
+						}
+					}
+					this.packet.putBytes(this.packet.getPosition() - j2);
+					if (j3 >= this.mouseDetection.coordsIndex) {
+						this.mouseDetection.coordsIndex = 0;
+					} else {
+						this.mouseDetection.coordsIndex -= j3;
+						for (int i5 = 0; i5 < this.mouseDetection.coordsIndex; i5++) {
+							this.mouseDetection.coordsX[i5] = this.mouseDetection.coordsX[i5 + j3];
+							this.mouseDetection.coordsY[i5] = this.mouseDetection.coordsY[i5 + j3];
+						}
+					}
+				}
+			} else {
+				this.mouseDetection.coordsIndex = 0;
+			}
+		}
+		if (super.mouseButtonPressed != 0) {
+			long l = (super.clickTime - this.aLong1220) / 50L;
+			if (l > 4095L) {
+				l = 4095L;
+			}
+			this.aLong1220 = super.clickTime;
+			int k2 = super.saveClickY;
+			if (k2 < 0) {
+				k2 = 0;
+			} else if (k2 > 502) {
+				k2 = 502;
+			}
+			int k3 = super.saveClickX;
+			if (k3 < 0) {
+				k3 = 0;
+			} else if (k3 > 764) {
+				k3 = 764;
+			}
+			int k4 = (k2 * 765) + k3;
+			int j5 = 0;
+			if (super.mouseButtonPressed == 2) {
+				j5 = 1;
+			}
+			int l5 = (int)l;
+			this.packet.putOpcode(241);
+			this.packet.putInt((l5 << 20) + (j5 << 19) + k4);
+		}
+		if (this.anInt1016 > 0) {
+			this.anInt1016--;
+		}
+		if ((super.keyStatus[1] == 1) || (super.keyStatus[2] == 1) || (super.keyStatus[3] == 1) || (super.keyStatus[4] == 1)) {
+			this.aBoolean1017 = true;
+		}
+		if (this.aBoolean1017 && (this.anInt1016 <= 0)) {
+			this.anInt1016 = 20;
+			this.aBoolean1017 = false;
+			this.packet.putOpcode(86);
+			this.packet.putShort(this.anInt1184);
+			this.packet.method432(this.minimapInt1);
+		}
+		if (super.awtFocus && !this.aBoolean954) {
+			this.aBoolean954 = true;
+			this.packet.putOpcode(3);
+			this.packet.writeWordBigEndian(1);
+		}
+		if (!super.awtFocus && this.aBoolean954) {
+			this.aBoolean954 = false;
+			this.packet.putOpcode(3);
+			this.packet.writeWordBigEndian(0);
+		}
+		this.loadingStages();
+		this.method115();
+		this.handleMusicEvents();
+		this.anInt1009++;
+		if (this.anInt1009 > 750) {
+			this.dropClient();
+		}
+		this.updatePlayerList();
+		this.forceNPCUpdate();
+		this.resetSpokenText();
+		this.anInt945++;
+		if (this.crossType != 0) {
+			this.crossIndex += 20;
+			if (this.crossIndex >= 400) {
+				this.crossType = 0;
+			}
+		}
+		if (this.atInventoryInterfaceType != 0) {
+			this.atInventoryLoopCycle++;
+			if (this.atInventoryLoopCycle >= 15) {
+				if (this.atInventoryInterfaceType == 2) {
+					this.needDrawTabArea = true;
+				}
+				if (this.atInventoryInterfaceType == 3) {
+					this.inputTaken = true;
+				}
+				this.atInventoryInterfaceType = 0;
+			}
+		}
+		if (this.activeInterfaceType != 0) {
+			this.anInt989++;
+			if ((super.mouseX > (this.anInt1087 + 5)) || (super.mouseX < (this.anInt1087 - 5)) || (super.mouseY > (this.anInt1088 + 5)) || (super.mouseY < (this.anInt1088 - 5))) {
+				this.aBoolean1242 = true;
+			}
+			if (super.mouseButtonDown == 0) {
+				if (this.activeInterfaceType == 2) {
+					this.needDrawTabArea = true;
+				}
+				if (this.activeInterfaceType == 3) {
+					this.inputTaken = true;
+				}
+				this.activeInterfaceType = 0;
+				if (this.aBoolean1242 && (this.anInt989 >= 5)) {
+					this.lastActiveInvInterface = -1;
+					this.processRightClick();
+					if ((this.lastActiveInvInterface == this.anInt1084) && (this.mouseInvInterfaceIndex != this.anInt1085)) {
+						RSInterface class9 = RSInterface.interfaceCache[this.anInt1084];
+						int j1 = 0;
+						if ((this.anInt913 == 1) && (class9.contentType == 206)) {
+							j1 = 1;
+						}
+						if (class9.inv[this.mouseInvInterfaceIndex] <= 0) {
+							j1 = 0;
+						}
+						if (class9.dragDeletes) {
+							int l2 = this.anInt1085;
+							int l3 = this.mouseInvInterfaceIndex;
+							class9.inv[l3] = class9.inv[l2];
+							class9.invStackSizes[l3] = class9.invStackSizes[l2];
+							class9.inv[l2] = -1;
+							class9.invStackSizes[l2] = 0;
+						} else if (j1 == 1) {
+							int i3 = this.anInt1085;
+							for (int i4 = this.mouseInvInterfaceIndex; i3 != i4;) {
+								if (i3 > i4) {
+									class9.swapInventoryItems(i3, i3 - 1);
+									i3--;
+								} else if (i3 < i4) {
+									class9.swapInventoryItems(i3, i3 + 1);
+									i3++;
+								}
+							}
+						} else {
+							class9.swapInventoryItems(this.anInt1085, this.mouseInvInterfaceIndex);
+						}
+						this.packet.putOpcode(214);
+						this.packet.method433(this.anInt1084);
+						this.packet.method424(j1);
+						this.packet.method433(this.anInt1085);
+						this.packet.method431(this.mouseInvInterfaceIndex);
+					}
+				} else if (((this.anInt1253 == 1) || this.menuHasAddFriend(this.menuActionRow - 1)) && (this.menuActionRow > 2)) {
+					this.determineMenuSize();
+				} else if (this.menuActionRow > 0) {
+					this.doAction(this.menuActionRow - 1);
+				}
+				this.atInventoryLoopCycle = 10;
+				super.mouseButtonPressed = 0;
+			}
+		}
+		if (SceneGraph.anInt470 != -1) {
+			int k = SceneGraph.anInt470;
+			int k1 = SceneGraph.anInt471;
+			boolean flag = this.doWalkTo(0, 0, 0, 0, Client.myPlayer.smallY[0], 0, 0, k1, Client.myPlayer.smallX[0], true, k);
+			SceneGraph.anInt470 = -1;
+			if (flag) {
+				this.crossX = super.saveClickX;
+				this.crossY = super.saveClickY;
+				this.crossType = 1;
+				this.crossIndex = 0;
+			}
+		}
+		if ((super.mouseButtonPressed == 1) && (this.aString844 != null)) {
+			this.aString844 = null;
+			this.inputTaken = true;
+			super.mouseButtonPressed = 0;
+		}
+		this.processMenuClick();
+		this.processMainScreenClick();
+		this.processTabClick();
+		this.processChatModeClick();
+		if ((super.mouseButtonDown == 1) || (super.mouseButtonPressed == 1)) {
+			this.anInt1213++;
+		}
+		if (this.loadingStage == 2) {
+			this.checkGameUsage();
+		}
+		if ((this.loadingStage == 2) && this.aBoolean1160) {
+			this.calcCameraPos();
+		}
+		for (int i1 = 0; i1 < 5; i1++) {
+			this.anIntArray1030[i1]++;
+		}
+		this.manageTextInputs();
+		super.idleTime++;
+		if (super.idleTime > 4500) {
+			this.anInt1011 = 250;
+			super.idleTime -= 500;
+			this.packet.putOpcode(202);
+		}
+		this.anInt988++;
+		if (this.anInt988 > 500) {
+			this.anInt988 = 0;
+			int l1 = (int)(Math.random() * 8D);
+			if ((l1 & 1) == 1) {
+				this.anInt1278 += this.anInt1279;
+			}
+			if ((l1 & 2) == 2) {
+				this.anInt1131 += this.anInt1132;
+			}
+			if ((l1 & 4) == 4) {
+				this.anInt896 += this.anInt897;
+			}
+		}
+		if (this.anInt1278 < -50) {
+			this.anInt1279 = 2;
+		}
+		if (this.anInt1278 > 50) {
+			this.anInt1279 = -2;
+		}
+		if (this.anInt1131 < -55) {
+			this.anInt1132 = 2;
+		}
+		if (this.anInt1131 > 55) {
+			this.anInt1132 = -2;
+		}
+		if (this.anInt896 < -40) {
+			this.anInt897 = 1;
+		}
+		if (this.anInt896 > 40) {
+			this.anInt897 = -1;
+		}
+		this.anInt1254++;
+		if (this.anInt1254 > 500) {
+			this.anInt1254 = 0;
+			int i2 = (int)(Math.random() * 8D);
+			if ((i2 & 1) == 1) {
+				this.minimapInt2 += this.anInt1210;
+			}
+			if ((i2 & 2) == 2) {
+				this.minimapInt3 += this.anInt1171;
+			}
+		}
+		if (this.minimapInt2 < -60) {
+			this.anInt1210 = 2;
+		}
+		if (this.minimapInt2 > 60) {
+			this.anInt1210 = -2;
+		}
+		if (this.minimapInt3 < -20) {
+			this.anInt1171 = 1;
+		}
+		if (this.minimapInt3 > 10) {
+			this.anInt1171 = -1;
+		}
+		this.anInt1010++;
+		if (this.anInt1010 > 50) {
+			this.packet.putOpcode(0);
+		}
+		try {
+			if ((this.socketStream != null) && (this.packet.getPosition() > 0)) {
+				this.socketStream.queueBytes(this.packet.getPosition(), this.packet.buffer);
+				this.packet.setPosition(0);
+				this.anInt1010 = 0;
+			}
+		} catch (IOException _ex) {
+			this.dropClient();
+		} catch (Exception exception) {
+			this.resetLogout();
+		}
+	}

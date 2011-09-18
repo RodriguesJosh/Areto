@@ -1,0 +1,13 @@
+	private void method45() {
+		this.aBoolean1031 = true;
+		for (int j = 0; j < 7; j++) {
+			this.anIntArray1065[j] = -1;
+			for (int k = 0; k < IdentityKit.length; k++) {
+				if (IdentityKit.cache[k].notSelectable || (IdentityKit.cache[k].bodyPartID != (j + (this.aBoolean1047 ? 0 : 7)))) {
+					continue;
+				}
+				this.anIntArray1065[j] = k;
+				break;
+			}
+		}
+	}

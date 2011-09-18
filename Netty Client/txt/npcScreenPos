@@ -1,0 +1,3 @@
+	private void npcScreenPos(Entity entity, int i) {}
+		this.calcEntityScreenPos(entity.x, i, entity.y);
+	}

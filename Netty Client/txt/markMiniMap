@@ -1,0 +1,18 @@
+	private void markMinimap(RGBImage rGBImage, int i, int j) {
+		int k = (this.minimapInt1 + this.minimapInt2) & 0x7ff;
+		int l = (i * i) + (j * j);
+		if (l > 6400) {
+			return;
+		}
+		int i1 = Model.sine[k];
+		int j1 = Model.cosine[k];
+		i1 = (i1 * 256) / (this.minimapInt3 + 256);
+		j1 = (j1 * 256) / (this.minimapInt3 + 256);
+		int k1 = ((j * i1) + (i * j1)) >> 16;
+		int l1 = ((j * j1) - (i * i1)) >> 16;
+		if (l > 2500) {
+			rGBImage.method354(this.mapBack, 83 - l1 - (rGBImage.secondHeight / 2) - 4, ((94 + k1) - (rGBImage.secondWidth / 2)) + 4);
+		} else {
+			rGBImage.drawSprite(((94 + k1) - (rGBImage.secondWidth / 2)) + 4, 83 - l1 - (rGBImage.secondHeight / 2) - 4);
+		}
+	}

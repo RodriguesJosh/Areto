@@ -1,0 +1,820 @@
+	private void doAction(int i) {
+		if (i < 0) {
+			return;
+		}
+		if (this.inputDialogState != 0) {
+			this.inputDialogState = 0;
+			this.inputTaken = true;
+		}
+		int j = this.menuActionCmd2[i];
+		int k = this.menuActionCmd3[i];
+		int l = this.menuActionID[i];
+		int i1 = this.menuActionCmd1[i];
+		if (l >= 2000) {
+			l -= 2000;
+		}
+		if (l == 582) {
+			NPC npc = this.npcArray[i1];
+			if (npc != null) {
+				this.doWalkTo(2, 0, 1, 0, Client.myPlayer.smallY[0], 1, 0, npc.smallY[0], Client.myPlayer.smallX[0], false, npc.smallX[0]);
+				this.crossX = super.saveClickX;
+				this.crossY = super.saveClickY;
+				this.crossType = 2;
+				this.crossIndex = 0;
+				this.packet.putOpcode(57);
+				this.packet.method432(this.anInt1285);
+				this.packet.method432(i1);
+				this.packet.method431(this.anInt1283);
+				this.packet.method432(this.anInt1284);
+			}
+		}
+		if (l == 234) {
+			boolean flag1 = this.doWalkTo(2, 0, 0, 0, Client.myPlayer.smallY[0], 0, 0, k, Client.myPlayer.smallX[0], false, j);
+			if (!flag1) {
+				flag1 = this.doWalkTo(2, 0, 1, 0, Client.myPlayer.smallY[0], 1, 0, k, Client.myPlayer.smallX[0], false, j);
+			}
+			this.crossX = super.saveClickX;
+			this.crossY = super.saveClickY;
+			this.crossType = 2;
+			this.crossIndex = 0;
+			this.packet.putOpcode(236);
+			this.packet.method431(k + this.baseY);
+			this.packet.putShort(i1);
+			this.packet.method431(j + this.baseX);
+		}
+		if ((l == 62) && this.clickObject(i1, k, j)) {
+			this.packet.putOpcode(192);
+			this.packet.putShort(this.anInt1284);
+			this.packet.method431((i1 >> 14) & 0x7fff);
+			this.packet.method433(k + this.baseY);
+			this.packet.method431(this.anInt1283);
+			this.packet.method433(j + this.baseX);
+			this.packet.putShort(this.anInt1285);
+		}
+		if (l == 511) {
+			boolean flag2 = this.doWalkTo(2, 0, 0, 0, Client.myPlayer.smallY[0], 0, 0, k, Client.myPlayer.smallX[0], false, j);
+			if (!flag2) {
+				flag2 = this.doWalkTo(2, 0, 1, 0, Client.myPlayer.smallY[0], 1, 0, k, Client.myPlayer.smallX[0], false, j);
+			}
+			this.crossX = super.saveClickX;
+			this.crossY = super.saveClickY;
+			this.crossType = 2;
+			this.crossIndex = 0;
+			this.packet.putOpcode(25);
+			this.packet.method431(this.anInt1284);
+			this.packet.method432(this.anInt1285);
+			this.packet.putShort(i1);
+			this.packet.method432(k + this.baseY);
+			this.packet.method433(this.anInt1283);
+			this.packet.putShort(j + this.baseX);
+		}
+		if (l == 74) {
+			this.packet.putOpcode(122);
+			this.packet.method433(k);
+			this.packet.method432(j);
+			this.packet.method431(i1);
+			this.atInventoryLoopCycle = 0;
+			this.atInventoryInterface = k;
+			this.atInventoryIndex = j;
+			this.atInventoryInterfaceType = 2;
+			if (RSInterface.interfaceCache[k].parentID == this.openInterfaceID) {
+				this.atInventoryInterfaceType = 1;
+			}
+			if (RSInterface.interfaceCache[k].parentID == this.backDialogID) {
+				this.atInventoryInterfaceType = 3;
+			}
+		}
+		if (l == 315) {
+			RSInterface class9 = RSInterface.interfaceCache[k];
+			boolean flag8 = true;
+			if (class9.anInt214 > 0) {
+				flag8 = this.promptUserForInput(class9);
+			}
+			if (flag8) {
+				this.packet.putOpcode(185);
+				this.packet.putShort(k);
+			}
+		}
+		if (l == 561) {
+			Player player = this.playerArray[i1];
+			if (player != null) {
+				this.doWalkTo(2, 0, 1, 0, Client.myPlayer.smallY[0], 1, 0, player.smallY[0], Client.myPlayer.smallX[0], false, player.smallX[0]);
+				this.crossX = super.saveClickX;
+				this.crossY = super.saveClickY;
+				this.crossType = 2;
+				this.crossIndex = 0;
+				Client.anInt1188 += i1;
+				if (Client.anInt1188 >= 90) {
+					this.packet.putOpcode(136);
+					Client.anInt1188 = 0;
+				}
+				this.packet.putOpcode(128);
+				this.packet.putShort(i1);
+			}
+		}
+		if (l == 20) {
+			NPC class30_sub2_sub4_sub1_sub1_1 = this.npcArray[i1];
+			if (class30_sub2_sub4_sub1_sub1_1 != null) {
+				this.doWalkTo(2, 0, 1, 0, Client.myPlayer.smallY[0], 1, 0, class30_sub2_sub4_sub1_sub1_1.smallY[0], Client.myPlayer.smallX[0], false, class30_sub2_sub4_sub1_sub1_1.smallX[0]);
+				this.crossX = super.saveClickX;
+				this.crossY = super.saveClickY;
+				this.crossType = 2;
+				this.crossIndex = 0;
+				this.packet.putOpcode(155);
+				this.packet.method431(i1);
+			}
+		}
+		if (l == 779) {
+			Player class30_sub2_sub4_sub1_sub2_1 = this.playerArray[i1];
+			if (class30_sub2_sub4_sub1_sub2_1 != null) {
+				this.doWalkTo(2, 0, 1, 0, Client.myPlayer.smallY[0], 1, 0, class30_sub2_sub4_sub1_sub2_1.smallY[0], Client.myPlayer.smallX[0], false, class30_sub2_sub4_sub1_sub2_1.smallX[0]);
+				this.crossX = super.saveClickX;
+				this.crossY = super.saveClickY;
+				this.crossType = 2;
+				this.crossIndex = 0;
+				this.packet.putOpcode(153);
+				this.packet.method431(i1);
+			}
+		}
+		if (l == 516) {
+			if (!this.menuOpen) {
+				this.worldController.method312(super.saveClickY - 4, super.saveClickX - 4);
+			} else {
+				this.worldController.method312(k - 4, j - 4);
+			}
+		}
+		if (l == 1062) {
+			Client.anInt924 += this.baseX;
+			if (Client.anInt924 >= 113) {
+				this.packet.putOpcode(183);
+				this.packet.writeDWordBigEndian(0xe63271);
+				Client.anInt924 = 0;
+			}
+			this.clickObject(i1, k, j);
+			this.packet.putOpcode(228);
+			this.packet.method432((i1 >> 14) & 0x7fff);
+			this.packet.method432(k + this.baseY);
+			this.packet.putShort(j + this.baseX);
+		}
+		if ((l == 679) && !this.aBoolean1149) {
+			this.packet.putOpcode(40);
+			this.packet.putShort(k);
+			this.aBoolean1149 = true;
+		}
+		if (l == 431) {
+			this.packet.putOpcode(129);
+			this.packet.method432(j);
+			this.packet.putShort(k);
+			this.packet.method432(i1);
+			this.atInventoryLoopCycle = 0;
+			this.atInventoryInterface = k;
+			this.atInventoryIndex = j;
+			this.atInventoryInterfaceType = 2;
+			if (RSInterface.interfaceCache[k].parentID == this.openInterfaceID) {
+				this.atInventoryInterfaceType = 1;
+			}
+			if (RSInterface.interfaceCache[k].parentID == this.backDialogID) {
+				this.atInventoryInterfaceType = 3;
+			}
+		}
+		if ((l == 337) || (l == 42) || (l == 792) || (l == 322)) {
+			String s = this.menuActionName[i];
+			int k1 = s.indexOf("@whi@");
+			if (k1 != -1) {
+				long l3 = TextClass.longForName(s.substring(k1 + 5).trim());
+				if (l == 337) {
+					this.addFriend(l3);
+				}
+				if (l == 42) {
+					this.addIgnore(l3);
+				}
+				if (l == 792) {
+					this.deleteFriend(l3);
+				}
+				if (l == 322) {
+					this.deleteIgnore(l3);
+				}
+			}
+		}
+		if (l == 53) {
+			this.packet.putOpcode(135);
+			this.packet.method431(j);
+			this.packet.method432(k);
+			this.packet.method431(i1);
+			this.atInventoryLoopCycle = 0;
+			this.atInventoryInterface = k;
+			this.atInventoryIndex = j;
+			this.atInventoryInterfaceType = 2;
+			if (RSInterface.interfaceCache[k].parentID == this.openInterfaceID) {
+				this.atInventoryInterfaceType = 1;
+			}
+			if (RSInterface.interfaceCache[k].parentID == this.backDialogID) {
+				this.atInventoryInterfaceType = 3;
+			}
+		}
+		if (l == 539) {
+			this.packet.putOpcode(16);
+			this.packet.method432(i1);
+			this.packet.method433(j);
+			this.packet.method433(k);
+			this.atInventoryLoopCycle = 0;
+			this.atInventoryInterface = k;
+			this.atInventoryIndex = j;
+			this.atInventoryInterfaceType = 2;
+			if (RSInterface.interfaceCache[k].parentID == this.openInterfaceID) {
+				this.atInventoryInterfaceType = 1;
+			}
+			if (RSInterface.interfaceCache[k].parentID == this.backDialogID) {
+				this.atInventoryInterfaceType = 3;
+			}
+		}
+		if ((l == 484) || (l == 6)) {
+			String s1 = this.menuActionName[i];
+			int l1 = s1.indexOf("@whi@");
+			if (l1 != -1) {
+				s1 = s1.substring(l1 + 5).trim();
+				String s7 = TextClass.fixName(TextClass.nameForLong(TextClass.longForName(s1)));
+				boolean flag9 = false;
+				for (int j3 = 0; j3 < this.playerCount; j3++) {
+					Player class30_sub2_sub4_sub1_sub2_7 = this.playerArray[this.playerIndices[j3]];
+					if ((class30_sub2_sub4_sub1_sub2_7 == null) || (class30_sub2_sub4_sub1_sub2_7.name == null) || !class30_sub2_sub4_sub1_sub2_7.name.equalsIgnoreCase(s7)) {
+						continue;
+					}
+					this.doWalkTo(2, 0, 1, 0, Client.myPlayer.smallY[0], 1, 0, class30_sub2_sub4_sub1_sub2_7.smallY[0], Client.myPlayer.smallX[0], false, class30_sub2_sub4_sub1_sub2_7.smallX[0]);
+					if (l == 484) {
+						this.packet.putOpcode(139);
+						this.packet.method431(this.playerIndices[j3]);
+					}
+					if (l == 6) {
+						Client.anInt1188 += i1;
+						if (Client.anInt1188 >= 90) {
+							this.packet.putOpcode(136);
+							Client.anInt1188 = 0;
+						}
+						this.packet.putOpcode(128);
+						this.packet.putShort(this.playerIndices[j3]);
+					}
+					flag9 = true;
+					break;
+				}
+				if (!flag9) {
+					this.pushMessage("Unable to find " + s7, 0, "");
+				}
+			}
+		}
+		if (l == 870) {
+			this.packet.putOpcode(53);
+			this.packet.putShort(j);
+			this.packet.method432(this.anInt1283);
+			this.packet.method433(i1);
+			this.packet.putShort(this.anInt1284);
+			this.packet.method431(this.anInt1285);
+			this.packet.putShort(k);
+			this.atInventoryLoopCycle = 0;
+			this.atInventoryInterface = k;
+			this.atInventoryIndex = j;
+			this.atInventoryInterfaceType = 2;
+			if (RSInterface.interfaceCache[k].parentID == this.openInterfaceID) {
+				this.atInventoryInterfaceType = 1;
+			}
+			if (RSInterface.interfaceCache[k].parentID == this.backDialogID) {
+				this.atInventoryInterfaceType = 3;
+			}
+		}
+		if (l == 847) {
+			this.packet.putOpcode(87);
+			this.packet.method432(i1);
+			this.packet.putShort(k);
+			this.packet.method432(j);
+			this.atInventoryLoopCycle = 0;
+			this.atInventoryInterface = k;
+			this.atInventoryIndex = j;
+			this.atInventoryInterfaceType = 2;
+			if (RSInterface.interfaceCache[k].parentID == this.openInterfaceID) {
+				this.atInventoryInterfaceType = 1;
+			}
+			if (RSInterface.interfaceCache[k].parentID == this.backDialogID) {
+				this.atInventoryInterfaceType = 3;
+			}
+		}
+		if (l == 626) {
+			RSInterface class9_1 = RSInterface.interfaceCache[k];
+			this.spellSelected = 1;
+			this.anInt1137 = k;
+			this.spellUsableOn = class9_1.spellUsableOn;
+			this.itemSelected = 0;
+			this.needDrawTabArea = true;
+			String s4 = class9_1.selectedActionName;
+			if(s4.indexOf(" ") != -1) {
+				s4 = s4.substring(0, s4.indexOf(" "));
+			}
+			String s8 = class9_1.selectedActionName;
+			if(s8.indexOf(" ") != -1) {
+				s8 = s8.substring(s8.indexOf(" ") + 1);
+			}
+			this.spellTooltip = s4 + " " + class9_1.spellName + " " + s8;
+			if (this.spellUsableOn == 16) {
+				this.needDrawTabArea = true;
+				this.tabID = 3;
+				this.tabAreaAltered = true;
+			}
+			return;
+		}
+		if (l == 78) {
+			this.packet.putOpcode(117);
+			this.packet.method433(k);
+			this.packet.method433(i1);
+			this.packet.method431(j);
+			this.atInventoryLoopCycle = 0;
+			this.atInventoryInterface = k;
+			this.atInventoryIndex = j;
+			this.atInventoryInterfaceType = 2;
+			if (RSInterface.interfaceCache[k].parentID == this.openInterfaceID) {
+				this.atInventoryInterfaceType = 1;
+			}
+			if (RSInterface.interfaceCache[k].parentID == this.backDialogID) {
+				this.atInventoryInterfaceType = 3;
+			}
+		}
+		if (l == 27) {
+			Player class30_sub2_sub4_sub1_sub2_2 = this.playerArray[i1];
+			if (class30_sub2_sub4_sub1_sub2_2 != null) {
+				this.doWalkTo(2, 0, 1, 0, Client.myPlayer.smallY[0], 1, 0, class30_sub2_sub4_sub1_sub2_2.smallY[0], Client.myPlayer.smallX[0], false, class30_sub2_sub4_sub1_sub2_2.smallX[0]);
+				this.crossX = super.saveClickX;
+				this.crossY = super.saveClickY;
+				this.crossType = 2;
+				this.crossIndex = 0;
+				Client.anInt986 += i1;
+				if (Client.anInt986 >= 54) {
+					this.packet.putOpcode(189);
+					this.packet.writeWordBigEndian(234);
+					Client.anInt986 = 0;
+				}
+				this.packet.putOpcode(73);
+				this.packet.method431(i1);
+			}
+		}
+		if (l == 213) {
+			boolean flag3 = this.doWalkTo(2, 0, 0, 0, Client.myPlayer.smallY[0], 0, 0, k, Client.myPlayer.smallX[0], false, j);
+			if (!flag3) {
+				flag3 = this.doWalkTo(2, 0, 1, 0, Client.myPlayer.smallY[0], 1, 0, k, Client.myPlayer.smallX[0], false, j);
+			}
+			this.crossX = super.saveClickX;
+			this.crossY = super.saveClickY;
+			this.crossType = 2;
+			this.crossIndex = 0;
+			this.packet.putOpcode(79);
+			this.packet.method431(k + this.baseY);
+			this.packet.putShort(i1);
+			this.packet.method432(j + this.baseX);
+		}
+		if (l == 632) {
+			this.packet.putOpcode(145);
+			this.packet.method432(k);
+			this.packet.method432(j);
+			this.packet.method432(i1);
+			this.atInventoryLoopCycle = 0;
+			this.atInventoryInterface = k;
+			this.atInventoryIndex = j;
+			this.atInventoryInterfaceType = 2;
+			if (RSInterface.interfaceCache[k].parentID == this.openInterfaceID) {
+				this.atInventoryInterfaceType = 1;
+			}
+			if (RSInterface.interfaceCache[k].parentID == this.backDialogID) {
+				this.atInventoryInterfaceType = 3;
+			}
+		}
+		if (l == 493) {
+			this.packet.putOpcode(75);
+			this.packet.method433(k);
+			this.packet.method431(j);
+			this.packet.method432(i1);
+			this.atInventoryLoopCycle = 0;
+			this.atInventoryInterface = k;
+			this.atInventoryIndex = j;
+			this.atInventoryInterfaceType = 2;
+			if (RSInterface.interfaceCache[k].parentID == this.openInterfaceID) {
+				this.atInventoryInterfaceType = 1;
+			}
+			if (RSInterface.interfaceCache[k].parentID == this.backDialogID) {
+				this.atInventoryInterfaceType = 3;
+			}
+		}
+		if (l == 652) {
+			boolean flag4 = this.doWalkTo(2, 0, 0, 0, Client.myPlayer.smallY[0], 0, 0, k, Client.myPlayer.smallX[0], false, j);
+			if (!flag4) {
+				flag4 = this.doWalkTo(2, 0, 1, 0, Client.myPlayer.smallY[0], 1, 0, k, Client.myPlayer.smallX[0], false, j);
+			}
+			this.crossX = super.saveClickX;
+			this.crossY = super.saveClickY;
+			this.crossType = 2;
+			this.crossIndex = 0;
+			this.packet.putOpcode(156);
+			this.packet.method432(j + this.baseX);
+			this.packet.method431(k + this.baseY);
+			this.packet.method433(i1);
+		}
+		if (l == 94) {
+			boolean flag5 = this.doWalkTo(2, 0, 0, 0, Client.myPlayer.smallY[0], 0, 0, k, Client.myPlayer.smallX[0], false, j);
+			if (!flag5) {
+				flag5 = this.doWalkTo(2, 0, 1, 0, Client.myPlayer.smallY[0], 1, 0, k, Client.myPlayer.smallX[0], false, j);
+			}
+			this.crossX = super.saveClickX;
+			this.crossY = super.saveClickY;
+			this.crossType = 2;
+			this.crossIndex = 0;
+			this.packet.putOpcode(181);
+			this.packet.method431(k + this.baseY);
+			this.packet.putShort(i1);
+			this.packet.method431(j + this.baseX);
+			this.packet.method432(this.anInt1137);
+		}
+		if (l == 646) {
+			this.packet.putOpcode(185);
+			this.packet.putShort(k);
+			RSInterface class9_2 = RSInterface.interfaceCache[k];
+			if ((class9_2.valueIndexArray != null) && (class9_2.valueIndexArray[0][0] == 5)) {
+				int i2 = class9_2.valueIndexArray[0][1];
+				if (this.variousSettings[i2] != class9_2.anIntArray212[0]) {
+					this.variousSettings[i2] = class9_2.anIntArray212[0];
+					this.method33(i2);
+					this.needDrawTabArea = true;
+				}
+			}
+		}
+		if (l == 225) {
+			NPC class30_sub2_sub4_sub1_sub1_2 = this.npcArray[i1];
+			if (class30_sub2_sub4_sub1_sub1_2 != null) {
+				this.doWalkTo(2, 0, 1, 0, Client.myPlayer.smallY[0], 1, 0, class30_sub2_sub4_sub1_sub1_2.smallY[0], Client.myPlayer.smallX[0], false, class30_sub2_sub4_sub1_sub1_2.smallX[0]);
+				this.crossX = super.saveClickX;
+				this.crossY = super.saveClickY;
+				this.crossType = 2;
+				this.crossIndex = 0;
+				Client.anInt1226 += i1;
+				if (Client.anInt1226 >= 85) {
+					this.packet.putOpcode(230);
+					this.packet.writeWordBigEndian(239);
+					Client.anInt1226 = 0;
+				}
+				this.packet.putOpcode(17);
+				this.packet.method433(i1);
+			}
+		}
+		if (l == 965) {
+			NPC class30_sub2_sub4_sub1_sub1_3 = this.npcArray[i1];
+			if (class30_sub2_sub4_sub1_sub1_3 != null) {
+				this.doWalkTo(2, 0, 1, 0, Client.myPlayer.smallY[0], 1, 0, class30_sub2_sub4_sub1_sub1_3.smallY[0], Client.myPlayer.smallX[0], false, class30_sub2_sub4_sub1_sub1_3.smallX[0]);
+				this.crossX = super.saveClickX;
+				this.crossY = super.saveClickY;
+				this.crossType = 2;
+				this.crossIndex = 0;
+				Client.anInt1134++;
+				if (Client.anInt1134 >= 96) {
+					this.packet.putOpcode(152);
+					this.packet.writeWordBigEndian(88);
+					Client.anInt1134 = 0;
+				}
+				this.packet.putOpcode(21);
+				this.packet.putShort(i1);
+			}
+		}
+		if (l == 413) {
+			NPC class30_sub2_sub4_sub1_sub1_4 = this.npcArray[i1];
+			if (class30_sub2_sub4_sub1_sub1_4 != null) {
+				this.doWalkTo(2, 0, 1, 0, Client.myPlayer.smallY[0], 1, 0, class30_sub2_sub4_sub1_sub1_4.smallY[0], Client.myPlayer.smallX[0], false, class30_sub2_sub4_sub1_sub1_4.smallX[0]);
+				this.crossX = super.saveClickX;
+				this.crossY = super.saveClickY;
+				this.crossType = 2;
+				this.crossIndex = 0;
+				this.packet.putOpcode(131);
+				this.packet.method433(i1);
+				this.packet.method432(this.anInt1137);
+			}
+		}
+		if (l == 200) {
+			this.clearTopInterfaces();
+		}
+		if (l == 1025) {
+			NPC class30_sub2_sub4_sub1_sub1_5 = this.npcArray[i1];
+			if (class30_sub2_sub4_sub1_sub1_5 != null) {
+				EntityDef entityDef = class30_sub2_sub4_sub1_sub1_5.desc;
+				if (entityDef.childrenIDs != null) {
+					entityDef = entityDef.method161();
+				}
+				if (entityDef != null) {
+					String s9;
+					if (entityDef.description != null) {
+						s9 = new String(entityDef.description);
+					} else {
+						s9 = "It's a " + entityDef.name + ".";
+					}
+					this.pushMessage(s9, 0, "");
+				}
+			}
+		}
+		if (l == 900) {
+			this.clickObject(i1, k, j);
+			this.packet.putOpcode(252);
+			this.packet.method433((i1 >> 14) & 0x7fff);
+			this.packet.method431(k + this.baseY);
+			this.packet.method432(j + this.baseX);
+		}
+		if (l == 412) {
+			NPC class30_sub2_sub4_sub1_sub1_6 = this.npcArray[i1];
+			if (class30_sub2_sub4_sub1_sub1_6 != null) {
+				this.doWalkTo(2, 0, 1, 0, Client.myPlayer.smallY[0], 1, 0, class30_sub2_sub4_sub1_sub1_6.smallY[0], Client.myPlayer.smallX[0], false, class30_sub2_sub4_sub1_sub1_6.smallX[0]);
+				this.crossX = super.saveClickX;
+				this.crossY = super.saveClickY;
+				this.crossType = 2;
+				this.crossIndex = 0;
+				this.packet.putOpcode(72);
+				this.packet.method432(i1);
+			}
+		}
+		if (l == 365) {
+			Player class30_sub2_sub4_sub1_sub2_3 = this.playerArray[i1];
+			if (class30_sub2_sub4_sub1_sub2_3 != null) {
+				this.doWalkTo(2, 0, 1, 0, Client.myPlayer.smallY[0], 1, 0, class30_sub2_sub4_sub1_sub2_3.smallY[0], Client.myPlayer.smallX[0], false, class30_sub2_sub4_sub1_sub2_3.smallX[0]);
+				this.crossX = super.saveClickX;
+				this.crossY = super.saveClickY;
+				this.crossType = 2;
+				this.crossIndex = 0;
+				this.packet.putOpcode(249);
+				this.packet.method432(i1);
+				this.packet.method431(this.anInt1137);
+			}
+		}
+		if (l == 729) {
+			Player class30_sub2_sub4_sub1_sub2_4 = this.playerArray[i1];
+			if (class30_sub2_sub4_sub1_sub2_4 != null)  {
+				this.doWalkTo(2, 0, 1, 0, Client.myPlayer.smallY[0], 1, 0, class30_sub2_sub4_sub1_sub2_4.smallY[0], Client.myPlayer.smallX[0], false, class30_sub2_sub4_sub1_sub2_4.smallX[0]);
+				this.crossX = super.saveClickX;
+				this.crossY = super.saveClickY;
+				this.crossType = 2;
+				this.crossIndex = 0;
+				this.packet.putOpcode(39);
+				this.packet.method431(i1);
+			}
+		}
+		if (l == 577) {
+			Player class30_sub2_sub4_sub1_sub2_5 = this.playerArray[i1];
+			if (class30_sub2_sub4_sub1_sub2_5 != null) {
+				this.doWalkTo(2, 0, 1, 0, Client.myPlayer.smallY[0], 1, 0, class30_sub2_sub4_sub1_sub2_5.smallY[0], Client.myPlayer.smallX[0], false, class30_sub2_sub4_sub1_sub2_5.smallX[0]);
+				this.crossX = super.saveClickX;
+				this.crossY = super.saveClickY;
+				this.crossType = 2;
+				this.crossIndex = 0;
+				this.packet.putOpcode(139);
+				this.packet.method431(i1);
+			}
+		}
+		if ((l == 956) && this.clickObject(i1, k, j)) {
+			this.packet.putOpcode(35);
+			this.packet.method431(j + this.baseX);
+			this.packet.method432(this.anInt1137);
+			this.packet.method432(k + this.baseY);
+			this.packet.method431((i1 >> 14) & 0x7fff);
+		}
+		if (l == 567) {
+			boolean flag6 = this.doWalkTo(2, 0, 0, 0, Client.myPlayer.smallY[0], 0, 0, k, Client.myPlayer.smallX[0], false, j);
+			if (!flag6) {
+				flag6 = this.doWalkTo(2, 0, 1, 0, Client.myPlayer.smallY[0], 1, 0, k, Client.myPlayer.smallX[0], false, j);
+			}
+			this.crossX = super.saveClickX;
+			this.crossY = super.saveClickY;
+			this.crossType = 2;
+			this.crossIndex = 0;
+			this.packet.putOpcode(23);
+			this.packet.method431(k + this.baseY);
+			this.packet.method431(i1);
+			this.packet.method431(j + this.baseX);
+		}
+		if (l == 867) {
+			if ((i1 & 3) == 0) {
+				Client.anInt1175++;
+			}
+			if (Client.anInt1175 >= 59) {
+				this.packet.putOpcode(200);
+				this.packet.putShort(25501);
+				Client.anInt1175 = 0;
+			}
+			this.packet.putOpcode(43);
+			this.packet.method431(k);
+			this.packet.method432(i1);
+			this.packet.method432(j);
+			this.atInventoryLoopCycle = 0;
+			this.atInventoryInterface = k;
+			this.atInventoryIndex = j;
+			this.atInventoryInterfaceType = 2;
+			if (RSInterface.interfaceCache[k].parentID == this.openInterfaceID) {
+				this.atInventoryInterfaceType = 1;
+			}
+			if (RSInterface.interfaceCache[k].parentID == this.backDialogID) {
+				this.atInventoryInterfaceType = 3;
+			}
+		}
+		if (l == 543) {
+			this.packet.putOpcode(237);
+			this.packet.putShort(j);
+			this.packet.method432(i1);
+			this.packet.putShort(k);
+			this.packet.method432(this.anInt1137);
+			this.atInventoryLoopCycle = 0;
+			this.atInventoryInterface = k;
+			this.atInventoryIndex = j;
+			this.atInventoryInterfaceType = 2;
+			if (RSInterface.interfaceCache[k].parentID == this.openInterfaceID) {
+				this.atInventoryInterfaceType = 1;
+			}
+			if (RSInterface.interfaceCache[k].parentID == this.backDialogID) {
+				this.atInventoryInterfaceType = 3;
+			}
+		}
+		if (l == 606) {
+			String s2 = this.menuActionName[i];
+			int j2 = s2.indexOf("@whi@");
+			if (j2 != -1) {
+				if (this.openInterfaceID == -1) {
+					this.clearTopInterfaces();
+					this.reportAbuseInput = s2.substring(j2 + 5).trim();
+					this.canMute = false;
+					for (int i3 = 0; i3 < RSInterface.interfaceCache.length; i3++) {
+						if ((RSInterface.interfaceCache[i3] == null) || (RSInterface.interfaceCache[i3].anInt214 != 600)) {
+							continue;
+						}
+						this.reportAbuseInterfaceID = this.openInterfaceID = RSInterface.interfaceCache[i3].parentID;
+						break;
+					}
+				} else {
+					this.pushMessage("Please close the interface you have open before using 'report abuse'", 0, "");
+				}
+			}
+		}
+		if (l == 491) {
+			Player class30_sub2_sub4_sub1_sub2_6 = this.playerArray[i1];
+			if (class30_sub2_sub4_sub1_sub2_6 != null) {
+				this.doWalkTo(2, 0, 1, 0, Client.myPlayer.smallY[0], 1, 0, class30_sub2_sub4_sub1_sub2_6.smallY[0], Client.myPlayer.smallX[0], false, class30_sub2_sub4_sub1_sub2_6.smallX[0]);
+				this.crossX = super.saveClickX;
+				this.crossY = super.saveClickY;
+				this.crossType = 2;
+				this.crossIndex = 0;
+				this.packet.putOpcode(14);
+				this.packet.method432(this.anInt1284);
+				this.packet.putShort(i1);
+				this.packet.putShort(this.anInt1285);
+				this.packet.method431(this.anInt1283);
+			}
+		}
+		if (l == 639) {
+			String s3 = this.menuActionName[i];
+			int k2 = s3.indexOf("@whi@");
+			if (k2 != -1) {
+				long l4 = TextClass.longForName(s3.substring(k2 + 5).trim());
+				int k3 = -1;
+				for (int i4 = 0; i4 < this.friendsCount; i4++) {
+					if (this.friendsListAsLongs[i4] != l4) {
+						continue;
+					}
+					k3 = i4;
+					break;
+				}
+				if ((k3 != -1) && (this.friendsNodeIDs[k3] > 0)) {
+					this.inputTaken = true;
+					this.inputDialogState = 0;
+					this.messagePromptRaised = true;
+					this.promptInput = "";
+					this.friendsListAction = 3;
+					this.aLong953 = this.friendsListAsLongs[k3];
+					this.aString1121 = "Enter message to send to " + this.friendsList[k3];
+				}
+			}
+		}
+		if (l == 454) {
+			this.packet.putOpcode(41);
+			this.packet.putShort(i1);
+			this.packet.method432(j);
+			this.packet.method432(k);
+			this.atInventoryLoopCycle = 0;
+			this.atInventoryInterface = k;
+			this.atInventoryIndex = j;
+			this.atInventoryInterfaceType = 2;
+			if (RSInterface.interfaceCache[k].parentID == this.openInterfaceID) {
+				this.atInventoryInterfaceType = 1;
+			}
+			if (RSInterface.interfaceCache[k].parentID == this.backDialogID) {
+				this.atInventoryInterfaceType = 3;
+			}
+		}
+		if (l == 478) {
+			NPC class30_sub2_sub4_sub1_sub1_7 = this.npcArray[i1];
+			if (class30_sub2_sub4_sub1_sub1_7 != null) {
+				this.doWalkTo(2, 0, 1, 0, Client.myPlayer.smallY[0], 1, 0, class30_sub2_sub4_sub1_sub1_7.smallY[0], Client.myPlayer.smallX[0], false, class30_sub2_sub4_sub1_sub1_7.smallX[0]);
+				this.crossX = super.saveClickX;
+				this.crossY = super.saveClickY;
+				this.crossType = 2;
+				this.crossIndex = 0;
+				if ((i1 & 3) == 0) {
+					Client.anInt1155++;
+				}
+				if (Client.anInt1155 >= 53) {
+					this.packet.putOpcode(85);
+					this.packet.writeWordBigEndian(66);
+					Client.anInt1155 = 0;
+				}
+				this.packet.putOpcode(18);
+				this.packet.method431(i1);
+			}
+		}
+		if (l == 113) {
+			this.clickObject(i1, k, j);
+			this.packet.putOpcode(70);
+			this.packet.method431(j + this.baseX);
+			this.packet.putShort(k + this.baseY);
+			this.packet.method433((i1 >> 14) & 0x7fff);
+		}
+		if (l == 872) {
+			this.clickObject(i1, k, j);
+			this.packet.putOpcode(234);
+			this.packet.method433(j + this.baseX);
+			this.packet.method432((i1 >> 14) & 0x7fff);
+			this.packet.method433(k + this.baseY);
+		}
+		if (l == 502) {
+			this.clickObject(i1, k, j);
+			this.packet.putOpcode(132);
+			this.packet.method433(j + this.baseX);
+			this.packet.putShort((i1 >> 14) & 0x7fff);
+			this.packet.method432(k + this.baseY);
+		}
+		if (l == 1125) {
+			ItemDef itemDef = ItemDef.forID(i1);
+			RSInterface class9_4 = RSInterface.interfaceCache[k];
+			String s5;
+			if ((class9_4 != null) && (class9_4.invStackSizes[j] >= 0x186a0)) {
+				s5 = class9_4.invStackSizes[j] + " x " + itemDef.name;
+			} else if (itemDef.description != null) {
+					s5 = new String(itemDef.description);
+				} else {
+					s5 = "It's a " + itemDef.name + ".";
+				}
+			this.pushMessage(s5, 0, "");
+		}
+		if (l == 169) {
+			this.packet.putOpcode(185);
+			this.packet.putShort(k);
+			RSInterface class9_3 = RSInterface.interfaceCache[k];
+			if ((class9_3.valueIndexArray != null) && (class9_3.valueIndexArray[0][0] == 5)) {
+				int l2 = class9_3.valueIndexArray[0][1];
+				this.variousSettings[l2] = 1 - this.variousSettings[l2];
+				this.method33(l2);
+				this.needDrawTabArea = true;
+			}
+		}
+		if (l == 447) {
+			this.itemSelected = 1;
+			this.anInt1283 = j;
+			this.anInt1284 = k;
+			this.anInt1285 = i1;
+			this.selectedItemName = ItemDef.forID(i1).name;
+			this.spellSelected = 0;
+			this.needDrawTabArea = true;
+			return;
+		}
+		if (l == 1226) {
+			int j1 = (i1 >> 14) & 0x7fff;
+			ObjectDef class46 = ObjectDef.forID(j1);
+			String s10;
+			if (class46.description != null) {
+				s10 = new String(class46.description);
+			} else {
+				s10 = "It's a " + class46.name + ".";
+			}
+			this.pushMessage(s10, 0, "");
+		}
+		if (l == 244) {
+			boolean flag7 = this.doWalkTo(2, 0, 0, 0, Client.myPlayer.smallY[0], 0, 0, k, Client.myPlayer.smallX[0], false, j);
+			if (!flag7) {
+				flag7 = this.doWalkTo(2, 0, 1, 0, Client.myPlayer.smallY[0], 1, 0, k, Client.myPlayer.smallX[0], false, j);
+			}
+			this.crossX = super.saveClickX;
+			this.crossY = super.saveClickY;
+			this.crossType = 2;
+			this.crossIndex = 0;
+			this.packet.putOpcode(253);
+			this.packet.method431(j + this.baseX);
+			this.packet.method433(k + this.baseY);
+			this.packet.method432(i1);
+		}
+		if (l == 1448) {
+			ItemDef itemDef_1 = ItemDef.forID(i1);
+			String s6;
+			if (itemDef_1.description != null) {
+				s6 = new String(itemDef_1.description);
+			} else {
+				s6 = "It's a " + itemDef_1.name + ".";
+			}
+			this.pushMessage(s6, 0, "");
+		}
+		this.itemSelected = 0;
+		this.spellSelected = 0;
+		this.needDrawTabArea = true;

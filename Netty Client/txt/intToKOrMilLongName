@@ -1,0 +1,12 @@
+	private static String intToKOrMil(int i) {
+		String s = String.valueOf(i);
+		for (int k = s.length() - 3; k > 0; k -= 3) {
+			s = s.substring(0, k) + "," + s.substring(k);
+		}
+		if (s.length() > 8) {
+			s = "@gre@" + s.substring(0, s.length() - 8) + " million @whi@(" + s + ")";
+		} else if (s.length() > 4) {
+			s = "@cya@" + s.substring(0, s.length() - 4) + "K @whi@(" + s + ")";
+		}
+		return " " + s;
+	}

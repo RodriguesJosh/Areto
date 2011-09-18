@@ -1,0 +1,24 @@
+	private void dropClient() {
+		if (this.anInt1011 > 0) {
+			this.resetLogout();
+			return;
+		}
+		this.aRSImageProducer_1165.initDrawingArea();
+		this.aTextDrawingArea_1271.drawText(0, "Connection lost", 144, 257);
+		this.aTextDrawingArea_1271.drawText(0xffffff, "Connection lost", 143, 256);
+		this.aTextDrawingArea_1271.drawText(0, "Please wait - attempting to reestablish", 159, 257);
+		this.aTextDrawingArea_1271.drawText(0xffffff, "Please wait - attempting to reestablish", 158, 256);
+		this.aRSImageProducer_1165.drawGraphics(4, super.graphics, 4);
+		this.anInt1021 = 0;
+		this.destX = 0;
+		RSSocket rsSocket = this.socketStream;
+		this.loggedIn = false;
+		this.loginFailures = 0;
+		this.login(this.myUsername, this.myPassword, true);
+		if (!this.loggedIn) {
+			this.resetLogout();
+		}
+		try {
+			rsSocket.close();
+		} catch (Exception e) {}
+	}

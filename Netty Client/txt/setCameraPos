@@ -1,0 +1,26 @@
+	private void setCameraPos(int j, int k, int l, int i1, int j1, int k1) {
+		int l1 = (2048 - k) & 0x7ff;
+		int i2 = (2048 - j1) & 0x7ff;
+		int j2 = 0;
+		int k2 = 0;
+		int l2 = j;
+		if (l1 != 0) {
+			int i3 = Model.sine[l1];
+			int k3 = Model.cosine[l1];
+			int i4 = ((k2 * k3) - (l2 * i3)) >> 16;
+		l2 = ((k2 * i3) + (l2 * k3)) >> 16;
+		k2 = i4;
+		}
+		if (i2 != 0) {
+			int j3 = Model.sine[i2];
+			int l3 = Model.cosine[i2];
+			int j4 = ((l2 * j3) + (j2 * l3)) >> 16;
+			l2 = ((l2 * l3) - (j2 * j3)) >> 16;
+			j2 = j4;
+		}
+		this.xCameraPos = l - j2;
+		this.zCameraPos = i1 - k2;
+		this.yCameraPos = k1 - l2;
+		this.yCameraCurve = k;
+		this.xCameraCurve = j1;
+	}
