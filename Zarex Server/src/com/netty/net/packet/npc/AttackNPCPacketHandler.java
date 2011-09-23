@@ -11,11 +11,19 @@ import com.netty.net.packet.PacketAttribute;
 import com.netty.net.packet.PacketHandler;
 import com.netty.world.World;
 
+/**
+ * 
+ * @author Joshua Rodrigues
+ * @since Sep 21, 2011 12:22:19 PM
+ */
 public class AttackNPCPacketHandler implements PacketHandler {
 
+	/* (non-Javadoc)
+	 * @see com.netty.net.packet.PacketHandler#handlePacket(com.netty.net.packet.PacketAttribute, com.netty.model.player.Player)
+	 */
 	@Override
 	public void handlePacket(PacketAttribute packetAttribute, Player player) {
-		int npcID = (Integer) packetAttribute.getAttribute("NPC_ID") & 0xFF;
+		int npcID = ((Integer) packetAttribute.getAttribute("NPC_ID")).intValue() & 0xFF;
 		Entity entity = World.getWorld().getNPCList().get(npcID);
 		if (player.isMaging()) {
 			player.setCombat(new MagicCombat(player, entity, CombatType.MAGIC, AttackType.ACCURATE));

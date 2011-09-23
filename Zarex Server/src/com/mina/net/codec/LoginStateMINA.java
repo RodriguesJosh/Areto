@@ -1,11 +1,16 @@
 package com.mina.net.codec;
 
+import com.netty.annotations.AnnotationType;
+import com.netty.annotations.Finished;
+
 /**
  * Here, we will handle the state of the login
  * procedure.
- * @author josh
- * @version 1.0
+ * 
+ * @author Joshua Rodrigues
+ * @since Sep 19, 2011 11:26:22 AM
  */
+@Finished(getAnnotationType = AnnotationType.FINISHED)
 public enum LoginStateMINA {
 
 	/**

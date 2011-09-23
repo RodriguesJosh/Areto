@@ -1,5 +1,10 @@
 package com.netty.world;
 
+/**
+ * 
+ * @author Joshua Rodrigues
+ * @since Sep 21, 2011 11:55:15 AM
+ */
 public enum ImplementationType {
 
 	/**
@@ -10,5 +15,63 @@ public enum ImplementationType {
 	 */
 	NATIVE,
 
-	JAVA, C, CPP, PHP, PERL, LISP, RUBY, PYTHON, JAVASCRIPT, BATCH, ASSEMBLY, XML;
+	/**
+	 * 
+	 */
+	JAVA,
+
+	/**
+	 * 
+	 */
+	C,
+
+	/**
+	 * 
+	 */
+	CPP,
+
+	/**
+	 * 
+	 */
+	PHP,
+
+	/**
+	 * 
+	 */
+	PERL,
+
+	/**
+	 * 
+	 */
+	LISP,
+
+	/**
+	 * 
+	 */
+	RUBY,
+
+	/**
+	 * 
+	 */
+	PYTHON,
+
+	/**
+	 * 
+	 */
+	JAVASCRIPT,
+
+	/**
+	 * 
+	 */
+	BATCH,
+
+	/**
+	 * 
+	 */
+	ASSEMBLY,
+
+	/**
+	 * 
+	 */
+	XML;
 }

@@ -16,11 +16,26 @@ import com.netty.model.item.Item;
 import com.netty.util.Timing;
 import com.netty.world.World;
 
+/**
+ * 
+ * @author Joshua Rodrigues
+ * @since Sep 21, 2011 10:55:51 AM
+ */
 public class NPCDrop {
 
+	/**
+	 * 
+	 */
 	private DocumentBuilder documentBuilder;
+
+	/**
+	 * 
+	 */
 	private DocumentBuilderFactory documentBuilderFactory;
 
+	/**
+	 * 
+	 */
 	public NPCDrop() {
 		this.setDocumentBuilderFactory(DocumentBuilderFactory.newInstance());
 		try {
@@ -30,19 +45,25 @@ public class NPCDrop {
 		}
 	}
 
+	/**
+	 * 
+	 */
 	public void parseNPCDrops() {
 		Timing time = new Timing();
 		int npcDropsLoaded = 0;
-		Document doc = null;
+		Document document = null;
 		try {
-			doc = this.getDocumentBuilder().parse(new File(NPCConstants.NPC_DROP_PATH));
+			document = this.getDocumentBuilder().parse(new File(NPCConstants.NPC_DROP_PATH));
 		} catch (SAXException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		doc.getDocumentElement().normalize();
-		NodeList spawnsList = doc.getElementsByTagName("NPC_DROPS");
+		if (document == null) {
+			throw new NullPointerException();
+		}
+		document.getDocumentElement().normalize();
+		NodeList spawnsList = document.getElementsByTagName("NPC_DROPS");
 		for (int i = 0; i < spawnsList.getLength(); i++) {
 			Element spawnElement = (Element) spawnsList.item(i);
 			int npcID = Integer.parseInt(spawnElement.getAttribute("NPC_ID"));
@@ -58,18 +79,38 @@ public class NPCDrop {
 		World.getWorld().getLogger().info("Loaded " + npcDropsLoaded + " NPC drops in " + time + "...");
 	}
 
+	/**
+	 * 
+	 * @param documentBuilder
+	 * 			The id to set.
+	 */
 	public void setDocumentBuilder(DocumentBuilder documentBuilder) {
 		this.documentBuilder = documentBuilder;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public DocumentBuilder getDocumentBuilder() {
 		return this.documentBuilder;
 	}
 
+	/**
+	 * 
+	 * @param documentBuilderFactory
+	 * 			The id to set.
+	 */
 	public void setDocumentBuilderFactory(DocumentBuilderFactory documentBuilderFactory) {
 		this.documentBuilderFactory = documentBuilderFactory;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public DocumentBuilderFactory getDocumentBuilderFactory() {
 		return this.documentBuilderFactory;
 	}

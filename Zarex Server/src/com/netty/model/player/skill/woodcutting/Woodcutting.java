@@ -6,15 +6,41 @@ import com.netty.model.player.skill.SkillType;
 import com.netty.model.player.tab.equipment.Equipment;
 import com.netty.model.update.Animation;
 
+/**
+ * 
+ * @author Joshua Rodrigues
+ * @since Sep 22, 2011 12:18:52 AM
+ */
 public class Woodcutting {
 
+	/**
+	 * 
+	 */
 	private Hatchet hatchet;
+
+	/**
+	 * 
+	 */
 	private Tree tree;
 
+	/**
+	 * 
+	 * @param player
+	 * 			The id to set.
+	 * @param treeID
+	 * 			The id to set.
+	 */
 	public Woodcutting(Player player, int treeID) {
 		this.execute(player, treeID);
 	}
 
+	/**
+	 * 
+	 * @param player
+	 * 			The id to set.
+	 * @param treeID
+	 * 			The id to set.
+	 */
 	private void execute(Player player, int treeID) {
 		if (!this.hasHatchet()) {
 			player.getPacketSender().getMessage("You must have an axe in order to woodcut.");
@@ -32,6 +58,13 @@ public class Woodcutting {
 		}
 	}
 
+	/**
+	 * 
+	 * @param treeID
+	 * 			The id to set.
+	 * @return
+	 * 			The id to set.
+	 */
 	private Tree getTree(int treeID) {
 		int[] treeIDs = { 1281, 1308, 1307, 1309, 1306 };
 		Tree[] treeTypes = { Tree.OAK, Tree.WILLOW, Tree.MAPLE, Tree.YEW, Tree.MAGIC };
@@ -43,6 +76,13 @@ public class Woodcutting {
 		return Tree.NORMAL;
 	}
 
+	/**
+	 * 
+	 * @param hatchetID
+	 * 			The id to set.
+	 * @return
+	 * 			The id to set.
+	 */
 	private Hatchet getHatchet(int hatchetID) {
 		int[] hatchetIDs = { 1281, 1308, 1307, 1309, 1306 };
 		Hatchet[] hatchetTypes = {
@@ -57,6 +97,11 @@ public class Woodcutting {
 		return Hatchet.BRONZE;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	private boolean hasHatchet() {
 		int[] hatchetIDs = { 1349, 1351, 1353, 1361, 1355, 1357, 1359, 6739 };
 		for (int i : hatchetIDs) {
@@ -65,18 +110,38 @@ public class Woodcutting {
 		return false;
 	}
 
+	/**
+	 * 
+	 * @param hatchet
+	 * 			The id to set.
+	 */
 	public void setHatchet(Hatchet hatchet) {
 		this.hatchet = hatchet;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public Hatchet getHatchet() {
 		return this.hatchet;
 	}
 
+	/**
+	 * 
+	 * @param tree
+	 * 			The id to set.
+	 */
 	public void setTree(Tree tree) {
 		this.tree = tree;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public Tree getTree() {
 		return this.tree;
 	}

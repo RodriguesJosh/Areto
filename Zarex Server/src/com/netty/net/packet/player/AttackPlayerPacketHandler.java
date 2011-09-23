@@ -11,11 +11,20 @@ import com.netty.net.packet.PacketAttribute;
 import com.netty.net.packet.PacketHandler;
 import com.netty.world.World;
 
+/**
+ * 
+ * @author Joshua Rodrigues
+ * @since Sep 21, 2011 12:19:57 PM
+ */
 public class AttackPlayerPacketHandler implements PacketHandler {
 
+	/* (non-Javadoc)
+	 * @see com.netty.net.packet.PacketHandler#handlePacket(com.netty.net.packet.PacketAttribute, com.netty.model.player.Player)
+	 */
 	@Override
 	public void handlePacket(PacketAttribute packetAttribute, Player player) {
-		short playerID = (Short) packetAttribute.getAttribute("PLAYER_ID");// getLEShort();
+		Short playerIDShort = (Short) packetAttribute.getAttribute("PLAYER_ID");
+		short playerID = playerIDShort.shortValue();// getLEShort();
 		Player playerEnemy = World.getWorld().getPlayerList().get(playerID);
 		player.setFaceEntity(new FaceEntity(playerEnemy));
 		if (player.isMaging()) {

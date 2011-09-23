@@ -15,11 +15,26 @@ import org.xml.sax.SAXException;
 import com.netty.util.Timing;
 import com.netty.world.World;
 
+/**
+ * 
+ * @author Joshua Rodrigues
+ * @since Sep 21, 2011 10:49:18 AM
+ */
 public class ItemDrop {
 
+	/**
+	 * 
+	 */
 	private DocumentBuilder documentBuilder;
+
+	/**
+	 * 
+	 */
 	private DocumentBuilderFactory documentBuilderFactory;
 
+	/**
+	 * 
+	 */
 	public ItemDrop() {
 		this.setDocumentBuilderFactory(DocumentBuilderFactory.newInstance());
 		try {
@@ -29,6 +44,9 @@ public class ItemDrop {
 		}
 	}
 
+	/**
+	 * 
+	 */
 	public void parseItemDrops() {
 		Timing time = new Timing();
 		int itemDropsLoaded = 0;
@@ -39,6 +57,9 @@ public class ItemDrop {
 			saxe.printStackTrace();
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
+		}
+		if (document == null) {
+			throw new NullPointerException("Item drop's document is null.");
 		}
 		document.getDocumentElement().normalize();
 		NodeList spawnsList = document.getElementsByTagName("ITEM_DROPS");
@@ -53,18 +74,38 @@ public class ItemDrop {
 		World.getWorld().getLogger().info("Loaded " + itemDropsLoaded + " Item drops in " + time + "...");
 	}
 
+	/**
+	 * 
+	 * @param documentBuilder
+	 * 			The id to set.
+	 */
 	public void setDocumentBuilder(DocumentBuilder documentBuilder) {
 		this.documentBuilder = documentBuilder;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public DocumentBuilder getDocumentBuilder() {
 		return this.documentBuilder;
 	}
 
+	/**
+	 * 
+	 * @param documentBuilderFactory
+	 * 			The id to set.
+	 */
 	public void setDocumentBuilderFactory(DocumentBuilderFactory documentBuilderFactory) {
 		this.documentBuilderFactory = documentBuilderFactory;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public DocumentBuilderFactory getDocumentBuilderFactory() {
 		return this.documentBuilderFactory;
 	}

@@ -1,9 +1,22 @@
 package com.netty.net.fileserver;
 
+/**
+ * 
+ * @author Joshua Rodrigues
+ * @since Sep 21, 2011 1:20:59 PM
+ */
 public class Request {
 
+	/**
+	 * 
+	 */
 	private String path;
 
+	/**
+	 * 
+	 * @param path
+	 * 			The id to set.
+	 */
 	public Request(String path) {
 		if (path.startsWith("/runescape") && path.endsWith(".pack200")) {
 			this.setPath("/runescape.pack200");
@@ -34,10 +47,20 @@ public class Request {
 		}
 	}
 
+	/**
+	 * 
+	 * @param path
+	 * 			The id to set.
+	 */
 	public void setPath(String path) {
 		this.path = path;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public String getPath() {
 		return this.path;
 	}

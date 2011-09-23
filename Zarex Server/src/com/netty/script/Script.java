@@ -23,7 +23,9 @@ public class Script {
 	/**
 	 * 
 	 * @param file
+	 * 			The id to set.
 	 * @param scriptType
+	 * 			The id to set.
 	 */
 	public Script(File file, ScriptType scriptType) {
 		this.setFile(file);
@@ -33,6 +35,7 @@ public class Script {
 	/**
 	 * 
 	 * @param file
+	 * 			The id to set.
 	 */
 	public void setFile(File file) {
 		this.file = file;
@@ -41,6 +44,7 @@ public class Script {
 	/**
 	 * 
 	 * @return
+	 * 			The id to set.
 	 */
 	public File getFile() {
 		return this.file;
@@ -49,6 +53,7 @@ public class Script {
 	/**
 	 * 
 	 * @param scriptType
+	 * 			The id to set.
 	 */
 	public void setScriptType(ScriptType scriptType) {
 		this.scriptType = scriptType;
@@ -57,6 +62,7 @@ public class Script {
 	/**
 	 * 
 	 * @return
+	 * 			The id to set.
 	 */
 	public ScriptType getScriptType() {
 		return this.scriptType;

@@ -5,19 +5,53 @@ import java.util.List;
 
 import com.netty.model.item.Item;
 
+/**
+ * 
+ * @author Joshua Rodrigues
+ * @since Sep 21, 2011 11:32:02 AM
+ */
 public class Container {
 
+	/**
+	 * 
+	 */
 	private int capacity;
+
+	/**
+	 * 
+	 */
 	private Item[] items;
+
+	/**
+	 * 
+	 */
 	private List<Item> itemList;
+
+	/**
+	 * 
+	 */
 	private ContainerType containerType;
 
+	/**
+	 * 
+	 * @param capacity
+	 * 			The id to set.
+	 * @param containerType
+	 * 			The id to set.
+	 */
 	public Container(int capacity, ContainerType containerType) {
 		this.setCapacity(capacity);
 		this.setContainerType(containerType);
 		this.setItems(new Item[capacity]);
 	}
 
+	/**
+	 * 
+	 * @param registeredItem
+	 * 			The id to set.
+	 * @return
+	 * 			The id to set.
+	 */
 	public boolean registerItem(Item registeredItem) {
 		if ((this.getContainerType() == ContainerType.STACKABLE) || (this.getContainerType() == ContainerType.NOTEABLE)) {
 			for (Item item : this.getItemList()) {
@@ -50,10 +84,20 @@ public class Container {
 		return true;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public int getFreeSlots() {
 		return this.getCapacity() - this.getItemList().size();
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public int getFreeSlot() {
 		for (int i = 0; i < this.getItems().length; i++) {
 			if (this.getItems()[i] == null) {
@@ -63,6 +107,15 @@ public class Container {
 		return -1;
 	}
 
+	/**
+	 * 
+	 * @param givenSlot
+	 * 			The id to set.
+	 * @param unregisteredItem
+	 * 			The id to set.
+	 * @return
+	 * 			The id to set.
+	 */
 	public int unregisterItem(int givenSlot, Item unregisteredItem) {
 		int removed = 0;
 		if (this.getContainerType() == ContainerType.STACKABLE) {
@@ -95,10 +148,24 @@ public class Container {
 		return removed;
 	}
 
+	/**
+	 * 
+	 * @param item
+	 * 			The id to set.
+	 * @return
+	 * 			The id to set.
+	 */
 	public boolean containsItem(Item item) {
 		return this.getSlotByID(item) != -1;
 	}
 
+	/**
+	 * 
+	 * @param amountForItem
+	 * 			The id to set.
+	 * @return
+	 * 			The id to set.
+	 */
 	public int getItemAmount(Item amountForItem) {
 		for (Item item : this.getItemList()) {
 			if (item != null) {
@@ -110,20 +177,30 @@ public class Container {
 		return -1;
 	}
 
+	/**
+	 * 
+	 */
 	public void shiftItems() {
 		List<Item> oldItemList = this.getItemList();
 		this.setItemList(new ArrayList<Item>(oldItemList.size()));
 		int newIndex = 0;
 		for (Item item : this.getItemList()) {
 			if (item != null) {
-				@SuppressWarnings("unused")
-				Item oldItem = this.getItemList().get(newIndex);
-				oldItem = item;
+				// @SuppressWarnings("unused")
+				// Item oldItem = this.getItemList().get(newIndex);
+				// oldItem = item;
 				newIndex++;
 			}
 		}
 	}
 
+	/**
+	 * 
+	 * @param slot
+	 * 			The id to set.
+	 * @return
+	 * 			The id to set.
+	 */
 	public Item getItem(int slot) {
 		if ((slot < 0) || (slot >= this.getItemList().size())) {
 			return null;
@@ -132,6 +209,13 @@ public class Container {
 		return item;
 	}
 
+	/**
+	 * 
+	 * @param slotForItem
+	 * 			The id to set.
+	 * @return
+	 * 			The id to set.
+	 */
 	public int getSlotByID(Item slotForItem) {
 		for (Item item : this.getItemList()) {
 			if (item == null) {
@@ -144,6 +228,13 @@ public class Container {
 		return -1;
 	}
 
+	/**
+	 * 
+	 * @param amountForItem
+	 * 			The id to set.
+	 * @return
+	 * 			The id to set.
+	 */
 	public int getAmount(Item amountForItem) {
 		int total = 0;
 		for (Item item : this.getItemList()) {
@@ -156,34 +247,74 @@ public class Container {
 		return total;
 	}
 
+	/**
+	 * 
+	 * @param capacity
+	 * 			The id to set.
+	 */
 	public void setCapacity(int capacity) {
 		this.capacity = capacity;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public int getCapacity() {
 		return this.capacity;
 	}
 
+	/**
+	 * 
+	 * @param items
+	 * 			The id to set.
+	 */
 	public void setItems(Item[] items) {
 		this.items = items;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public Item[] getItems() {
 		return this.items;
 	}
 
+	/**
+	 * 
+	 * @param itemList
+	 * 			The id to set.
+	 */
 	public void setItemList(List<Item> itemList) {
 		this.itemList = itemList;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public List<Item> getItemList() {
 		return this.itemList;
 	}
 
+	/**
+	 * 
+	 * @param containerType
+	 * 			The id to set.
+	 */
 	public void setContainerType(ContainerType containerType) {
 		this.containerType = containerType;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public ContainerType getContainerType() {
 		return this.containerType;
 	}

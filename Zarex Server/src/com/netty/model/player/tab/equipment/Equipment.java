@@ -7,20 +7,76 @@ import com.netty.model.item.Item;
 import com.netty.model.player.container.Container;
 import com.netty.model.player.container.ContainerType;
 
+/**
+ * 
+ * @author Joshua Rodrigues
+ * @since Sep 22, 2011 12:09:08 AM
+ */
 public class Equipment {
 
+	/**
+	 * 
+	 */
 	private Container equipmentContainer;
+
+	/**
+	 * 
+	 */
 	private static byte slotHelm = 0;
+
+	/**
+	 * 
+	 */
 	private static byte slotCape = 1;
+
+	/**
+	 * 
+	 */
 	private static byte slotAmulet = 2;
+
+	/**
+	 * 
+	 */
 	private static byte slotWeapon = 3;
+
+	/**
+	 * 
+	 */
 	private static byte slotChest = 4;
+
+	/**
+	 * 
+	 */
 	private static byte slotShield = 5;
+
+	/**
+	 * 
+	 */
 	private static byte slotLegs = 7;
+
+	/**
+	 * 
+	 */
 	private static byte slotGloves = 9;
+
+	/**
+	 * 
+	 */
 	private static byte slotBoots = 10;
+
+	/**
+	 * 
+	 */
 	private static byte slotRing = 12;
+
+	/**
+	 * 
+	 */
 	private static byte slotArrows = 13;
+
+	/**
+	 * 
+	 */
 	private static short[] capes = {
 		3781, 3783, 3785, 3787, 3789, 3777, 3779,
 		3759, 3761, 3763, 3765, 6111, 6570, 6568, 1007, 1019, 1021, 1023,
@@ -31,6 +87,9 @@ public class Equipment {
 		4387, 4389, 4391, 4393, 4395, 4397, 4399, 4401, 4403, 4405, 4407,
 		4409, 4411, 4413, 4514, 4516, 6070, 6568, 6570
 	};
+	/**
+	 * 
+	 */
 	private static short[] boots = {
 		7596, 6619, 7159, 7991, 6666, 6061, 6106, 88,
 		89, 626, 628, 630, 632, 634, 1061, 1837, 1846, 2577, 2579, 2894,
@@ -38,6 +97,9 @@ public class Equipment {
 		4119, 4121, 4123, 4125, 4127, 4129, 4131, 4310, 5064, 5345, 5557,
 		6069, 6106, 6143, 6145, 6147, 6328, 6920, 6349, 6357, 3393
 	};
+	/**
+	 * 
+	 */
 	private static short[] gloves = {
 		7595, 6629, 2491, 1065, 2487, 2489, 3060,
 		1495, 775, 777, 778, 6708, 1059, 1063, 1065, 1580, 2487, 2489,
@@ -45,6 +107,9 @@ public class Equipment {
 		4308, 5556, 6068, 6110, 6149, 6151, 6153, 6922, 7454, 7455, 7456,
 		7457, 7458, 7459, 7460, 7461, 7462, 6330, 3391
 	};
+	/**
+	 * 
+	 */
 	private static short[] shields = {
 		7342, 7348, 7354, 7360, 7334, 7340, 7347,
 		7352, 7358, 7356, 7350, 7344, 7332, 7338, 7336, 7360, 1171, 1173,
@@ -57,6 +122,9 @@ public class Equipment {
 		6247, 6249, 6251, 6253, 6255, 6257, 6259, 6261, 6263, 6265, 6267,
 		6269, 6271, 6273, 6275, 6277, 6279, 6524, 6889
 	};
+	/**
+	 * 
+	 */
 	private static short[] hats = {
 		4041, 4042, 4502, 7319, 7321, 7323, 7325,
 		7327, 1167, 8074, 4168, 1169, 6665, 6665, 7321, 6886, 6547, 6548,
@@ -81,6 +149,9 @@ public class Equipment {
 		7394, 7396, 7534, 5574, 6885, 6858, 6860, 6862, 6856, 6326, 6128,
 		6137, 7400, 7323, 7325, 7327, 7003
 	};
+	/**
+	 * 
+	 */
 	private static short[] amulets = {
 		1654, 1656, 1658, 1660, 1662, 1664, 8081,
 		8033, 7968, 6585, 86, 87, 295, 421, 552, 589, 1478, 1692, 1694,
@@ -88,6 +159,9 @@ public class Equipment {
 		1729, 1731, 4021, 4081, 4250, 4677, 6040, 6041, 6208, 1718, 1722,
 		6859, 6863, 6857
 	};
+	/**
+	 * 
+	 */
 	private static short[] arrows = {
 		8052, 8065, 7919, 7906, 78, 598, 877, 878,
 		879, 880, 881, 882, 883, 884, 885, 886, 887, 888, 889, 890, 891,
@@ -96,11 +170,17 @@ public class Equipment {
 		5618, 5619, 5620, 5621, 5622, 5623, 5624, 5625, 5626, 5627, 6061,
 		6062
 	};
+	/**
+	 * 
+	 */
 	private static short[] rings = {
 		773, 1635, 1637, 1639, 1641, 1643, 1645,
 		2550, 2552, 2554, 2556, 2558, 2560, 2562, 2564, 2566, 2568, 2570,
 		2572, 4202, 4657, 6465, 6737, 6731, 6735, 6735, 6583, 6733
 	};
+	/**
+	 * 
+	 */
 	private static short[] body = {
 		7362, 7364, 636, 638, 640, 642, 644, 426,
 		1005, 1757, 7592, 6617, 7376, 544, 7372, 7370, 577, 3793, 3775,
@@ -115,6 +195,9 @@ public class Equipment {
 		2503, 6341, 6351, 3387, 5030, 5032, 5034, 5030, 5032, 5034, 7392,
 		546
 	};
+	/**
+	 * 
+	 */
 	private static short[] legs = {
 		7378, 7380, 7382, 7368, 7366, 7388, 646, 648,
 		650, 652, 654, 428, 1097, 1095, 7593, 6625, 8020, 8015, 7384, 6141,
@@ -131,6 +214,9 @@ public class Equipment {
 		6404, 6135, 6809, 6916, 4091, 4111, 6655, 6654, 7398, 7398, 7386,
 		6324, 6343, 6353, 3387, 5036, 5038, 5040
 	};
+	/**
+	 * 
+	 */
 	private static short[] pateBody = {
 		636, 638, 640, 642, 644, 426, 8031, 8027,
 		6617, 544, 577, 3793, 3773, 3775, 3771, 3769, 3767, 6139, 1035,
@@ -143,6 +229,9 @@ public class Equipment {
 		4728, 4749, 2661, 6129, 6916, 4091, 6654, 6133, 75, 7399, 7390,
 		5575, 6341, 6351, 3387, 5030, 5032, 5034, 7392
 	};
+	/**
+	 * 
+	 */
 	private static short[] fullHelm = {
 		4041, 4042, 1147, 3748, 6137, 6128, 3753,
 		3755, 3749, 3751, 1149, 3751, 7594, 4708, 4716, 4745, 4732, 5554,
@@ -151,89 +240,151 @@ public class Equipment {
 		2627, 2657, 2673, 3486, 6402, 6394, 6131, 74, 7539, 7539, 7534,
 		5574, 6326
 	};
+	/**
+	 * 
+	 */
 	private static short[] fullMask = {
 		4502, 6623, 7990, 7594, 1153, 1155, 1157,
 		1159, 1161, 1163, 1165, 4732, 5554, 4753, 4611, 6188, 3507, 4511,
 		4056, 4071, 4724, 2665, 1053, 1055, 1057
 	};
+
+	/**
+	 * 
+	 */
 	private static Map<Short, EquipmentType> equipmentMap = new HashMap<Short, EquipmentType>();
+
+	/**
+	 * 
+	 */
 	private Item[] items;
 
+	/**
+	 * 
+	 */
 	public Equipment() {
 		this.setItems(new Item[14]);
 		this.setEquipmentContainer(new Container(14, ContainerType.STANDARD));
 	}
 
+	/**
+	 * 
+	 */
 	static {
 		for (short cape : Equipment.capes) {
-			Equipment.equipmentMap.put(cape, EquipmentType.CAPE);
+			Equipment.equipmentMap.put(new Short(cape), EquipmentType.CAPE);
 		}
 		for (short boots : Equipment.boots) {
-			Equipment.equipmentMap.put(boots, EquipmentType.BOOTS);
+			Equipment.equipmentMap.put(new Short(boots), EquipmentType.BOOTS);
 		}
 		for (short gloves : Equipment.gloves) {
-			Equipment.equipmentMap.put(gloves, EquipmentType.GLOVES);
+			Equipment.equipmentMap.put(new Short(gloves), EquipmentType.GLOVES);
 		}
 		for (short shield : Equipment.shields) {
-			Equipment.equipmentMap.put(shield, EquipmentType.SHIELD);
+			Equipment.equipmentMap.put(new Short(shield), EquipmentType.SHIELD);
 		}
 		for (short hat : Equipment.hats) {
-			Equipment.equipmentMap.put(hat, EquipmentType.HAT);
+			Equipment.equipmentMap.put(new Short(hat), EquipmentType.HAT);
 		}
 		for (short amulet : Equipment.amulets) {
-			Equipment.equipmentMap.put(amulet, EquipmentType.AMULET);
+			Equipment.equipmentMap.put(new Short(amulet), EquipmentType.AMULET);
 		}
 		for (short arrowType : Equipment.arrows) {
-			Equipment.equipmentMap.put(arrowType, EquipmentType.ARROWS);
+			Equipment.equipmentMap.put(new Short(arrowType), EquipmentType.ARROWS);
 		}
 		for (short ring : Equipment.rings) {
-			Equipment.equipmentMap.put(ring, EquipmentType.RING);
+			Equipment.equipmentMap.put(new Short(ring), EquipmentType.RING);
 		}
 		for (short body : Equipment.body) {
-			Equipment.equipmentMap.put(body, EquipmentType.BODY);
+			Equipment.equipmentMap.put(new Short(body), EquipmentType.BODY);
 		}
 		for (short legs : Equipment.legs) {
-			Equipment.equipmentMap.put(legs, EquipmentType.LEGS);
+			Equipment.equipmentMap.put(new Short(legs), EquipmentType.LEGS);
 		}
 		for (short plateBody : Equipment.pateBody) {
-			Equipment.equipmentMap.put(plateBody, EquipmentType.PLATEBODY);
+			Equipment.equipmentMap.put(new Short(plateBody), EquipmentType.PLATEBODY);
 		}
 		for (short fullHelm : Equipment.fullHelm) {
-			Equipment.equipmentMap.put(fullHelm, EquipmentType.FULL_HELM);
+			Equipment.equipmentMap.put(new Short(fullHelm), EquipmentType.FULL_HELM);
 		}
 		for (short fullMask : Equipment.fullMask) {
-			Equipment.equipmentMap.put(fullMask, EquipmentType.FULL_MASK);
+			Equipment.equipmentMap.put(new Short(fullMask), EquipmentType.FULL_MASK);
 		}
 	}
 
+	/**
+	 * 
+	 * @param slot
+	 * 			The id to set.
+	 * @return
+	 * 			The id to set.
+	 */
 	public boolean isSlotUsed(byte slot) {
 		return this.getItems()[slot] != null;
 	}
 
+	/**
+	 * 
+	 * @param slot
+	 * 			The id to set.
+	 * @return
+	 * 			The id to set.
+	 */
 	public boolean isSlotFree(byte slot) {
 		return this.getItems()[slot] == null;
 	}
 
+	/**
+	 * 
+	 * @param items
+	 * 			The id to set.
+	 */
 	public void setItems(Item[] items) {
 		this.items = items;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public Item[] getItems() {
 		return this.items;
 	}
 
+	/**
+	 * 
+	 * @param id
+	 * 			The id to set.
+	 * @return
+	 * 			The id to set.
+	 */
 	public Item getItem(int id) {
 		return this.getItems()[id];
 	}
 
+	/**
+	 * 
+	 * @param item
+	 * 			The id to set.
+	 * @return
+	 * 			The id to set.
+	 */
 	public static EquipmentType getType(Item item) {
 		int id = item.getID();
-		if (Equipment.equipmentMap.containsKey(id)) {
-			return Equipment.equipmentMap.get(id);
+		if (Equipment.equipmentMap.containsKey(new Integer(id))) {
+			return Equipment.equipmentMap.get(new Integer(id));
 		}
 		return EquipmentType.WEAPON;
 	}
 
+	/**
+	 * 
+	 * @param itemID
+	 * 			The id to set.
+	 * @return
+	 * 			The id to set.
+	 */
 	public boolean containsItem(int itemID) {
 		for (Item item : this.getItems()) {
 			return item.getID() == itemID;
@@ -241,102 +392,231 @@ public class Equipment {
 		return false;
 	}
 
+	/**
+	 * 
+	 * @param type
+	 * 			The id to set.
+	 * @param item
+	 * 			The id to set.
+	 * @return
+	 * 			The id to set.
+	 */
 	public static boolean isEqual(EquipmentType type, Item item) {
 		return Equipment.getType(item).equals(type);
 	}
 
+	/**
+	 * 
+	 * @param slotHelm
+	 * 			The id to set.
+	 */
 	public static void setSlotHelm(byte slotHelm) {
 		Equipment.slotHelm = slotHelm;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public static byte getSlotHelm() {
 		return Equipment.slotHelm;
 	}
 
+	/**
+	 * 
+	 * @param slotCape
+	 * 			The id to set.
+	 */
 	public static void setSlotCape(byte slotCape) {
 		Equipment.slotCape = slotCape;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public static byte getSlotCape() {
 		return Equipment.slotCape;
 	}
 
+	/**
+	 * 
+	 * @param slotAmulet
+	 * 			The id to set.
+	 */
 	public static void setSlotAmulet(byte slotAmulet) {
 		Equipment.slotAmulet = slotAmulet;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public static byte getSlotAmulet() {
 		return Equipment.slotAmulet;
 	}
 
+	/**
+	 * 
+	 * @param slotWeapon
+	 * 			The id to set.
+	 */
 	public static void setSlotWeapon(byte slotWeapon) {
 		Equipment.slotWeapon = slotWeapon;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public static byte getSlotWeapon() {
 		return Equipment.slotWeapon;
 	}
 
+	/**
+	 * 
+	 * @param slotChest
+	 * 			The id to set.
+	 */
 	public static void setSlotChest(byte slotChest) {
 		Equipment.slotChest = slotChest;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public static byte getSlotChest() {
 		return Equipment.slotChest;
 	}
 
+	/**
+	 * 
+	 * @param slotShield
+	 * 			The id to set.
+	 */
 	public static void setSlotShield(byte slotShield) {
 		Equipment.slotShield = slotShield;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public static byte getSlotShield() {
 		return Equipment.slotShield;
 	}
 
+	/**
+	 * 
+	 * @param slotLegs
+	 * 			The id to set.
+	 */
 	public static void setSlotLegs(byte slotLegs) {
 		Equipment.slotLegs = slotLegs;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public static byte getSlotLegs() {
 		return Equipment.slotLegs;
 	}
 
+	/**
+	 * 
+	 * @param slotGloves
+	 * 			The id to set.
+	 */
 	public static void setSlotGloves(byte slotGloves) {
 		Equipment.slotGloves = slotGloves;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public static byte getSlotGloves() {
 		return Equipment.slotGloves;
 	}
 
+	/**
+	 * 
+	 * @param slotBoots
+	 * 			The id to set.
+	 */
 	public static void setSlotBoots(byte slotBoots) {
 		Equipment.slotBoots = slotBoots;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public static byte getSlotBoots() {
 		return Equipment.slotBoots;
 	}
 
+	/**
+	 * 
+	 * @param slotRing
+	 * 			The id to set.
+	 */
 	public static void setSlotRing(byte slotRing) {
 		Equipment.slotRing = slotRing;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public static byte getSlotRing() {
 		return Equipment.slotRing;
 	}
 
+	/**
+	 * 
+	 * @param slotHelm
+	 * 			The id to set.
+	 */
 	public static void setSlotArrows(byte slotHelm) {
 		Equipment.slotHelm = slotHelm;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public static byte getSlotArrows() {
 		return Equipment.slotArrows;
 	}
 
+	/**
+	 * 
+	 * @param equipmentContainer
+	 * 			The id to set.
+	 */
 	public void setEquipmentContainer(Container equipmentContainer) {
 		this.equipmentContainer = equipmentContainer;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public Container getEquipmentContainer() {
 		return this.equipmentContainer;
 	}

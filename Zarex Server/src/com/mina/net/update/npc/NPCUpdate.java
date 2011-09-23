@@ -4,6 +4,8 @@ import java.util.Iterator;
 
 import com.mina.model.player.PlayerMINA;
 import com.mina.net.packet.PacketBuilderMINA;
+import com.netty.annotations.AnnotationType;
+import com.netty.annotations.Finished;
 import com.netty.model.npc.NPC;
 import com.netty.model.update.FaceEntity;
 import com.netty.model.update.UpdateFlag;
@@ -11,32 +13,44 @@ import com.netty.net.packet.PacketType;
 import com.netty.net.update.EntityUpdate;
 import com.netty.world.World;
 
+/**
+ * A class to represent the updating of an NPC.
+ * 
+ * @author Joshua Rodrigues
+ * @since Sep 19, 2011 12:33:31 PM
+ */
+@Finished(getAnnotationType = AnnotationType.FINISHED)
 public class NPCUpdate implements Runnable {
 
+	/**
+	 * The entity update to count down until the next
+	 * update.
+	 */
 	private EntityUpdate entityUpdate;
+
+	/**
+	 * The player to update the NPCs for.
+	 */
 	private PlayerMINA playerMINA;
 
+	/**
+	 * Constructs a new NPC updating system to update
+	 * any vital parts within an NPC.
+	 * 
+	 * @param entityUpdate
+	 * 			The entity update to set.
+	 * @param playerMINA
+	 * 			The player to set.
+	 */
 	public NPCUpdate(EntityUpdate entityUpdate, PlayerMINA playerMINA) {
 		this.setEntityUpdate(entityUpdate);
 		this.setPlayerMINA(playerMINA);
 	}
 
-	public void setEntityUpdate(EntityUpdate entityUpdate) {
-		this.entityUpdate = entityUpdate;
-	}
-
-	public EntityUpdate getEntityUpdate() {
-		return this.entityUpdate;
-	}
-
-	public void setPlayerMINA(PlayerMINA playerMINA) {
-		this.playerMINA = playerMINA;
-	}
-
-	public PlayerMINA getPlayerMINA() {
-		return this.playerMINA;
-	}
-
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Runnable#run()
+	 */
 	@Override
 	public void run() {
 		PacketBuilderMINA updateBlockBuilder = new PacketBuilderMINA();
@@ -86,7 +100,15 @@ public class NPCUpdate implements Runnable {
 		this.getEntityUpdate().getCountDownLatch().countDown();
 	}
 
-	private void updateNPC(PacketBuilderMINA packetBuilderMINA, NPC npc) {
+	/**
+	 * Updates an NPC.
+	 * 
+	 * @param packetBuilderMINA
+	 * 			The building of the packets to write.
+	 * @param npc
+	 * 			The npc to update.
+	 */
+	public void updateNPC(PacketBuilderMINA packetBuilderMINA, NPC npc) {
 		synchronized (npc) {
 			int mask = 0;
 			if (this.getPlayerMINA().getUpdateFlags().getUpdateFlag(UpdateFlag.ANIMATION)) {
@@ -141,44 +163,112 @@ public class NPCUpdate implements Runnable {
 		}
 	}
 
-	private void updateGraphic(PacketBuilderMINA packetBuilderMINA, NPC npc) {
+	/**
+	 * Update the GFX of an NPC.
+	 * 
+	 * @param packetBuilderMINA
+	 * 			The building of the packets to write.
+	 * @param npc
+	 * 			The npc to update the GFX (graphics) for.
+	 */
+	public void updateGraphic(PacketBuilderMINA packetBuilderMINA, NPC npc) {
 		packetBuilderMINA.putShort((short) npc.getGraphic().getID());
 		packetBuilderMINA.putInt(npc.getGraphic().getDelay());
 	}
 
-	private void updateAnimation(PacketBuilderMINA packetBuilderMINA, NPC npc) {
+	/**
+	 * Update the animation of an NPC.
+	 * 
+	 * @param packetBuilderMINA
+	 * 			The building of the packets to write.
+	 * @param npc
+	 * 			The npc to update the animation for.
+	 */
+	public void updateAnimation(PacketBuilderMINA packetBuilderMINA, NPC npc) {
 		packetBuilderMINA.putLEShort(npc.getAnimation().getID());
 		packetBuilderMINA.putByte((byte) npc.getAnimation().getDelay());
 	}
 
-	private void updateForcedChat(PacketBuilderMINA packetBuilderMINA, NPC npc) {
+	/**
+	 * Update the forced chat for the NPC.
+	 * 
+	 * @param packetBuilderMINA
+	 * 			The building of the packets to write.
+	 * @param npc
+	 * 			The npc to update the forced chat for.
+	 */
+	public void updateForcedChat(PacketBuilderMINA packetBuilderMINA, NPC npc) {
 		packetBuilderMINA.putString(npc.getForceChat().getForceText());
 	}
 
-	private void updateFaceEntity(PacketBuilderMINA packetBuilderMINA, NPC npc) {
+	/**
+	 * Update the direction of an NPC that it wishes
+	 * to face towards an entity.
+	 * 
+	 * @param packetBuilderMINA
+	 * 			The building of the packets to write.
+	 * @param npc
+	 * 			The npc to update the facing entity
+	 * 			for.
+	 */
+	public void updateFaceEntity(PacketBuilderMINA packetBuilderMINA, NPC npc) {
 		FaceEntity faceEntity = npc.getFaceEntity();
 		packetBuilderMINA.putLEShort(faceEntity.getFaceEntity() == null ? -1 : faceEntity.getFaceEntity().getIndex());
 	}
 
-	private void updateHit(PacketBuilderMINA packetBuilderMINA, NPC npc) {
+	/**
+	 * Update the first hit for the NPC.
+	 * 
+	 * @param packetBuilderMINA
+	 * 			The building of the packets to write.
+	 * @param npc
+	 * 			The npc to update the first hit for.
+	 */
+	public void updateHit(PacketBuilderMINA packetBuilderMINA, NPC npc) {
 		packetBuilderMINA.putByte(npc.getHit().getDamage());
 		packetBuilderMINA.putByteA(npc.getHit().getDamage());
 		// packetBuilder.putByteC(npc.getSkill().getLevel(SkillType.HITPOINT));
 		// packetBuilder.putByte((byte) npc.getSkill().getExperience(SkillType.HITPOINT));
 	}
 
-	private void updateHitTwo(PacketBuilderMINA packetBuilderMINA, NPC npc) {
+	/**
+	 * Update the second hit for the NPC.
+	 * 
+	 * @param packetBuilderMINA
+	 * 			The building of the packets to write.
+	 * @param npc
+	 * 			The player to update the second hit for.
+	 */
+	public void updateHitTwo(PacketBuilderMINA packetBuilderMINA, NPC npc) {
 		packetBuilderMINA.putByte(npc.getHitTwo().getDamage());
 		packetBuilderMINA.putByteS(npc.getHitTwo().getDamage());
 		// packetBuilder.putByte((byte) npc.getSkill().getLevel(SkillType.HITPOINT));
 		// packetBuilder.putByteC(npc.getSkill().getExperience(SkillType.HITPOINT));
 	}
 
-	private void updateTransform(PacketBuilderMINA packetBuilderMINA, NPC npc) {
+	/**
+	 * Update the transformation of an NPC.
+	 * 
+	 * @param packetBuilderMINA
+	 * 			The building of the packets to write.
+	 * @param npc
+	 * 			The player to update the transformation
+	 * 			for.
+	 */
+	public void updateTransform(PacketBuilderMINA packetBuilderMINA, NPC npc) {
 		packetBuilderMINA.putLEShortA(npc.getTransform().getID());
 	}
 
-	private void updateFaceLocation(PacketBuilderMINA packetBuilderMINA, NPC npc) {
+	/**
+	 * Update the facing of the location for the NPC.
+	 * 
+	 * @param packetBuilderMINA
+	 * 			The building of the packets to write.
+	 * @param npc
+	 * 			The player to update the facing of the
+	 * 			location for.
+	 */
+	public void updateFaceLocation(PacketBuilderMINA packetBuilderMINA, NPC npc) {
 		if (npc.getFaceLocation() == null) {
 			packetBuilderMINA.putLEShortA(0);
 			packetBuilderMINA.putLEShort(0);
@@ -188,7 +278,15 @@ public class NPCUpdate implements Runnable {
 		}
 	}
 
-	private void updateNPCMovement(PacketBuilderMINA packetBuilderMINA, NPC npc) {
+	/**
+	 * Update the movement of the NPC.
+	 * 
+	 * @param packetBuilderMINA
+	 * 			The building of the packets to write.
+	 * @param npc
+	 * 			The npc to update the movement for.
+	 */
+	public void updateNPCMovement(PacketBuilderMINA packetBuilderMINA, NPC npc) {
 		if (npc.getWalkingDirection() == -1) {
 			if (npc.getUpdateFlags().isUpdateRequired()) {
 				packetBuilderMINA.putBits(1, 1);
@@ -202,5 +300,49 @@ public class NPCUpdate implements Runnable {
 			packetBuilderMINA.putBits(3, npc.getWalkingDirection());
 			packetBuilderMINA.putBits(1, npc.getUpdateFlags().isUpdateRequired() ? 1 : 0);
 		}
+	}
+
+	/**
+	 * Sets the entity update for counting down
+	 * the ticks until the next update occurs.
+	 * 
+	 * @param entityUpdate
+	 * 			The entity update to set.
+	 */
+	public void setEntityUpdate(EntityUpdate entityUpdate) {
+		this.entityUpdate = entityUpdate;
+	}
+
+	/**
+	 * Gets the entity update to count down
+	 * the ticks.
+	 * 
+	 * @return entityUpdate
+	 * 			Returns the entity update to get.
+	 */
+	public EntityUpdate getEntityUpdate() {
+		return this.entityUpdate;
+	}
+
+	/**
+	 * Sets the player for the after task of the
+	 * player updating system.
+	 * 
+	 * @param playerMINA
+	 * 			The player to set.
+	 */
+	public void setPlayerMINA(PlayerMINA playerMINA) {
+		this.playerMINA = playerMINA;
+	}
+
+	/**
+	 * Gets the player for the after task of the
+	 * player updating system.
+	 * 
+	 * @return playerMINA
+	 * 			Returns the player to get.
+	 */
+	public PlayerMINA getPlayerMINA() {
+		return this.playerMINA;
 	}
 }

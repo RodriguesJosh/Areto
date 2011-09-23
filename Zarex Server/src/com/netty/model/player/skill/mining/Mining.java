@@ -6,15 +6,41 @@ import com.netty.model.player.skill.SkillType;
 import com.netty.model.player.tab.equipment.Equipment;
 import com.netty.model.update.Animation;
 
+/**
+ * 
+ * @author Joshua Rodrigues
+ * @since Sep 22, 2011 9:51:19 AM
+ */
 public class Mining {
 
+	/**
+	 * 
+	 */
 	private Pickaxe pickaxe;
+
+	/**
+	 * 
+	 */
 	private Ore ore;
 
+	/**
+	 * 
+	 * @param player
+	 * 			The id to set.
+	 * @param oreID
+	 * 			The id to set.
+	 */
 	public Mining(Player player, int oreID) {
 		this.execute(player, oreID);
 	}
 
+	/**
+	 * 
+	 * @param player
+	 * 			The id to set.
+	 * @param oreID
+	 * 			The id to set.
+	 */
 	private void execute(Player player, int oreID) {
 		if (!this.hasPickaxe()) {
 			player.getPacketSender().getMessage("You must have a pickaxe in order to mine.");
@@ -34,6 +60,13 @@ public class Mining {
 		}
 	}
 
+	/**
+	 * 
+	 * @param oreID
+	 * 			The id to set.
+	 * @return
+	 * 			The id to set.
+	 */
 	private Ore getOre(int oreID) {
 		int[] oreIDs = { 1281, 1308, 1307, 1309, 1306 };
 		Ore[] oreTypes = {
@@ -50,6 +83,13 @@ public class Mining {
 		return Ore.CLAY;
 	}
 
+	/**
+	 * 
+	 * @param pickaxeID
+	 * 			The id to set.
+	 * @return
+	 * 			The id to set.
+	 */
 	private Pickaxe getPickaxe(int pickaxeID) {
 		int[] pickaxeIDs = { 1281, 1308, 1307, 1309, 1306 };
 		Pickaxe[] pickaxeTypes = {
@@ -64,6 +104,11 @@ public class Mining {
 		return Pickaxe.BRONZE;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	private boolean hasPickaxe() {
 		int[] pickaxeIDs = { 1349, 1351, 1353, 1361, 1355, 1357, 1359, 6739 };
 		for (int i : pickaxeIDs) {
@@ -72,18 +117,38 @@ public class Mining {
 		return false;
 	}
 
+	/**
+	 * 
+	 * @param pickaxe
+	 * 			The id to set.
+	 */
 	public void setPickaxe(Pickaxe pickaxe) {
 		this.pickaxe = pickaxe;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public Pickaxe getPickaxe() {
 		return this.pickaxe;
 	}
 
+	/**
+	 * 
+	 * @param ore
+	 * 			The id to set.
+	 */
 	public void setOre(Ore ore) {
 		this.ore = ore;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public Ore getOre() {
 		return this.ore;
 	}

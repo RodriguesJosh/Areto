@@ -12,13 +12,38 @@ import com.netty.model.player.Teleport;
 import com.netty.world.Location;
 import com.netty.world.World;
 
+/**
+ * 
+ * @author Joshua Rodrigues
+ * @since Sep 21, 2011 9:07:02 PM
+ */
 public class Verac extends Brother {
 
+	/**
+	 * 
+	 */
 	private Location startLocation;
+
+	/**
+	 * 
+	 */
 	private Location endLocation;
+
+	/**
+	 * 
+	 */
 	private NPC npc;
+
+	/**
+	 * 
+	 */
 	private Teleport teleportLocation;
 
+	/**
+	 * 
+	 * @param player
+	 * 			The id to set.
+	 */
 	public Verac(Player player) {
 		super(player);
 		this.setStartLocation(new Location((short) 3570, (short) 3293, (byte) 1));
@@ -40,41 +65,65 @@ public class Verac extends Brother {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.netty.model.player.minigame.barrows.Brother#setStartLocation(com.netty.world.Location)
+	 */
 	@Override
 	public void setStartLocation(Location startLocation) {
 		this.startLocation = startLocation;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.netty.model.player.minigame.barrows.Brother#getStartLocation()
+	 */
 	@Override
 	public Location getStartLocation() {
 		return this.startLocation;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.netty.model.player.minigame.barrows.Brother#setEndLocation(com.netty.world.Location)
+	 */
 	@Override
 	public void setEndLocation(Location endLocation) {
 		this.endLocation = endLocation;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.netty.model.player.minigame.barrows.Brother#getEndLocation()
+	 */
 	@Override
 	public Location getEndLocation() {
 		return this.endLocation;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.netty.model.player.minigame.barrows.Brother#setNPC(com.netty.model.npc.NPC)
+	 */
 	@Override
 	public void setNPC(NPC npc) {
 		this.npc = npc;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.netty.model.player.minigame.barrows.Brother#getNPC()
+	 */
 	@Override
 	public NPC getNPC() {
 		return this.npc;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.netty.model.player.minigame.barrows.Brother#setTeleportLocation(com.netty.model.player.Teleport)
+	 */
 	@Override
 	public void setTeleportLocation(Teleport teleportLocation) {
 		this.teleportLocation = teleportLocation;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.netty.model.player.minigame.barrows.Brother#getTeleportLocation()
+	 */
 	@Override
 	public Teleport getTeleportLocation() {
 		return this.teleportLocation;

@@ -11,32 +11,74 @@ import com.netty.net.packet.PacketType;
 import com.netty.net.update.EntityUpdate;
 import com.netty.world.World;
 
+/**
+ * 
+ * @author Joshua Rodrigues
+ * @since Sep 21, 2011 12:14:45 PM
+ */
 public class NPCUpdate implements Runnable {
 
+	/**
+	 * 
+	 */
 	private EntityUpdate entityUpdate;
+
+	/**
+	 * 
+	 */
 	private Player player;
 
+	/**
+	 * 
+	 * @param entityUpdate
+	 * 			The id to set.
+	 * @param player
+	 * 			The id to set.
+	 */
 	public NPCUpdate(EntityUpdate entityUpdate, Player player) {
 		this.setEntityUpdate(entityUpdate);
 		this.setPlayer(player);
 	}
 
+	/**
+	 * 
+	 * @param entityUpdate
+	 * 			The id to set.
+	 */
 	public void setEntityUpdate(EntityUpdate entityUpdate) {
 		this.entityUpdate = entityUpdate;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public EntityUpdate getEntityUpdate() {
 		return this.entityUpdate;
 	}
 
+	/**
+	 * 
+	 * @param player
+	 * 			The id to set.
+	 */
 	public void setPlayer(Player player) {
 		this.player = player;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public Player getPlayer() {
 		return this.player;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Runnable#run()
+	 */
 	@Override
 	public void run() {
 		PacketBuilder updateBlockBuilder = new PacketBuilder();
@@ -86,6 +128,13 @@ public class NPCUpdate implements Runnable {
 		this.getEntityUpdate().getCountDownLatch().countDown();
 	}
 
+	/**
+	 * 
+	 * @param packetBuilder
+	 * 			The id to set.
+	 * @param npc
+	 * 			The id to set.
+	 */
 	private void updateNPC(PacketBuilder packetBuilder, NPC npc) {
 		synchronized (npc) {
 			int mask = 0;
@@ -141,25 +190,60 @@ public class NPCUpdate implements Runnable {
 		}
 	}
 
+	/**
+	 * 
+	 * @param packetBuilder
+	 * 			The id to set.
+	 * @param npc
+	 * 			The id to set.
+	 */
 	private void updateGraphic(PacketBuilder packetBuilder, NPC npc) {
 		packetBuilder.putShort((short) npc.getGraphic().getID());
 		packetBuilder.putInt(npc.getGraphic().getDelay());
 	}
 
+	/**
+	 * 
+	 * @param packetBuilder
+	 * 			The id to set.
+	 * @param npc
+	 * 			The id to set.
+	 */
 	private void updateAnimation(PacketBuilder packetBuilder, NPC npc) {
 		packetBuilder.putLEShort(npc.getAnimation().getID());
 		packetBuilder.putByte((byte) npc.getAnimation().getDelay());
 	}
 
+	/**
+	 * 
+	 * @param packetBuilder
+	 * 			The id to set.
+	 * @param npc
+	 * 			The id to set.
+	 */
 	private void updateForcedChat(PacketBuilder packetBuilder, NPC npc) {
 		packetBuilder.putString(npc.getForceChat().getForceText());
 	}
 
+	/**
+	 * 
+	 * @param packetBuilder
+	 * 			The id to set.
+	 * @param npc
+	 * 			The id to set.
+	 */
 	private void updateFaceEntity(PacketBuilder packetBuilder, NPC npc) {
 		FaceEntity faceEntity = npc.getFaceEntity();
 		packetBuilder.putLEShort(faceEntity.getFaceEntity() == null ? -1 : faceEntity.getFaceEntity().getIndex());
 	}
 
+	/**
+	 * 
+	 * @param packetBuilder
+	 * 			The id to set.
+	 * @param npc
+	 * 			The id to set.
+	 */
 	private void updateHit(PacketBuilder packetBuilder, NPC npc) {
 		packetBuilder.putByte(npc.getHit().getDamage());
 		packetBuilder.putByteA(npc.getHit().getDamage());
@@ -167,6 +251,13 @@ public class NPCUpdate implements Runnable {
 		// packetBuilder.putByte((byte) npc.getSkill().getExperience(SkillType.HITPOINT));
 	}
 
+	/**
+	 * 
+	 * @param packetBuilder
+	 * 			The id to set.
+	 * @param npc
+	 * 			The id to set.
+	 */
 	private void updateHitTwo(PacketBuilder packetBuilder, NPC npc) {
 		packetBuilder.putByte(npc.getHitTwo().getDamage());
 		packetBuilder.putByteS(npc.getHitTwo().getDamage());
@@ -174,10 +265,24 @@ public class NPCUpdate implements Runnable {
 		// packetBuilder.putByteC(npc.getSkill().getExperience(SkillType.HITPOINT));
 	}
 
+	/**
+	 * 
+	 * @param packetBuilder
+	 * 			The id to set.
+	 * @param npc
+	 * 			The id to set.
+	 */
 	private void updateTransform(PacketBuilder packetBuilder, NPC npc) {
 		packetBuilder.putLEShortA(npc.getTransform().getID());
 	}
 
+	/**
+	 * 
+	 * @param packetBuilder
+	 * 			The id to set.
+	 * @param npc
+	 * 			The id to set.
+	 */
 	private void updateFaceLocation(PacketBuilder packetBuilder, NPC npc) {
 		if (npc.getFaceLocation() == null) {
 			packetBuilder.putLEShortA(0);
@@ -188,6 +293,13 @@ public class NPCUpdate implements Runnable {
 		}
 	}
 
+	/**
+	 * 
+	 * @param packetBuilder
+	 * 			The id to set.
+	 * @param npc
+	 * 			The id to set.
+	 */
 	private void updateNPCMovement(PacketBuilder packetBuilder, NPC npc) {
 		if (npc.getWalkingDirection() == -1) {
 			if (npc.getUpdateFlags().isUpdateRequired()) {

@@ -15,14 +15,36 @@ import com.netty.model.update.Hit;
 import com.netty.model.update.HitType;
 import com.netty.model.update.UpdateFlag;
 
+/**
+ * 
+ * @author Joshua Rodrigues
+ * @since Sep 21, 2011 10:34:28 AM
+ */
 public class MagicCombat extends Combat {
 
+	/**
+	 * 
+	 */
 	private ConcurrentMap<Short, Spell> spellMap;
 
+	/**
+	 * 
+	 * @param entityPlayer
+	 * 			The id to set.
+	 * @param entityEnemy
+	 * 			The id to set.
+	 * @param combatType
+	 * 			The id to set.
+	 * @param attackType
+	 * 			The id to set.
+	 */
 	public MagicCombat(Player entityPlayer, Entity entityEnemy, CombatType combatType, AttackType attackType) {
 		super(entityPlayer, entityEnemy, combatType, attackType);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.netty.model.combat.Combat#mageDamage()
+	 */
 	@Override
 	public void mageDamage() {
 		Random random = new Random();
@@ -58,20 +80,36 @@ public class MagicCombat extends Combat {
 		this.getPlayer().getUpdateFlags().setUpdateFlag(UpdateFlag.APPEARANCE);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.netty.model.combat.Combat#meleeDamage()
+	 */
 	@Override
 	public void meleeDamage() {
 		return;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.netty.model.combat.Combat#rangeDamage()
+	 */
 	@Override
 	public void rangeDamage() {
 		return;
 	}
 
+	/**
+	 * 
+	 * @param spellMap
+	 * 			The id to set.
+	 */
 	public void setSpellMap(ConcurrentMap<Short, Spell> spellMap) {
 		this.spellMap = spellMap;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public ConcurrentMap<Short, Spell> getSpellMap() {
 		return this.spellMap;
 	}

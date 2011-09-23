@@ -8,16 +8,17 @@ import java.net.SocketException;
 import com.netty.net.NetworkConstants;
 
 /**
- * Boots up the connection for the
- * standard IO API.
- * @author Josh Rodrigues
- * @since September 18, 2011
+ * Boots up the connection for the standard
+ * IO API.
+ * 
+ * @author Joshua Rodrigues
+ * @since Sep 19, 2011 12:12:47 AM
  */
 public class BootIO {
 
 	/**
-	 * A {@code ServerSocket} instance for accepting
-	 * a {@code Socket} connection.
+	 * A ServerSocket instance for accepting a
+	 * Socket connection.
 	 */
 	private ServerSocket serverSocket;
 
@@ -35,10 +36,8 @@ public class BootIO {
 
 	/**
 	 * Bind the port to the parameter.
-	 * @param port
-	 * 			The port to bind with.
 	 */
-	public void bindPort(int port) {
+	public void bindPort() {
 		Socket socket = null;
 		try {
 			socket = this.getServerSocket().accept();
@@ -56,20 +55,22 @@ public class BootIO {
 	}
 
 	/**
-	 * Sets a new {@code ServerSocket} for the BootIO
+	 * Sets a new ServerSocket for the BootIO
 	 * to use when connecting to the client.
+	 * 
 	 * @param serverSocket
-	 * 			The {@code ServerSocket} for connection.
+	 * 			The ServerSocket for connection.
 	 */
 	public void setServerSocket(ServerSocket serverSocket) {
 		this.serverSocket = serverSocket;
 	}
 
 	/**
-	 * Gets the {@code ServerSocket} to use for {@code Socket}
+	 * Gets the ServerSocket to use for Socket
 	 * purposes.
+	 * 
 	 * @return serverSocket
-	 * 			The {@code ServerSocket} for connection.
+	 * 			The ServerSocket for connection.
 	 */
 	public ServerSocket getServerSocket() {
 		return this.serverSocket;

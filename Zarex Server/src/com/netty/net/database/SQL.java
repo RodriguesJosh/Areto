@@ -7,10 +7,23 @@ import java.sql.Statement;
 
 import com.netty.world.World;
 
+/**
+ * 
+ * @author Joshua Rodrigues
+ * @since Sep 21, 2011 1:26:30 PM
+ */
 public class SQL {
 
+	/**
+	 * 
+	 */
 	private Database database;
 
+	/**
+	 * 
+	 * @param database
+	 * 			The id to set.
+	 */
 	public SQL(Database database) {
 		try {
 			this.setDatabase(database);
@@ -39,6 +52,9 @@ public class SQL {
 		}
 	}
 
+	/**
+	 * 
+	 */
 	private void getNPCs() {
 		try {
 			if (this.getDatabase().getConnection() != null) {
@@ -58,6 +74,9 @@ public class SQL {
 		}
 	}
 
+	/**
+	 * 
+	 */
 	private void getItems() {
 		try {
 			if (this.getDatabase().getConnection() != null) {
@@ -77,6 +96,9 @@ public class SQL {
 		}
 	}
 
+	/**
+	 * 
+	 */
 	private void getShops() {
 		try {
 			if (this.getDatabase().getConnection() != null) {
@@ -96,6 +118,9 @@ public class SQL {
 		}
 	}
 
+	/**
+	 * 
+	 */
 	private void getGrandExchangeItems() {
 		try {
 			if (this.getDatabase().getConnection() != null) {
@@ -115,6 +140,9 @@ public class SQL {
 		}
 	}
 
+	/**
+	 * 
+	 */
 	public void destroyConnection() {
 		try {
 			if (this.getDatabase().getConnection() != null) {
@@ -126,6 +154,11 @@ public class SQL {
 		}
 	}
 
+	/**
+	 * 
+	 * @param query
+	 * 			The id to set.
+	 */
 	public void executeQuery(String query) {
 		try {
 			if (this.getDatabase().getConnection() != null) {
@@ -138,6 +171,13 @@ public class SQL {
 		}
 	}
 
+	/**
+	 * 
+	 * @param results
+	 * 			The id to set.
+	 * @return
+	 * 			The id to set.
+	 */
 	public ResultSet queryResults(String results) {
 		try {
 			if (this.getDatabase().getConnection() != null) {
@@ -150,10 +190,20 @@ public class SQL {
 		return null;
 	}
 
+	/**
+	 * 
+	 * @param database
+	 * 			The id to set.
+	 */
 	public void setDatabase(Database database) {
 		this.database = database;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public Database getDatabase() {
 		return this.database;
 	}

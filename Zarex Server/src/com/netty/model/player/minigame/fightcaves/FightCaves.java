@@ -11,14 +11,30 @@ import com.netty.model.player.minigame.MembershipState;
 import com.netty.model.player.minigame.MiniGame;
 import com.netty.model.player.minigame.ThreateningState;
 
+/**
+ * 
+ * @author Joshua Rodrigues
+ * @since Sep 21, 2011 10:40:12 PM
+ */
 public class FightCaves extends MiniGame {
 
+	/**
+	 * 
+	 */
 	private List<Wave> waveList;
 
+	/**
+	 * 
+	 * @param player
+	 *			The id to set.
+	 */
 	public FightCaves(Player player) {
 		super(player);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.netty.model.player.minigame.MiniGame#start()
+	 */
 	@Override
 	public void start() {
 		this.getPlayer().setTeleport(Teleport.FIGHT_CAVES);
@@ -42,25 +58,44 @@ public class FightCaves extends MiniGame {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.netty.model.player.minigame.MiniGame#end()
+	 */
 	@Override
 	public void end() { /** Get the tokens after you've killed JAD. */
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.netty.model.player.minigame.MiniGame#getMembershipState()
+	 */
 	@Override
 	public MembershipState getMembershipState() {
 		return MembershipState.FREE;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.netty.model.player.minigame.MiniGame#getThreateningState()
+	 */
 	@Override
 	public ThreateningState getThreateningState() {
 		return ThreateningState.SAFE;
 	}
 
+	/**
+	 * 
+	 * @param waveList
+	 *			The id to set.
+	 */
 	public void setWaveList(List<Wave> waveList) {
 		this.waveList = waveList;
 	}
 
+	/**
+	 * 
+	 * @return
+	 *			The id to set.
+	 */
 	public List<Wave> getWaveList() {
 		return this.waveList;
 	}

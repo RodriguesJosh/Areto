@@ -16,13 +16,15 @@ import com.netty.world.WorldConstants;
 /**
  * The starting class to start up the
  * Netty Server.
- * @author Josh
- * @since 0.1
+ * 
+ * @author Joshua Rodrigues
+ * @since Sep 19, 2011 9:13:11 PM
  */
 public class Main {
 
 	/**
 	 * Executed upon startup of this application.
+	 * 
 	 * @param args
 	 * 			The program's arguments.
 	 */

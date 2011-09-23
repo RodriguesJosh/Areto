@@ -11,8 +11,16 @@ import com.netty.net.packet.Packet;
 import com.netty.net.packet.PacketManagerXML;
 import com.netty.world.World;
 
+/**
+ * 
+ * @author Joshua Rodrigues
+ * @since Sep 21, 2011 1:30:22 PM
+ */
 public class Handler extends SimpleChannelHandler {
 
+	/* (non-Javadoc)
+	 * @see org.jboss.netty.channel.SimpleChannelHandler#channelConnected(org.jboss.netty.channel.ChannelHandlerContext, org.jboss.netty.channel.ChannelStateEvent)
+	 */
 	@Override
 	public void channelConnected(ChannelHandlerContext chc, ChannelStateEvent cse) {
 		if (chc.getChannel() == null) {
@@ -31,6 +39,9 @@ public class Handler extends SimpleChannelHandler {
 		World.getWorld().getLogger().info("Channel connected from " + chc.getChannel().getRemoteAddress() + "...");
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.netty.channel.SimpleChannelHandler#channelDisconnected(org.jboss.netty.channel.ChannelHandlerContext, org.jboss.netty.channel.ChannelStateEvent)
+	 */
 	@Override
 	public void channelDisconnected(ChannelHandlerContext chc, ChannelStateEvent cse) {
 		Player player = World.getWorld().getChannelLocal().get(chc.getChannel());
@@ -41,6 +52,9 @@ public class Handler extends SimpleChannelHandler {
 		World.getWorld().getLogger().info("Channel disconnected from " + chc.getChannel().getRemoteAddress() + "...");
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.netty.channel.SimpleChannelHandler#messageReceived(org.jboss.netty.channel.ChannelHandlerContext, org.jboss.netty.channel.MessageEvent)
+	 */
 	@Override
 	public void messageReceived(ChannelHandlerContext chc, MessageEvent me) {
 		Player player = World.getWorld().getChannelLocal().get(chc.getChannel());
@@ -54,6 +68,11 @@ public class Handler extends SimpleChannelHandler {
 		PacketManagerXML.execute(player, packet);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.netty.channel.SimpleChannelHandler#exceptionCaught(org.jboss.netty.channel.ChannelHandlerContext, org.jboss.netty.channel.ExceptionEvent)
+	 */
 	@Override
-	public void exceptionCaught(ChannelHandlerContext chc, ExceptionEvent ee) {}
+	public void exceptionCaught(ChannelHandlerContext chc, ExceptionEvent ee) {
+		return;
+	}
 }

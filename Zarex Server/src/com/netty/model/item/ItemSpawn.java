@@ -16,11 +16,26 @@ import com.netty.util.Timing;
 import com.netty.world.Location;
 import com.netty.world.World;
 
+/**
+ * 
+ * @author Joshua Rodrigues
+ * @since Sep 21, 2011 10:50:42 AM
+ */
 public class ItemSpawn {
 
+	/**
+	 * 
+	 */
 	private DocumentBuilder documentBuilder;
+
+	/**
+	 * 
+	 */
 	private DocumentBuilderFactory documentBuilderFactory;
 
+	/**
+	 * 
+	 */
 	public ItemSpawn() {
 		this.setDocumentBuilderFactory(DocumentBuilderFactory.newInstance());
 		try {
@@ -30,19 +45,25 @@ public class ItemSpawn {
 		}
 	}
 
+	/**
+	 * 
+	 */
 	public void parseItemsSpawned() {
 		Timing time = new Timing();
 		int itemSpawnsLoaded = 0;
-		Document doc = null;
+		Document document = null;
 		try {
-			doc = this.getDocumentBuilder().parse(new File(ItemConstants.ITEM_SPAWN_PATH));
+			document = this.getDocumentBuilder().parse(new File(ItemConstants.ITEM_SPAWN_PATH));
 		} catch (SAXException saxe) {
 			saxe.printStackTrace();
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
-		doc.getDocumentElement().normalize();
-		NodeList spawnsList = doc.getElementsByTagName("ITEM_SPAWN");
+		if (document == null) {
+			throw new NullPointerException("");
+		}
+		document.getDocumentElement().normalize();
+		NodeList spawnsList = document.getElementsByTagName("ITEM_SPAWN");
 		for (int i = 0; i < spawnsList.getLength(); i++) {
 			Element spawnElement = (Element) spawnsList.item(i);
 			int itemID = Integer.parseInt(spawnElement.getAttribute("ID"));
@@ -90,18 +111,38 @@ public class ItemSpawn {
 		World.getWorld().getLogger().info("Loaded " + itemSpawnsLoaded + " Item spawns in " + time + "...");
 	}
 
+	/**
+	 * 
+	 * @param documentBuilder
+	 * 			The id to set.
+	 */
 	public void setDocumentBuilder(DocumentBuilder documentBuilder) {
 		this.documentBuilder = documentBuilder;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public DocumentBuilder getDocumentBuilder() {
 		return this.documentBuilder;
 	}
 
+	/**
+	 * 
+	 * @param documentBuilderFactory
+	 * 			The id to set.
+	 */
 	public void setDocumentBuilderFactory(DocumentBuilderFactory documentBuilderFactory) {
 		this.documentBuilderFactory = documentBuilderFactory;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public DocumentBuilderFactory getDocumentBuilderFactory() {
 		return this.documentBuilderFactory;
 	}

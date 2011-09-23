@@ -1,18 +1,41 @@
 package com.netty.net.packet.buttons;
 
+/**
+ * 
+ * @author Joshua Rodrigues
+ * @since Sep 21, 2011 12:38:17 PM
+ */
 public class Button {
 
-	private int id;
+	/**
+	 * 
+	 */
+	private short id;
 
-	public Button(int id) {
+	/**
+	 * 
+	 * @param id
+	 * 			The id to set.
+	 */
+	public Button(short id) {
 		this.setID(id);
 	}
 
-	public void setID(int id) {
+	/**
+	 * 
+	 * @param id
+	 * 			The id to set.
+	 */
+	public void setID(short id) {
 		this.id = id;
 	}
 
-	public int getID() {
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
+	public short getID() {
 		return this.id;
 	}
 }

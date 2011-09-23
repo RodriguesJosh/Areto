@@ -9,13 +9,40 @@ import com.netty.util.Constants;
 import com.netty.util.DirectionUtility;
 import com.netty.world.Location;
 
+/**
+ * 
+ * 
+ * @author Joshua Rodrigues
+ * @since Sep 20, 2011 7:43:48 PM
+ */
 public class Walking {
 
+	/**
+	 * 
+	 */
 	private Entity entity;
+
+	/**
+	 * 
+	 */
 	private Deque<Point> walkingPointList;
+
+	/**
+	 * 
+	 */
 	private boolean runToggled;
+
+	/**
+	 * 
+	 */
 	private boolean runQueue;
 
+	/**
+	 * 
+	 * 
+	 * @param entity
+	 * 			The entity to set.
+	 */
 	public Walking(Entity entity) {
 		this.setEntity(entity);
 		this.setWalkingPointList(new LinkedList<Point>());
@@ -23,10 +50,18 @@ public class Walking {
 		this.setRunningQueue(false);
 	}
 
+	/**
+	 * 
+	 * 
+	 * @return false
+	 */
 	public boolean isRunning() {
 		return this.isRunningToggled() || this.isRunningQueue();
 	}
 
+	/**
+	 * 
+	 */
 	public void resetWalking() {
 		this.setRunningQueue(false);
 		Deque<Point> walkingPointList = this.getWalkingPointList();
@@ -34,14 +69,28 @@ public class Walking {
 		walkingPointList.add(new Point(this.getEntity().getLocation(), (byte) -1));
 	}
 
+	/**
+	 * 
+	 * 
+	 * @return false
+	 */
 	public boolean isEmpty() {
 		return this.getWalkingPointList().size() <= 0;
 	}
 
+	/**
+	 * 
+	 */
 	public void finish() {
 		this.getWalkingPointList().removeFirst();
 	}
 
+	/**
+	 * 
+	 * 
+	 * @param location
+	 * 			The location to set.
+	 */
 	public void addStep(Location location) {
 		if (this.isEmpty()) {
 			this.resetWalking();
@@ -72,6 +121,12 @@ public class Walking {
 		}
 	}
 
+	/**
+	 * 
+	 * 
+	 * @param stepLocation
+	 * 			The location to set.
+	 */
 	private void addStepInternal(Location stepLocation) {
 		Deque<Point> walkingPointList = this.getWalkingPointList();
 		if (walkingPointList.size() >= 50) {
@@ -89,6 +144,9 @@ public class Walking {
 		}
 	}
 
+	/**
+	 * 
+	 */
 	public void processNextMovement() {
 		Point walkingPoint = null;
 		Point runningPoint = null;
@@ -142,6 +200,11 @@ public class Walking {
 		}
 	}
 
+	/**
+	 * 
+	 * 
+	 * @return point
+	 */
 	private Point getNextPoint() {
 		Point point = this.getWalkingPointList().poll();
 		if (point == null) {
@@ -162,34 +225,71 @@ public class Walking {
 		return point;
 	}
 
+	/**
+	 * 
+	 * 
+	 * @param entity
+	 * 			The entity to set.
+	 */
 	public void setEntity(Entity entity) {
 		this.entity = entity;
 	}
 
+	/**
+	 * 
+	 * @return entity
+	 */
 	public Entity getEntity() {
 		return this.entity;
 	}
 
+	/**
+	 * 
+	 * @param walkingPointList
+	 * 			The walking point list to set.
+	 */
 	public void setWalkingPointList(Deque<Point> walkingPointList) {
 		this.walkingPointList = walkingPointList;
 	}
 
+	/**
+	 * 
+	 * @return walkingPointList
+	 */
 	public Deque<Point> getWalkingPointList() {
 		return this.walkingPointList;
 	}
 
+	/**
+	 * 
+	 * @param runToggled
+	 * 			The run toggled to set.
+	 */
 	public void setRunningToggled(boolean runToggled) {
 		this.runToggled = runToggled;
 	}
 
+	/**
+	 * 
+	 * @return runToggled
+	 */
 	public boolean isRunningToggled() {
 		return this.runToggled;
 	}
 
+	/**
+	 * 
+	 * @param runQueue
+	 * 			The running queue to set.
+	 */
 	public void setRunningQueue(boolean runQueue) {
 		this.runQueue = runQueue;
 	}
 
+	/**
+	 * 
+	 * @return runQueue
+	 */
 	public boolean isRunningQueue() {
 		return this.runQueue;
 	}

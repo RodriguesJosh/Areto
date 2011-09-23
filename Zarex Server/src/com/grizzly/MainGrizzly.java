@@ -15,13 +15,15 @@ import com.netty.world.WorldConstants;
  * The starting class to start up the
  * Grizzly Server implementation on
  * the Netty Server.
- * @author Josh Rodrigues
- * @since September 18, 2011
+ * 
+ * @author Joshua Rodrigues
+ * @since Sep 18, 2011 11:53:44 PM
  */
 public class MainGrizzly {
 
 	/**
 	 * Executed upon startup of this application.
+	 * 
 	 * @param args
 	 * 			The program's arguments.
 	 */

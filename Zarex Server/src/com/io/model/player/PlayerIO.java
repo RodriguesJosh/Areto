@@ -2,27 +2,31 @@ package com.io.model.player;
 
 import java.net.Socket;
 
+import com.netty.annotations.AnnotationType;
+import com.netty.annotations.Edit;
 import com.netty.model.player.Player;
 
 /**
- * A {@link Player} class for the IO implementation
+ * A player class for the IO implementation
  * of the Netty Server.
- * @author Josh Rodrigues
- * @since September 18, 2011
+ * 
+ * @author Joshua Rodrigues
+ * @since Sep 19, 2011 12:10:56 AM
  */
+@Edit(getAnnotationType = AnnotationType.EDIT)
 public class PlayerIO extends Player {
 
 	/**
-	 * The {@link Socket} for the {@code Player}
-	 * to connect with.
+	 * The Socket for the player to connect with.
 	 */
 	private Socket socket;
 
 	/**
 	 * We will be using the Netty constructor to call
-	 * the {@code Player}.
+	 * the player.
+	 * 
 	 * @param socket
-	 * 			The {@code Socket} for the {@code Socket}.
+	 * 			The Socket for the player.
 	 */
 	private PlayerIO(Socket socket) {
 		super(null);
@@ -30,21 +34,23 @@ public class PlayerIO extends Player {
 	}
 
 	/**
-	 * Sets the {@code Socket} for the IO implementation
-	 * of {@code Player}.
+	 * Sets the Socket for the IO implementation
+	 * of player.
+	 * 
 	 * @param socket
-	 * 			The {@code Socket} for the {@code Socket}.
+	 * 			The Socket for the player.
 	 */
 	public void setSocket(Socket socket) {
 		this.socket = socket;
 	}
 
 	/**
-	 * Gets the {@code Socket} that the {@code Player}
-	 * is connecting with.
+	 * Gets the Socket that the player is connecting
+	 * with.
+	 * 
 	 * @return socket
-	 * 			The {@code Socket} the {@code Player}
-	 * 			is connecting with.
+	 * 			The Socket the player is connecting
+	 * 			with.
 	 */
 	public Socket getSocket() {
 		return this.socket;

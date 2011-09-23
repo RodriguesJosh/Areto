@@ -21,7 +21,7 @@ import com.netty.script.ScriptType;
  * @author josh
  * @since 0.1
  */
-public class JavaScript {
+public class JavaScript extends Script {
 
 	/**
 	 * 
@@ -42,6 +42,7 @@ public class JavaScript {
 	 * 
 	 */
 	public JavaScript() {
+		super(null, null);
 		this.setScriptEngineManager(new ScriptEngineManager());
 		this.setScriptEngine(this.getScriptEngineManager().getEngineByName("JavaScript"));
 		this.setJavaScriptList(new ArrayList<Script>());
@@ -50,7 +51,9 @@ public class JavaScript {
 	/**
 	 * 
 	 * @param javaScriptFile
+	 * 			The id to set.
 	 * @return
+	 * 			The id to set.
 	 */
 	public Object getJSExecution(String javaScriptFile) {
 		File file = new File(ScriptConstants.JAVA_SCRIPT_PATH + javaScriptFile);
@@ -75,7 +78,9 @@ public class JavaScript {
 	/**
 	 * 
 	 * @param name
+	 * 			The id to set.
 	 * @return
+	 * 			The id to set.
 	 */
 	public Script getJSName(String name) {
 		if (name == null) {
@@ -95,7 +100,9 @@ public class JavaScript {
 	/**
 	 * 
 	 * @param functionName
+	 * 			The id to set.
 	 * @param arguments
+	 * 			The id to set.
 	 */
 	public void invokeFunction(String functionName, Object... arguments) {
 		Invocable invocable = (Invocable) this.getScriptEngine();
@@ -111,6 +118,7 @@ public class JavaScript {
 	/**
 	 * 
 	 * @param scriptEngineManager
+	 * 			The id to set.
 	 */
 	public void setScriptEngineManager(ScriptEngineManager scriptEngineManager) {
 		this.scriptEngineManager = scriptEngineManager;
@@ -119,6 +127,7 @@ public class JavaScript {
 	/**
 	 * 
 	 * @return scriptEngineManager
+	 * 			The id to set.
 	 */
 	public ScriptEngineManager getScriptEngineManager() {
 		return this.scriptEngineManager;
@@ -127,6 +136,7 @@ public class JavaScript {
 	/**
 	 * 
 	 * @param scriptEngine
+	 * 			The id to set.
 	 */
 	public void setScriptEngine(ScriptEngine scriptEngine) {
 		this.scriptEngine = scriptEngine;
@@ -135,6 +145,7 @@ public class JavaScript {
 	/**
 	 * 
 	 * @return scriptEngine
+	 * 			The id to set.
 	 */
 	public ScriptEngine getScriptEngine() {
 		return this.scriptEngine;
@@ -143,6 +154,7 @@ public class JavaScript {
 	/**
 	 * 
 	 * @param javaScriptList
+	 * 			The id to set.
 	 */
 	public void setJavaScriptList(List<Script> javaScriptList) {
 		this.javaScriptList = javaScriptList;
@@ -151,6 +163,7 @@ public class JavaScript {
 	/**
 	 * 
 	 * @return javaScriptList
+	 * 			The id to set.
 	 */
 	public List<Script> getJavaScriptList() {
 		return this.javaScriptList;

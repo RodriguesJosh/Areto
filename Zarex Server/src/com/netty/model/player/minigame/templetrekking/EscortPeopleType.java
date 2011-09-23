@@ -2,8 +2,8 @@ package com.netty.model.player.minigame.templetrekking;
 
 /**
  * 
- * @author Josh
- * @version 1.0
+ * @author Joshua Rodrigues
+ * @since Sep 22, 2011 1:20:41 PM
  */
 public enum EscortPeopleType {
 

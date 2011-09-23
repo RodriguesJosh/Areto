@@ -13,15 +13,35 @@ import com.netty.model.player.minigame.MiniGame;
 import com.netty.model.player.minigame.ThreateningState;
 import com.netty.model.player.skill.SkillType;
 
+/**
+ * 
+ * @author Joshua Rodrigues
+ * @since Sep 22, 2011 1:38:27 PM
+ */
 public class MageArena extends MiniGame {
 
+	/**
+	 * 
+	 */
 	private Kolodion kolodion;
+
+	/**
+	 * 
+	 */
 	private Reward reward;
 
+	/**
+	 * 
+	 * @param player
+	 * 			The id to set.
+	 */
 	public MageArena(Player player) {
 		super(player);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.netty.model.player.minigame.MiniGame#start()
+	 */
 	@Override
 	public void start() {
 		if (this.getPlayer().getSkills()[SkillType.MAGIC.getID()].getLevel() < 60) {
@@ -60,6 +80,9 @@ public class MageArena extends MiniGame {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.netty.model.player.minigame.MiniGame#end()
+	 */
 	@Override
 	public void end() {
 		if (this.getKolodion().getNPC().isDead()) {
@@ -68,28 +91,54 @@ public class MageArena extends MiniGame {
 		this.setReward(Reward.NONE);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.netty.model.player.minigame.MiniGame#getMembershipState()
+	 */
 	@Override
 	public MembershipState getMembershipState() {
 		return MembershipState.FREE;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.netty.model.player.minigame.MiniGame#getThreateningState()
+	 */
 	@Override
 	public ThreateningState getThreateningState() {
 		return ThreateningState.SAFE;
 	}
 
+	/**
+	 * 
+	 * @param kolodion
+	 * 			The id to set.
+	 */
 	public void setKolodion(Kolodion kolodion) {
 		this.kolodion = kolodion;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public Kolodion getKolodion() {
 		return this.kolodion;
 	}
 
+	/**
+	 * 
+	 * @param reward
+	 * 			The id to set.
+	 */
 	public void setReward(Reward reward) {
 		this.reward = reward;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public Reward getReward() {
 		return this.reward;
 	}

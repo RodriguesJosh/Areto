@@ -1,13 +1,24 @@
 package com.io.net.codec;
 
-import com.netty.model.player.Player;
+import com.netty.annotations.AnnotationType;
+import com.netty.annotations.Edit;
 
 /**
- * Encodes the {@link Packet} for the {@link Player}
- * and then sends it to the client.
+ * Encodes the packet for the player and
+ * then sends it to the client.
+ * 
  * @author Josh Rodrigues
  * @since September 18, 2011
  */
-public class EncoderIO {
+@Edit(getAnnotationType = AnnotationType.EDIT)
+public class EncoderIO extends AbstractDecoderIO {
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.io.net.codec.AbstractDecoderIO#decode()
+	 */
+	@Override
+	public Object decode() {
+		return null;
+	}
 }

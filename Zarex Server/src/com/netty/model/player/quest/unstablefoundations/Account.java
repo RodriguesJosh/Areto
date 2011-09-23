@@ -1,11 +1,14 @@
 package com.netty.model.player.quest.unstablefoundations;
 
 import com.netty.model.player.quest.Quest;
+import com.netty.world.Server;
 
 /**
  * An <code>Account</code> that you will
  * make when you start off the {@link Quest}.
- * @author Josh
+ * 
+ * @author Joshua Rodrigues
+ * @since Sep 22, 2011 1:46:04 PM
  */
 public class Account {
 

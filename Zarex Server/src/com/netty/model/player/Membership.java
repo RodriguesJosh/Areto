@@ -2,17 +2,56 @@ package com.netty.model.player;
 
 import java.util.Calendar;
 
+/**
+ * 
+ * @author Joshua Rodrigues
+ * @since Sep 21, 2011 11:11:21 AM
+ */
 public class Membership {
 
+	/**
+	 * 
+	 */
 	private Calendar calendar;
+
+	/**
+	 * 
+	 */
 	private byte seconds;
+
+	/**
+	 * 
+	 */
 	private byte minutes;
+
+	/**
+	 * 
+	 */
 	private byte hours;
+
+	/**
+	 * 
+	 */
 	private byte days;
+
+	/**
+	 * 
+	 */
 	private byte weeks;
+
+	/**
+	 * 
+	 */
 	private byte months;
+
+	/**
+	 * 
+	 */
 	private int years;
 
+	/**
+	 * 
+	 */
 	public Membership() {
 		this.setCalendar(Calendar.getInstance());
 		this.setSeconds((byte) this.getCalendar().get(Calendar.SECOND));
@@ -24,6 +63,11 @@ public class Membership {
 		this.setYears(this.getCalendar().get(Calendar.YEAR));
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public byte getSecondsLeft() {
 		Calendar calendar = Calendar.getInstance();
 		if (this.getSeconds() > calendar.get(Calendar.SECOND)) {
@@ -40,6 +84,11 @@ public class Membership {
 		return this.getSeconds();
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public byte getMinutesLeft() {
 		Calendar calendar = Calendar.getInstance();
 		if (this.getMinutes() > calendar.get(Calendar.MINUTE)) {
@@ -56,6 +105,11 @@ public class Membership {
 		return this.getMinutes();
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public byte getHoursLeft() {
 		Calendar calendar = Calendar.getInstance();
 		if (this.getHours() > calendar.get(Calendar.HOUR)) {
@@ -72,6 +126,11 @@ public class Membership {
 		return this.getHours();
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public byte getDaysLeft() {
 		Calendar calendar = Calendar.getInstance();
 		if (this.getDays() > calendar.get(Calendar.DAY_OF_MONTH)) {
@@ -88,6 +147,11 @@ public class Membership {
 		return this.getDays();
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public byte getWeeksLeft() {
 		Calendar calendar = Calendar.getInstance();
 		if (this.getWeeks() > calendar.get(Calendar.WEEK_OF_MONTH)) {
@@ -104,6 +168,11 @@ public class Membership {
 		return this.getWeeks();
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public byte getMonthsLeft() {
 		Calendar calendar = Calendar.getInstance();
 		if (this.getMonths() > calendar.get(Calendar.MONTH)) {
@@ -120,6 +189,11 @@ public class Membership {
 		return this.getMonths();
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public int getYearsLeft() {
 		Calendar calendar = Calendar.getInstance();
 		if (this.getYears() > calendar.get(Calendar.YEAR)) {
@@ -136,76 +210,164 @@ public class Membership {
 		return this.getYears();
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public String getLastLoggedIn() {
 		return "You last logged in " + this.getSecondsLeft() + " seconds, " + this.getMinutesLeft() + " minutes, " + this.getHoursLeft() + " hours, " + this.getDaysLeft() + " days, " + this.getWeeksLeft() + " weeks, " + this.getMonthsLeft() + " months, " + this.getYearsLeft() + " years";
 	}
 
+	/**
+	 * 
+	 */
 	public void resetMembership() {
 		if (this.getSecondsLeft() <= 0) {
-
+			return;
 		}
 	}
 
+	/**
+	 * 
+	 * @param calendar
+	 * 			The id to set.
+	 */
 	public void setCalendar(Calendar calendar) {
 		this.calendar = calendar;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public Calendar getCalendar() {
 		return this.calendar;
 	}
 
+	/**
+	 * 
+	 * @param seconds
+	 * 			The id to set.
+	 */
 	public void setSeconds(byte seconds) {
 		this.seconds = seconds;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public byte getSeconds() {
 		return this.seconds;
 	}
 
+	/**
+	 * 
+	 * @param minutes
+	 * 			The id to set.
+	 */
 	public void setMinutes(byte minutes) {
 		this.minutes = minutes;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public byte getMinutes() {
 		return this.minutes;
 	}
 
+	/**
+	 * 
+	 * @param hours
+	 * 			The id to set.
+	 */
 	public void setHours(byte hours) {
 		this.hours = hours;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public byte getHours() {
 		return this.hours;
 	}
 
+	/**
+	 * 
+	 * @param days
+	 * 			The id to set.
+	 */
 	public void setDays(byte days) {
 		this.days = days;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public byte getDays() {
 		return this.days;
 	}
 
+	/**
+	 * 
+	 * @param weeks
+	 * 			The id to set.
+	 */
 	public void setWeeks(byte weeks) {
 		this.weeks = weeks;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public byte getWeeks() {
 		return this.weeks;
 	}
 
+	/**
+	 * 
+	 * @param months
+	 * 			The id to set.
+	 */
 	public void setMonths(byte months) {
 		this.months = months;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public byte getMonths() {
 		return this.months;
 	}
 
+	/**
+	 * 
+	 * @param years
+	 * 			The id to set.
+	 */
 	public void setYears(int years) {
 		this.years = years;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public int getYears() {
 		return this.years;
 	}

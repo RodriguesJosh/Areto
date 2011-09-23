@@ -15,25 +15,56 @@ import com.netty.model.update.Hit;
 import com.netty.model.update.HitType;
 import com.netty.model.update.UpdateFlag;
 
+/**
+ * 
+ * @author Joshua Rodrigues
+ * @since Sep 21, 2011 10:42:53 AM
+ */
 public class RangeCombat extends Combat {
 
+	/**
+	 * 
+	 */
 	private Bow bow;
+	/**
+	 * 
+	 */
 	private List<Amo> amoList;
 
+	/**
+	 * 
+	 * @param entityPlayer
+	 * 			The id to set.
+	 * @param entityEnemy
+	 * 			The id to set.
+	 * @param combatType
+	 * 			The id to set.
+	 * @param attackType
+	 * 			The id to set.
+	 */
 	public RangeCombat(Player entityPlayer, Entity entityEnemy, CombatType combatType, AttackType attackType) {
 		super(entityPlayer, entityEnemy, combatType, attackType);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.netty.model.combat.Combat#mageDamage()
+	 */
 	@Override
 	public void mageDamage() {
 		return;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.netty.model.combat.Combat#meleeDamage()
+	 */
 	@Override
 	public void meleeDamage() {
 		return;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.netty.model.combat.Combat#rangeDamage()
+	 */
 	@Override
 	public void rangeDamage() {
 		Random random = new Random();
@@ -69,18 +100,38 @@ public class RangeCombat extends Combat {
 		this.getPlayer().getUpdateFlags().setUpdateFlag(UpdateFlag.APPEARANCE);
 	}
 
+	/**
+	 * 
+	 * @param bow
+	 * 			The id to set.
+	 */
 	public void setBow(Bow bow) {
 		this.bow = bow;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public Bow getBow() {
 		return this.bow;
 	}
 
+	/**
+	 * 
+	 * @param amoList
+	 * 			The id to set.
+	 */
 	public void setAmoList(List<Amo> amoList) {
 		this.amoList = amoList;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public List<Amo> getAmoList() {
 		return this.amoList;
 	}

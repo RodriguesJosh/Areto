@@ -1,7 +1,21 @@
 package com.netty.util;
 
+/**
+ * 
+ * @author Joshua Rodrigues
+ * @since Sep 21, 2011 12:01:42 PM
+ */
 public class TextUtility {
 
+	/**
+	 * 
+	 * @param packedData
+	 * 			The id to set.
+	 * @param size
+	 * 			The id to set.
+	 * @return
+	 * 			The id to set.
+	 */
 	public static String textUnpack(byte packedData[], int size) {
 		byte[] decodeBuf = new byte[4096];
 		int idx = 0, highNibble = -1;
@@ -21,6 +35,13 @@ public class TextUtility {
 		return new String(decodeBuf, 0, idx);
 	}
 
+	/**
+	 * 
+	 * @param text
+	 * 			The id to set.
+	 * @return
+	 * 			The id to set.
+	 */
 	public static String optimizeText(String text) {
 		char[] buf = text.toCharArray();
 		boolean endMarker = true;
@@ -37,6 +58,13 @@ public class TextUtility {
 		return new String(buf, 0, buf.length);
 	}
 
+	/**
+	 * 
+	 * @param input
+	 * 			The id to set.
+	 * @return
+	 * 			The id to set.
+	 */
 	public static String getVowel(String input) {
 		char[] vowels = {
 				'a', 'e', 'i', 'o', 'u'
@@ -49,15 +77,23 @@ public class TextUtility {
 		return "a" + input;
 	}
 
+	/**
+	 * 
+	 * @param packedData
+	 * 			The id to set.
+	 * @param text
+	 * 			The id to set.
+	 */
 	public static void textPack(byte packedData[], String text) {
+		String newText = text;
 		if (text.length() > 80) {
-			text = text.substring(0, 80);
+			newText = text.substring(0, 80);
 		}
-		text = text.toLowerCase();
+		newText = text.toLowerCase();
 		int carryOverNibble = -1;
 		int ofs = 0;
-		for (int idx = 0; idx < text.length(); idx++) {
-			char c = text.charAt(idx);
+		for (int idx = 0; idx < newText.length(); idx++) {
+			char c = newText.charAt(idx);
 			int tableIdx = 0;
 			for (int i = 0; i < Constants.XLATE_TABLE.length; i++) {
 				if (c == (byte) Constants.XLATE_TABLE[i]) {
@@ -87,6 +123,13 @@ public class TextUtility {
 		}
 	}
 
+	/**
+	 * 
+	 * @param s
+	 * 			The id to set.
+	 * @return
+	 * 			The id to set.
+	 */
 	public static String filterText(String s) {
 		StringBuilder bldr = new StringBuilder();
 		for (char c : s.toLowerCase().toCharArray()) {

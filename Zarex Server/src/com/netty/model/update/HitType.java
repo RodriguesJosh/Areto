@@ -1,20 +1,61 @@
 package com.netty.model.update;
 
+/**
+ * 
+ * @author Joshua Rodrigues
+ * @since Sep 21, 2011 1:40:06 PM
+ */
 public enum HitType {
 
-	NO_DAMAGE(0), NORMAL_DAMAGE(1), POISON_DAMAGE(2), DISEASE_DAMAGE(3);
+	/**
+	 * 
+	 */
+	NO_DAMAGE((byte) 0),
 
-	private int hitID;
+	/**
+	 * 
+	 */
+	NORMAL_DAMAGE((byte) 1),
 
-	private HitType(int hitID) {
+	/**
+	 * 
+	 */
+	POISON_DAMAGE((byte) 2),
+
+	/**
+	 * 
+	 */
+	DISEASE_DAMAGE((byte) 3);
+
+	/**
+	 * 
+	 */
+	private byte hitID;
+
+	/**
+	 * 
+	 * @param hitID
+	 * 			The id to set.
+	 */
+	private HitType(byte hitID) {
 		this.setHitID(hitID);
 	}
 
-	public void setHitID(int hitID) {
+	/**
+	 * 
+	 * @param hitID
+	 * 			The id to set.
+	 */
+	public void setHitID(byte hitID) {
 		this.hitID = hitID;
 	}
 
-	public int getHitID() {
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
+	public byte getHitID() {
 		return this.hitID;
 	}
 }

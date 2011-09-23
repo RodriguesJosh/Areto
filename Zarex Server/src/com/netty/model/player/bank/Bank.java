@@ -5,11 +5,28 @@ import com.netty.model.player.Player;
 import com.netty.model.player.container.Container;
 import com.netty.model.player.container.ContainerType;
 
+/**
+ * 
+ * @author Joshua Rodrigues
+ * @since Sep 21, 2011 11:21:42 AM
+ */
 public class Bank {
 
+	/**
+	 * 
+	 */
 	private Container bankContainer;
+
+	/**
+	 * 
+	 */
 	private Player player;
 
+	/**
+	 * 
+	 * @param player
+	 * 			The id to set.
+	 */
 	public Bank(Player player) {
 		if (player == null) {
 			return;
@@ -20,19 +37,41 @@ public class Bank {
 		this.setPlayer(player);
 	}
 
+	/**
+	 * 
+	 */
 	public void openBank() {
 		this.getBankContainer().shiftItems();
 	}
 
+	/**
+	 * 
+	 * @param slot
+	 * 			The id to set.
+	 * @param item
+	 * 			The id to set.
+	 * @return
+	 * 			The id to set.
+	 */
 	public int unregisterItem(int slot, Item item) {
 		return this.getBankContainer().unregisterItem(slot, item);
 		// this.refresh();
 	}
 
+	/**
+	 * 
+	 */
 	public void refresh() {
 		// this.getPlayer().getPacketSender().sendItems(149, 0, 93, this.inventoryContainer);
 	}
 
+	/**
+	 * 
+	 * @param item
+	 * 			The id to set.
+	 * @return
+	 * 			The id to set.
+	 */
 	public boolean hasRoomFor(Item item) {
 		/** if (ItemDefinition.forId(id).isStackable()) {
 			return this.getFreeSlots() >= 1;
@@ -40,6 +79,17 @@ public class Bank {
 		return this.getBankContainer().getFreeSlots() >= item.getAmount();
 	}
 
+	/**
+	 * 
+	 * @param player
+	 * 			The id to set.
+	 * @param slot
+	 * 			The id to set.
+	 * @param id
+	 * 			The id to set.
+	 * @param amount
+	 * 			The id to set.
+	 */
 	public void withdrawItem(Player player, int slot, int id, int amount) {
 		Item item = this.getBankContainer().getItem(slot);
 		if (item == null) {
@@ -78,6 +128,15 @@ public class Bank {
 		}
 	}
 
+	/**
+	 * 
+	 * @param player
+	 * 			The id to set.
+	 * @param slot
+	 * 			The id to set.
+	 * @param mainItem
+	 * 			The id to set.
+	 */
 	public void depositItem(Player player, int slot, Item mainItem) {
 		Item item = this.getBankContainer().getItem(slot);
 		if (item == null) {
@@ -122,18 +181,38 @@ public class Bank {
 		}
 	}
 
+	/**
+	 * 
+	 * @param bankContainer
+	 * 			The id to set.
+	 */
 	public void setBankContainer(Container bankContainer) {
 		this.bankContainer = bankContainer;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public Container getBankContainer() {
 		return this.bankContainer;
 	}
 
+	/**
+	 * 
+	 * @param player
+	 * 			The id to set.
+	 */
 	public void setPlayer(Player player) {
 		this.player = player;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public Player getPlayer() {
 		return this.player;
 	}

@@ -7,16 +7,44 @@ import com.netty.model.player.Player;
 import com.netty.model.player.skill.SkillType;
 import com.netty.model.update.Animation;
 
+/**
+ * 
+ * @author Joshua Rodrigues
+ * @since Sep 22, 2011 12:24:27 AM
+ */
 public class Thieving {
 
+	/**
+	 * 
+	 */
 	private Pickpocket pickpocket;
+
+	/**
+	 * 
+	 */
 	private Stall stall;
 
+	/**
+	 * 
+	 * @param player
+	 * 			The id to set.
+	 * @param stallID
+	 * 			The id to set.
+	 * @param npcID
+	 * 			The id to set.
+	 */
 	public Thieving(Player player, int stallID, int npcID) {
 		this.executePickpocket(player, npcID);
 		this.executeStall(player, stallID);
 	}
 
+	/**
+	 * 
+	 * @param player
+	 * 			The id to set.
+	 * @param npcID
+	 * 			The id to set.
+	 */
 	private void executePickpocket(Player player, int npcID) {
 		if (npcID == -1) {
 			return;
@@ -36,6 +64,13 @@ public class Thieving {
 		}
 	}
 
+	/**
+	 * 
+	 * @param player
+	 * 			The id to set.
+	 * @param stallID
+	 * 			The id to set.
+	 */
 	private void executeStall(Player player, int stallID) {
 		if (stallID == -1) {
 			return;
@@ -55,6 +90,13 @@ public class Thieving {
 		}
 	}
 
+	/**
+	 * 
+	 * @param stallID
+	 * 			The id to set.
+	 * @return
+	 * 			The id to set.
+	 */
 	private Stall getStall(int stallID) {
 		int[] stallIDs = { 1281, 1308, 1307, 1309, 1306 };
 		Stall[] stallTypes = {
@@ -70,16 +112,16 @@ public class Thieving {
 		return Stall.VEGETABLE;
 	}
 
+	/**
+	 * 
+	 * @param pickpocketID
+	 * 			The id to set.
+	 * @return
+	 * 			The id to set.
+	 */
 	private Pickpocket getPickpocket(int pickpocketID) {
 		int[] pickpocketIDs = { 1281, 1308, 1307, 1309, 1306 };
-		Pickpocket[] pickpocketTypes = {
-				Pickpocket.FARMER, Pickpocket.FEMALE_HAM, Pickpocket.MALE_HAM, Pickpocket.HAM_GUARD,
-				Pickpocket.WOMAN_WARRIOR, Pickpocket.ROGUE, Pickpocket.CAVE_GOBLIN, Pickpocket.MASTER_FARMER,
-				Pickpocket.GUARD, Pickpocket.FREMENNIK_CITIZEN, Pickpocket.BEARDED_POLLNIVIAN_BANDIT,
-				Pickpocket.DESERT_BANDIT, Pickpocket.KNIGHT_ARDOUGNE, Pickpocket.POLLNIVIAN_BANDIT,
-				Pickpocket.YANILLE_WATCHMAN, Pickpocket.MENAPHITE_THUG, Pickpocket.PALADIN, Pickpocket.GNOME,
-				Pickpocket.HERO, Pickpocket.ELF, Pickpocket.DRAWF_TRADER
-		};
+		Pickpocket[] pickpocketTypes = Pickpocket.values();
 		for (int i : pickpocketIDs) {
 			if (pickpocketID == i) {
 				return pickpocketTypes[i];
@@ -88,18 +130,38 @@ public class Thieving {
 		return Pickpocket.MAN_WOMAN;
 	}
 
+	/**
+	 * 
+	 * @param pickpocket
+	 * 			The id to set.
+	 */
 	public void setPickpocket(Pickpocket pickpocket) {
 		this.pickpocket = pickpocket;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public Pickpocket getPickpocket() {
 		return this.pickpocket;
 	}
 
+	/**
+	 * 
+	 * @param stall
+	 * 			The id to set.
+	 */
 	public void setStall(Stall stall) {
 		this.stall = stall;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public Stall getStall() {
 		return this.stall;
 	}

@@ -18,10 +18,11 @@ import com.netty.script.ScriptType;
 
 /**
  * 
- * @author josh
- * @since 0.1
+ * 
+ * @author Joshua Rodrigues
+ * @since Sep 21, 2011 12:05:53 PM
  */
-public class RubyScript {
+public class RubyScript extends Script {
 
 	/**
 	 * 
@@ -42,6 +43,7 @@ public class RubyScript {
 	 * 
 	 */
 	public RubyScript() {
+		super(null, null);
 		this.setScriptEngineManager(new ScriptEngineManager());
 		this.setScriptEngine(this.getScriptEngineManager().getEngineByName("Ruby"));
 		this.setRubyScriptList(new ArrayList<Script>());
@@ -50,7 +52,9 @@ public class RubyScript {
 	/**
 	 * 
 	 * @param rubyScriptFile
+	 * 			The id to set.
 	 * @return
+	 * 			The id to set.
 	 */
 	public Object getRubyExecution(String rubyScriptFile) {
 		File file = new File(ScriptConstants.RUBY_PATH + rubyScriptFile);
@@ -75,7 +79,9 @@ public class RubyScript {
 	/**
 	 * 
 	 * @param name
+	 * 			The id to set.
 	 * @return
+	 * 			The id to set.
 	 */
 	public Script getRubyName(String name) {
 		if (name == null) {
@@ -95,7 +101,9 @@ public class RubyScript {
 	/**
 	 * 
 	 * @param functionName
+	 * 			The id to set.
 	 * @param arguments
+	 * 			The id to set.
 	 */
 	public void invokeFunction(String functionName, Object... arguments) {
 		Invocable invocable = (Invocable) this.getScriptEngine();
@@ -111,6 +119,7 @@ public class RubyScript {
 	/**
 	 * 
 	 * @param scriptEngineManager
+	 * 			The id to set.
 	 */
 	public void setScriptEngineManager(ScriptEngineManager scriptEngineManager) {
 		this.scriptEngineManager = scriptEngineManager;
@@ -119,6 +128,7 @@ public class RubyScript {
 	/**
 	 * 
 	 * @return scriptEngineManager
+	 * 			The id to set.
 	 */
 	public ScriptEngineManager getScriptEngineManager() {
 		return this.scriptEngineManager;
@@ -127,6 +137,7 @@ public class RubyScript {
 	/**
 	 * 
 	 * @param scriptEngine
+	 * 			The id to set.
 	 */
 	public void setScriptEngine(ScriptEngine scriptEngine) {
 		this.scriptEngine = scriptEngine;
@@ -135,6 +146,7 @@ public class RubyScript {
 	/**
 	 * 
 	 * @return scriptEngine
+	 * 			The id to set.
 	 */
 	public ScriptEngine getScriptEngine() {
 		return this.scriptEngine;
@@ -143,6 +155,7 @@ public class RubyScript {
 	/**
 	 * 
 	 * @param rubyScriptList
+	 * 			The id to set.
 	 */
 	public void setRubyScriptList(List<Script> rubyScriptList) {
 		this.rubyScriptList = rubyScriptList;
@@ -151,6 +164,7 @@ public class RubyScript {
 	/**
 	 * 
 	 * @return rubyScriptList
+	 * 			The id to set.
 	 */
 	public List<Script> getRubyScriptList() {
 		return this.rubyScriptList;

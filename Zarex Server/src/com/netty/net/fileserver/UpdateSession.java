@@ -7,26 +7,54 @@ import org.jboss.netty.buffer.ChannelBuffers;
 import org.jboss.netty.channel.Channel;
 import org.jboss.netty.channel.ChannelFutureListener;
 
+/**
+ * 
+ * @author Joshua Rodrigues
+ * @since Sep 21, 2011 1:18:45 PM
+ */
 public class UpdateSession {
 
+	/**
+	 * 
+	 */
 	private Channel channel;
+
+	/**
+	 * 
+	 */
 	private UpdateType updateType;
+
+	/**
+	 * 
+	 */
 	private Request request;
 
+	/**
+	 * 
+	 * @param updateType
+	 * 			The id to set.
+	 * @param channel
+	 * 			The id to set.
+	 */
 	public UpdateSession(UpdateType updateType, Channel channel) {
 		this.updateType = updateType;
 		this.channel = channel;
 	}
 
+	/**
+	 * 
+	 * @param line
+	 * 			The id to set.
+	 */
 	public void readLine(String line) {
 		if (this.request == null) {
 			switch (this.updateType) {
-			case JAGGRAB:
-				this.readJAGGRABPath(line);
-				break;
-			case HTTP:
-				this.readHTTPPath(line);
-				break;
+				case JAGGRAB:
+					this.readJAGGRABPath(line);
+					break;
+				case HTTP:
+					this.readHTTPPath(line);
+					break;
 			}
 		} else {
 			if (this.getUpdateType() == UpdateType.HTTP) {
@@ -37,6 +65,9 @@ public class UpdateSession {
 		}
 	}
 
+	/**
+	 * 
+	 */
 	private void serve() {
 		/** if (this.request == null) {
 			this.channel.close();
@@ -65,8 +96,12 @@ public class UpdateSession {
 		this.channel.write(ib).addListener(ChannelFutureListener.CLOSE); */
 	}
 
-	@SuppressWarnings("unused")
-	private void error404(Response resp) {
+	/**
+	 * 
+	 * @param resp
+	 * 			The id to set.
+	 */
+	public void error404(Response resp) {
 		StringBuilder header = new StringBuilder();
 		if (this.getUpdateType() == UpdateType.HTTP) {
 			header.append("HTTP/1.1 200 OK\r\n");
@@ -84,6 +119,11 @@ public class UpdateSession {
 		this.getChannel().write(ib).addListener(ChannelFutureListener.CLOSE);
 	}
 
+	/**
+	 * 
+	 * @param line
+	 * 			The id to set.
+	 */
 	public void readHTTPPath(String line) {
 		String[] httpParts = line.split(" ");
 		if (httpParts.length != 3) {
@@ -93,6 +133,11 @@ public class UpdateSession {
 		}
 	}
 
+	/**
+	 * 
+	 * @param line
+	 * 			The id to set.
+	 */
 	public void readJAGGRABPath(String line) {
 		String jaggrab = "JAGGRAB ";
 		if (line.startsWith(jaggrab)) {
@@ -103,26 +148,56 @@ public class UpdateSession {
 		this.serve();
 	}
 
+	/**
+	 * 
+	 * @param channel
+	 * 			The id to set.
+	 */
 	public void setChannel(Channel channel) {
 		this.channel = channel;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public Channel getChannel() {
 		return this.channel;
 	}
 
+	/**
+	 * 
+	 * @param updateType
+	 * 			The id to set.
+	 */
 	public void setUpdateType(UpdateType updateType) {
 		this.updateType = updateType;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public UpdateType getUpdateType() {
 		return this.updateType;
 	}
 
+	/**
+	 * 
+	 * @param request
+	 * 			The id to set.
+	 */
 	public void setRequest(Request request) {
 		this.request = request;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public Request getRequest() {
 		return this.request;
 	}

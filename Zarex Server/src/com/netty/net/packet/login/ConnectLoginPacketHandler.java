@@ -6,8 +6,16 @@ import com.netty.net.packet.PacketHandler;
 import com.netty.util.NameUtility;
 import com.netty.world.World;
 
+/**
+ * 
+ * @author Joshua Rodrigues
+ * @since Sep 21, 2011 12:24:05 PM
+ */
 public class ConnectLoginPacketHandler implements PacketHandler {
 
+	/* (non-Javadoc)
+	 * @see com.netty.net.packet.PacketHandler#handlePacket(com.netty.net.packet.PacketAttribute, com.netty.model.player.Player)
+	 */
 	@Override
 	public void handlePacket(PacketAttribute packetAttribute, Player player) {
 		World.getWorld().getLogger().info("Hi!");

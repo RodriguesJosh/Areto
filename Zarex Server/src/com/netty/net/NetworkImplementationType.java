@@ -3,8 +3,9 @@ package com.netty.net;
 /**
  * A type of networking API to use for
  * bench marking purposes.
- * @author josh
- * @version 1.0
+ * 
+ * @author Joshua Rodrigues
+ * @since Sep 21, 2011 1:33:54 PM
  */
 public enum NetworkImplementationType {
 

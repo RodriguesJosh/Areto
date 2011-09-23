@@ -8,16 +8,38 @@ import com.netty.model.player.minigame.ThreateningState;
 import com.netty.model.update.Animation;
 import com.netty.world.World;
 
+/**
+ * 
+ * @author Joshua Rodrigues
+ * @since Sep 21, 2011 9:03:17 PM
+ */
 public class Barrows extends MiniGame {
 
+	/**
+	 * 
+	 */
 	private Brother brother;
+
+	/**
+	 * 
+	 */
 	private Chest chest;
 
+	/**
+	 * 
+	 * @param player
+	 * 			The id to set.
+	 * @param brother
+	 * 			The id to set.
+	 */
 	public Barrows(Player player, Brother brother) {
 		super(player);
 		this.setBrother(brother);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.netty.model.player.minigame.MiniGame#start()
+	 */
 	@Override
 	public void start() {
 		for (Item item : this.getPlayer().getEquipment().getItems()) {
@@ -42,33 +64,62 @@ public class Barrows extends MiniGame {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.netty.model.player.minigame.MiniGame#end()
+	 */
 	@Override
 	public void end() {
 		this.setChest(new Chest());
 	}
 
+	/* (non-Javadoc)
+	 * @see com.netty.model.player.minigame.MiniGame#getMembershipState()
+	 */
 	@Override
 	public MembershipState getMembershipState() {
 		return MembershipState.FREE;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.netty.model.player.minigame.MiniGame#getThreateningState()
+	 */
 	@Override
 	public ThreateningState getThreateningState() {
 		return ThreateningState.SAFE;
 	}
 
+	/**
+	 * 
+	 * @param brother
+	 * 			The id to set.
+	 */
 	public void setBrother(Brother brother) {
 		this.brother = brother;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public Brother getBrother() {
 		return this.brother;
 	}
 
+	/**
+	 * 
+	 * @param chest
+	 * 			The id to set.
+	 */
 	public void setChest(Chest chest) {
 		this.chest = chest;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public Chest getChest() {
 		return this.chest;
 	}

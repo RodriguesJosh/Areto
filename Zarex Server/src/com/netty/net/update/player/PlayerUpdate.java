@@ -17,20 +17,42 @@ import com.netty.net.update.EntityUpdate;
 import com.netty.util.NameUtility;
 import com.netty.world.World;
 
+/**
+ * 
+ * @author Joshua Rodrigues
+ * @since Sep 21, 2011 12:12:42 PM
+ */
 public class PlayerUpdate implements Runnable {
 
+	/**
+	 * 
+	 */
 	private EntityUpdate entityUpdate;
+
+	/**
+	 * 
+	 */
 	private Player player;
 
+	/**
+	 * 
+	 * @param entityUpdate
+	 * 			The id to set.
+	 * @param player
+	 * 			The id to set.
+	 */
 	public PlayerUpdate(EntityUpdate entityUpdate, Player player) {
 		this.setEntityUpdate(entityUpdate);
 		this.setPlayer(player);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Runnable#run()
+	 */
 	@Override
 	public void run() {
 		if (this.getPlayer().isMapChanging()) {
-			this.getPlayer().getPacketSender().getMapRegion();
+			// this.getPlayer().getPacketSender().getMapRegion();
 		}
 		PacketBuilder updateBlockBuilder = new PacketBuilder();
 		PacketBuilder packetBuilder = new PacketBuilder((short) 81, PacketType.VARIABLE_SHORT);
@@ -79,6 +101,17 @@ public class PlayerUpdate implements Runnable {
 		this.getEntityUpdate().getCountDownLatch().countDown();
 	}
 
+	/**
+	 * 
+	 * @param packetBuilder
+	 * 			The id to set.
+	 * @param player
+	 * 			The id to set.
+	 * @param isAppearance
+	 * 			The id to set.
+	 * @param isNotChatting
+	 * 			The id to set.
+	 */
 	private void updatePlayer(PacketBuilder packetBuilder, Player player, boolean isAppearance, boolean isNotChatting) {
 		if (!player.getUpdateFlags().isUpdateRequired() && !isAppearance) {
 			return;
@@ -165,6 +198,13 @@ public class PlayerUpdate implements Runnable {
 		}
 	}
 
+	/**
+	 * 
+	 * @param packetBuilder
+	 * 			The id to set.
+	 * @param player
+	 * 			The id to set.
+	 */
 	private void updateForcedMovement(PacketBuilder packetBuilder, Player player) {
 		ForceMovement forceMovement = player.getForceMovement();
 		packetBuilder.putByteC(forceMovement.getStartLocation().getX());
@@ -176,20 +216,48 @@ public class PlayerUpdate implements Runnable {
 		packetBuilder.putByte((byte) forceMovement.getFacingDirection());
 	}
 
+	/**
+	 * 
+	 * @param packetBuilder
+	 * 			The id to set.
+	 * @param player
+	 * 			The id to set.
+	 */
 	private void updateGraphic(PacketBuilder packetBuilder, Player player) {
 		packetBuilder.putLEShort(player.getGraphic().getID());
 		packetBuilder.putInt(player.getGraphic().getDelay());
 	}
 
+	/**
+	 * 
+	 * @param packetBuilder
+	 * 			The id to set.
+	 * @param player
+	 * 			The id to set.
+	 */
 	private void updateAnimation(PacketBuilder packetBuilder, Player player) {
 		packetBuilder.putLEShort(player.getAnimation().getID());
 		packetBuilder.putByteC(player.getAnimation().getDelay());
 	}
 
+	/**
+	 * 
+	 * @param packetBuilder
+	 * 			The id to set.
+	 * @param player
+	 * 			The id to set.
+	 */
 	private void updateForcedChat(PacketBuilder packetBuilder, Player player) {
 		packetBuilder.putString(player.getForceChat().getForceText());
 	}
 
+	/**
+	 * 
+	 * @param packetBuilder
+	 * 			The id to set.
+	 * @param player
+	 * 			The id to set.
+	 */
 	private void updateChat(PacketBuilder packetBuilder, Player player) {
 		packetBuilder.putLEShort(((player.getChat().getColor() & 0xFF) << 8) | (player.getChat().getEffects() & 0xFF));
 		packetBuilder.putByte(player.getRank().getID());
@@ -199,11 +267,25 @@ public class PlayerUpdate implements Runnable {
 		}
 	}
 
+	/**
+	 * 
+	 * @param packetBuilder
+	 * 			The id to set.
+	 * @param player
+	 * 			The id to set.
+	 */
 	private void updateFaceEntity(PacketBuilder packetBuilder, Player player) {
 		FaceEntity faceEntity = player.getFaceEntity();
 		packetBuilder.putLEShort(faceEntity.getFaceEntity() == null ? -1 : faceEntity.getFaceEntity().getIndex());
 	}
 
+	/**
+	 * 
+	 * @param packetBuilder
+	 * 			The id to set.
+	 * @param player
+	 * 			The id to set.
+	 */
 	private void updateAppearance(PacketBuilder packetBuilder, Player player) {
 		Appearance appearance = player.getAppearance();
 		PacketBuilder playerPropsBuilder = new PacketBuilder();
@@ -240,6 +322,13 @@ public class PlayerUpdate implements Runnable {
 		packetBuilder.putBytes(cb);
 	}
 
+	/**
+	 * 
+	 * @param packetBuilder
+	 * 			The id to set.
+	 * @param player
+	 * 			The id to set.
+	 */
 	private void updateFaceLocation(PacketBuilder packetBuilder, Player player) {
 		if (player.getFaceLocation() == null) {
 			packetBuilder.putLEShortA(0);
@@ -250,20 +339,39 @@ public class PlayerUpdate implements Runnable {
 		}
 	}
 
+	/**
+	 * 
+	 * @param packetBuilder
+	 * 			The id to set.
+	 * @param player
+	 * 			The id to set.
+	 */
 	private void updateHit(PacketBuilder packetBuilder, Player player) {
 		packetBuilder.putByte(player.getHit().getDamage());
-		packetBuilder.putByteA((byte) player.getHit().getHitType().getHitID());
+		packetBuilder.putByteA(player.getHit().getHitType().getHitID());
 		packetBuilder.putByteC(player.getSkills()[SkillType.HITPOINT.getID()].getLevel());
 		packetBuilder.putByte((byte) player.getSkills()[SkillType.HITPOINT.getID()].getExperience());
 	}
 
+	/**
+	 * 
+	 * @param packetBuilder
+	 * 			The id to set.
+	 * @param player
+	 * 			The id to set.
+	 */
 	private void updateHitTwo(PacketBuilder packetBuilder, Player player) {
 		packetBuilder.putByte(player.getHitTwo().getDamage());
-		packetBuilder.putByteA((byte) player.getHitTwo().getHitType().getHitID());
+		packetBuilder.putByteA(player.getHitTwo().getHitType().getHitID());
 		packetBuilder.putByteC(player.getSkills()[SkillType.HITPOINT.getID()].getLevel());
 		packetBuilder.putByte((byte) player.getSkills()[SkillType.HITPOINT.getID()].getExperience());
 	}
 
+	/**
+	 * 
+	 * @param packetBuilder
+	 * 			The id to set.
+	 */
 	private void updateThisPlayerMovement(PacketBuilder packetBuilder) {
 		if (this.getPlayer().isMapChanging() || this.getPlayer().isTeleporting()) {
 			packetBuilder.putBits(1, 1);
@@ -298,6 +406,13 @@ public class PlayerUpdate implements Runnable {
 		}
 	}
 
+	/**
+	 * 
+	 * @param packetBuilder
+	 * 			The id to set.
+	 * @param player
+	 * 			The id to set.
+	 */
 	private void updatePlayerMovement(PacketBuilder packetBuilder, Player player) {
 		if (player.getWalkingDirection() == -1) {
 			if (this.getPlayer().getUpdateFlags().isUpdateRequired()) {
@@ -320,18 +435,38 @@ public class PlayerUpdate implements Runnable {
 		}
 	}
 
+	/**
+	 * 
+	 * @param entityUpdate
+	 * 			The id to set.
+	 */
 	public void setEntityUpdate(EntityUpdate entityUpdate) {
 		this.entityUpdate = entityUpdate;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public EntityUpdate getEntityUpdate() {
 		return this.entityUpdate;
 	}
 
+	/**
+	 * 
+	 * @param player
+	 * 			The id to set.
+	 */
 	public void setPlayer(Player player) {
 		this.player = player;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public Player getPlayer() {
 		return this.player;
 	}

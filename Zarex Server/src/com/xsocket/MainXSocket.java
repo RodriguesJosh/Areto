@@ -11,8 +11,18 @@ import com.netty.world.World;
 import com.netty.world.WorldConstants;
 import com.xsocket.net.BootXSocket;
 
+/**
+ * 
+ * @author Joshua Rodrigues
+ * @since Sep 21, 2011 11:52:36 AM
+ */
 public class MainXSocket {
 
+	/**
+	 * 
+	 * @param args
+	 * 			The id to set.
+	 */
 	public static void main(String[] args) {
 		Timing time = new Timing();
 		World.getWorld().getLogger().info("Starting the XSocket Server emulation project...");

@@ -14,8 +14,18 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.RSAPrivateKeySpec;
 import java.security.spec.RSAPublicKeySpec;
 
+/**
+ * 
+ * @author Joshua Rodrigues
+ * @since Sep 21, 2011 12:22:40 PM
+ */
 public class RSA {
 
+	/**
+	 * 
+	 * @param args
+	 * 			The id to set.
+	 */
 	public static void main(String[] args) {
 		KeyFactory keyFactory = null;
 		KeyPairGenerator keyPairGenerator = null;
@@ -24,6 +34,12 @@ public class RSA {
 			keyPairGenerator = KeyPairGenerator.getInstance("RSA");
 		} catch (NoSuchAlgorithmException nsae) {
 			nsae.printStackTrace();
+		}
+		if (keyFactory == null) {
+			return;
+		}
+		if (keyPairGenerator == null) {
+			return;
 		}
 		keyPairGenerator.initialize(1024);
 		KeyPair keypair = keyPairGenerator.genKeyPair();
@@ -35,6 +51,9 @@ public class RSA {
 		} catch (InvalidKeySpecException ikse) {
 			ikse.printStackTrace();
 		}
+		if (rsaPrivateKey == null) {
+			return;
+		}
 		RSA.writeKey("rsapriv", rsaPrivateKey.getModulus(), rsaPrivateKey.getPrivateExponent());
 		RSAPublicKeySpec rsaPublicKey = null;
 		try {
@@ -42,9 +61,21 @@ public class RSA {
 		} catch (InvalidKeySpecException ikse) {
 			ikse.printStackTrace();
 		}
+		if (rsaPublicKey == null) {
+			return;
+		}
 		RSA.writeKey("rsapub", rsaPublicKey.getModulus(), rsaPublicKey.getPublicExponent());
 	}
 
+	/**
+	 * 
+	 * @param file
+	 * 			The id to set.
+	 * @param modulus
+	 * 			The id to set.
+	 * @param exponent
+	 * 			The id to set.
+	 */
 	public static void writeKey(String file, BigInteger modulus, BigInteger exponent) {
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter("./data/rsa/" + file));

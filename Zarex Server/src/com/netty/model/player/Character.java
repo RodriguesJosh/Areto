@@ -29,19 +29,47 @@ import com.netty.util.Timing;
 import com.netty.world.Location;
 import com.netty.world.World;
 
+/**
+ * 
+ * @author Joshua Rodrigues
+ * @since Sep 21, 2011 11:08:31 AM
+ */
 public class Character {
 
+	/**
+	 * 
+	 */
 	private Player player;
+
+	/**
+	 * 
+	 */
 	private DocumentBuilder documentBuilder;
+
+	/**
+	 * 
+	 */
 	private DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+
+	/**
+	 * 
+	 */
 	private SQL sql;
 
+	/**
+	 * 
+	 * @param player
+	 * 			The id to set.
+	 */
 	public Character(Player player) {
 		this.setPlayer(player);
 		// this.setDocumentBuilderFactory(DocumentBuilderFactory.newInstance());
 		// this.setSQL(new SQL());
 	}
 
+	/**
+	 * 
+	 */
 	public void saveCharacterXML() {
 		if (this.getPlayer() != null) {
 			DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -50,6 +78,9 @@ public class Character {
 				documentBuilder = documentBuilderFactory.newDocumentBuilder();
 			} catch (ParserConfigurationException pce) {
 				pce.printStackTrace();
+			}
+			if (documentBuilder == null) {
+				throw new NullPointerException();
 			}
 			Document document = documentBuilder.newDocument();
 			Element characterElement = document.createElement("CHARACTER");
@@ -109,6 +140,9 @@ public class Character {
 			} catch (TransformerConfigurationException tce) {
 				tce.printStackTrace();
 			}
+			if (transformer == null) {
+				throw new NullPointerException();
+			}
 			transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			StringWriter stringWriter = new StringWriter();
@@ -131,6 +165,9 @@ public class Character {
 		}
 	}
 
+	/**
+	 * 
+	 */
 	public void loadCharacterXML() {
 		Timing time = new Timing();
 		if (this.getPlayer() != null) {
@@ -143,16 +180,19 @@ public class Character {
 			} catch (ParserConfigurationException pce) {
 				pce.printStackTrace();
 			}
-			Document doc = null;
+			Document document = null;
 			try {
-				doc = this.getDocumentBuilder().parse(file);
+				document = this.getDocumentBuilder().parse(file);
 			} catch (SAXException saxe) {
 				saxe.printStackTrace();
 			} catch (IOException ioe) {
 				ioe.printStackTrace();
 			}
-			doc.getDocumentElement().normalize();
-			NodeList detailsList = doc.getElementsByTagName("PLAYER");
+			if (document == null) {
+				throw new NullPointerException();
+			}
+			document.getDocumentElement().normalize();
+			NodeList detailsList = document.getElementsByTagName("PLAYER");
 			for (int i = 0; i < detailsList.getLength(); i++) {
 				Element detailElement = (Element) detailsList.item(i);
 				String name = detailElement.getAttribute("NAME");
@@ -168,7 +208,7 @@ public class Character {
 					this.getPlayer().setMembership(this.getPlayer().getMembership());
 				}
 			}
-			NodeList locationList = doc.getElementsByTagName("LOCATION");
+			NodeList locationList = document.getElementsByTagName("LOCATION");
 			for (int i = 0; i < locationList.getLength(); i++) {
 				Element locationElement = (Element) locationList.item(i);
 				short x = Short.parseShort(locationElement.getAttribute("X"));
@@ -176,7 +216,7 @@ public class Character {
 				byte z = Byte.parseByte(locationElement.getAttribute("Z"));
 				this.getPlayer().setLocation(new Location(x, y, z));
 			}
-			NodeList appearanceList = doc.getElementsByTagName("APPEARANCE");
+			NodeList appearanceList = document.getElementsByTagName("APPEARANCE");
 			for (int i = 0; i < 1; i++) {
 				Element genderElement = (Element) appearanceList.item(i);
 				byte gender = Byte.parseByte(genderElement.getAttribute("GENDER"));
@@ -197,7 +237,7 @@ public class Character {
 						feet, beard
 				});
 			}
-			NodeList memberList = doc.getElementsByTagName("MEMBER");
+			NodeList memberList = document.getElementsByTagName("MEMBER");
 			for (int i = 0; i < 1; i++) {
 				Element memberElement = (Element) memberList.item(i);
 				byte seconds = Byte.parseByte(memberElement.getAttribute("SECONDS"));
@@ -215,7 +255,7 @@ public class Character {
 				this.getPlayer().getMembership().setMonths(months);
 				this.getPlayer().getMembership().setYears(years);
 			}
-			NodeList bankPinList = doc.getElementsByTagName("BANK_PIN");
+			NodeList bankPinList = document.getElementsByTagName("BANK_PIN");
 			for (int i = 0; i < 1; i++) {
 				Element bankPinElement = (Element) bankPinList.item(i);
 				byte firstPin = Byte.parseByte(bankPinElement.getAttribute("FIRST_PIN"));
@@ -231,6 +271,9 @@ public class Character {
 		}
 	}
 
+	/**
+	 * 
+	 */
 	public void saveCharacterSQL() {
 		if (this.getPlayer() != null) {
 			this.getSQL().executeQuery("INSERT INTO `characters` (`id`, `name`, `pass`, `member`, `x`, `y`, `z`, `rank`," +
@@ -242,6 +285,9 @@ public class Character {
 		}
 	}
 
+	/**
+	 * 
+	 */
 	public void loadCharacterSQL() {
 		if (this.getPlayer() != null) {
 			ResultSet resultSet = this.getSQL().queryResults("SELECT * FROM `characters` WHERE `characters`.`name` = `" + this.getPlayer().getName() + "`");
@@ -260,34 +306,74 @@ public class Character {
 		}
 	}
 
+	/**
+	 * 
+	 * @param player
+	 * 			The id to set.
+	 */
 	public void setPlayer(Player player) {
 		this.player = player;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public Player getPlayer() {
 		return this.player;
 	}
 
+	/**
+	 * 
+	 * @param documentBuilder
+	 * 			The id to set.
+	 */
 	public void setDocumentBuilder(DocumentBuilder documentBuilder) {
 		this.documentBuilder = documentBuilder;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public DocumentBuilder getDocumentBuilder() {
 		return this.documentBuilder;
 	}
 
+	/**
+	 * 
+	 * @param documentBuilderFactory
+	 * 			The id to set.
+	 */
 	public void setDocumentBuilderFactory(DocumentBuilderFactory documentBuilderFactory) {
 		this.documentBuilderFactory = documentBuilderFactory;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public DocumentBuilderFactory getDocumentBuilderFactory() {
 		return this.documentBuilderFactory;
 	}
 
+	/**
+	 * 
+	 * @param sql
+	 * 			The id to set.
+	 */
 	public void setSQL(SQL sql) {
 		this.sql = sql;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public SQL getSQL() {
 		return this.sql;
 	}

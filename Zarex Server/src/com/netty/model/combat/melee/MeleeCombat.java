@@ -14,19 +14,44 @@ import com.netty.model.update.Hit;
 import com.netty.model.update.HitType;
 import com.netty.model.update.UpdateFlag;
 
+/**
+ * 
+ * @author Joshua Rodrigues
+ * @since Sep 21, 2011 10:40:59 AM
+ */
 public class MeleeCombat extends Combat {
 
+	/**
+	 * 
+	 */
 	private Weapon weapon;
 
+	/**
+	 * 
+	 * @param entityPlayer
+	 * 			The id to set.
+	 * @param entityEnemy
+	 * 			The id to set.
+	 * @param combatType
+	 * 			The id to set.
+	 * @param attackType
+	 * 			The id to set.
+	 */
 	public MeleeCombat(Player entityPlayer, Entity entityEnemy, CombatType combatType, AttackType attackType) {
 		super(entityPlayer, entityEnemy, combatType, attackType);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.netty.model.combat.Combat#mageDamage()
+	 */
 	@Override
 	public void mageDamage() {
 		return;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.netty.model.combat.Combat#meleeDamage()
+	 */
 	@Override
 	public void meleeDamage() {
 		Random random = new Random();
@@ -62,15 +87,28 @@ public class MeleeCombat extends Combat {
 		this.getPlayer().getUpdateFlags().setUpdateFlag(UpdateFlag.APPEARANCE);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.netty.model.combat.Combat#rangeDamage()
+	 */
 	@Override
 	public void rangeDamage() {
 		return;
 	}
 
+	/**
+	 * 
+	 * @param weapon
+	 * 			The id to set.
+	 */
 	public void setWeapon(Weapon weapon) {
 		this.weapon = weapon;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public Weapon getWeapon() {
 		return this.weapon;
 	}

@@ -1,11 +1,14 @@
 package com.netty.model.player.trade;
 
+import com.mina.model.player.PlayerMINA;
+
 /**
  * A class filled with constant fields
  * to use when executing the {@link Trade}
  * <code>Object</code>.
- * @author Josh
- * @since 0.1
+ * 
+ * @author Joshua Rodrigues
+ * @since Sep 21, 2011 1:46:55 PM
  */
 public class TradeConstants {
 

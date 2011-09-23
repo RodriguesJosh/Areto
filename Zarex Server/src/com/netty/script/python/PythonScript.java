@@ -18,10 +18,11 @@ import com.netty.script.ScriptType;
 
 /**
  * 
- * @author Josh
- * @since 0.1
+ * 
+ * @author Joshua Rodrigues
+ * @since Sep 21, 2011 12:06:44 PM
  */
-public class PythonScript {
+public class PythonScript extends Script {
 
 	/**
 	 * 
@@ -37,6 +38,7 @@ public class PythonScript {
 	 * 
 	 */
 	public PythonScript() {
+		super(null, null);
 		this.setPythonInterpreter(new PythonInterpreter());
 		this.setPythonScriptList(new ArrayList<Script>());
 	}
@@ -44,8 +46,11 @@ public class PythonScript {
 	/**
 	 * 
 	 * @param functionName
+	 * 			The id to set.
 	 * @param arguments
+	 * 			The id to set.
 	 * @return
+	 * 			The id to set.
 	 */
 	public PyObject getPythonExecution(String functionName, Object... arguments) {
 		try {
@@ -71,7 +76,9 @@ public class PythonScript {
 	/**
 	 * 
 	 * @param name
+	 * 			The id to set.
 	 * @return
+	 * 			The id to set.
 	 */
 	public Script getPythonName(String name) {
 		if (name == null) {
@@ -94,7 +101,6 @@ public class PythonScript {
 	public void load() {
 		this.getPythonInterpreter().cleanup();
 		File pythonScript = new File(ScriptConstants.SCRIPTS_PATH);
-		// int parsed = 0;
 		if (!pythonScript.isDirectory()) {
 			return;
 		}
@@ -127,6 +133,7 @@ public class PythonScript {
 	/**
 	 * 
 	 * @param pythonInterpreter
+	 * 			The id to set.
 	 */
 	public void setPythonInterpreter(PythonInterpreter pythonInterpreter) {
 		this.pythonInterpreter = pythonInterpreter;
@@ -135,6 +142,7 @@ public class PythonScript {
 	/**
 	 * 
 	 * @return pythonInterpreter
+	 * 			The id to set.
 	 */
 	public PythonInterpreter getPythonInterpreter() {
 		return this.pythonInterpreter;
@@ -143,6 +151,7 @@ public class PythonScript {
 	/**
 	 * 
 	 * @param pythonScriptList
+	 * 			The id to set.
 	 */
 	public void setPythonScriptList(List<Script> pythonScriptList) {
 		this.pythonScriptList = pythonScriptList;
@@ -151,6 +160,7 @@ public class PythonScript {
 	/**
 	 * 
 	 * @return pythonScriptList
+	 * 			The id to set.
 	 */
 	public List<Script> getPythonScriptList() {
 		return this.pythonScriptList;

@@ -61,34 +61,74 @@ public class Trade {
 		this.setSecondTradeContainer(new Container(TradeConstants.MAX_TRADE_SLOTS, ContainerType.STACKABLE));
 	}
 
+	/**
+	 * 
+	 * @param firstPlayer
+	 * 			The id to set.
+	 */
 	public void setFirstPlayer(Player firstPlayer) {
 		this.firstPlayer = firstPlayer;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public Player getFirstPlayer() {
 		return this.firstPlayer;
 	}
 
+	/**
+	 * 
+	 * @param secondPlayer
+	 * 			The id to set.
+	 */
 	public void setSecondPlayer(Player secondPlayer) {
 		this.secondPlayer = secondPlayer;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public Player getSecondPlayer() {
 		return this.secondPlayer;
 	}
 
+	/**
+	 * 
+	 * @param firstTradeContainer
+	 * 			The id to set.
+	 */
 	public void setFirstTradeContainer(Container firstTradeContainer) {
 		this.firstTradeContainer = firstTradeContainer;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public Container getFirstTradeContainer() {
 		return this.firstTradeContainer;
 	}
 
+	/**
+	 * 
+	 * @param secondTradeContainer
+	 * 			The id to set.
+	 */
 	public void setSecondTradeContainer(Container secondTradeContainer) {
 		this.secondTradeContainer = secondTradeContainer;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 			The id to set.
+	 */
 	public Container getSecondTradeContainer() {
 		return this.secondTradeContainer;
 	}

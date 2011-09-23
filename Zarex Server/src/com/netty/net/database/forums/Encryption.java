@@ -4,8 +4,20 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * 
+ * @author Joshua Rodrigues
+ * @since Sep 21, 2011 1:24:07 PM
+ */
 public class Encryption {
 
+	/**
+	 * 
+	 * @param buffer
+	 * 			The id to set.
+	 * @return
+	 * 			The id to set.
+	 */
 	private static String convertToHex(byte[] buffer) {
 		StringBuffer stringBuffer = new StringBuffer();
 		for (byte b : buffer) {
@@ -23,12 +35,24 @@ public class Encryption {
 		return stringBuffer.toString();
 	}
 
+	/**
+	 * 
+	 * @param text
+	 * 			The id to set.
+	 * @param instance
+	 * 			The id to set.
+	 * @return
+	 * 			The id to set.
+	 */
 	public static String encrypt(String text, String instance) {
 		MessageDigest messageDigest = null;
 		try {
-			messageDigest = MessageDigest.getInstance("SHA");
+			messageDigest = MessageDigest.getInstance(instance);
 		} catch (NoSuchAlgorithmException nsae) {
 			nsae.printStackTrace();
+		}
+		if (messageDigest == null) {
+			throw new NullPointerException();
 		}
 		byte[] hash = new byte[32];
 		try {

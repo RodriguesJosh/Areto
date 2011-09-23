@@ -49,6 +49,7 @@ public class CycleManager implements Runnable {
 	 * If the previous cycle is done waiting, it
 	 * will execute itself.
 	 * @param cycle
+	 * 			The id to set.
 	 */
 	public void addCycle(final Cycle cycle) {
 		if (cycle.getWaitingCycles() == 0) {
@@ -64,11 +65,8 @@ public class CycleManager implements Runnable {
 		}
 	}
 
-	/**
-	 * Add all the previous cycles that have yet
-	 * to be executed into the {@code List} that
-	 * contains executed cycles. Once it is done
-	 * with its execution, remove it.
+	/*
+	 * (non-Javadoc)
 	 * @see java.lang.Runnable#run()
 	 */
 	@Override
@@ -126,7 +124,7 @@ public class CycleManager implements Runnable {
 	/**
 	 * Gets the {@code Queue} of executed cycles.
 	 * @return cycleList
-	 * 			The {@ Queue} that contains {@code Cycle}s
+	 * 			The Queue that contains {@code Cycle}s
 	 * 			that are being executed.
 	 */
 	public Queue<Cycle> getCycleList() {

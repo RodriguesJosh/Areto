@@ -11,8 +11,18 @@ import com.netty.world.World;
 import com.netty.world.WorldConstants;
 import com.nio.net.BootNIO;
 
+/**
+ * 
+ * @author Joshua Rodrigues
+ * @since Sep 21, 2011 11:54:43 AM
+ */
 public class MainNIO {
 
+	/**
+	 * 
+	 * @param args
+	 * 			The id to set.
+	 */
 	public static void main(String[] args) {
 		Timing time = new Timing();
 		World.getWorld().getLogger().info("Starting the MINA Server emulation project...");

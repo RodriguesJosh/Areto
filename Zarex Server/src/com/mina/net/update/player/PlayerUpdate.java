@@ -5,6 +5,8 @@ import java.util.Iterator;
 import com.mina.model.player.PlayerMINA;
 import com.mina.net.packet.PacketBuilderMINA;
 import com.mina.net.packet.PacketMINA;
+import com.netty.annotations.AnnotationType;
+import com.netty.annotations.Finished;
 import com.netty.model.player.Player;
 import com.netty.model.player.skill.SkillType;
 import com.netty.model.update.Appearance;
@@ -16,20 +18,48 @@ import com.netty.net.update.EntityUpdate;
 import com.netty.util.NameUtility;
 import com.netty.world.World;
 
+/**
+ * A player updating class to represent vital player
+ * updates that the player needs
+ * 
+ * @author Joshua Rodrigues
+ * @since Sep 19, 2011 12:36:11 PM
+ */
+@Finished(getAnnotationType = AnnotationType.FINISHED)
 public class PlayerUpdate implements Runnable {
 
+	/**
+	 * The entity update for counting down.
+	 */
 	private EntityUpdate entityUpdate;
+
+	/**
+	 * The player to update.
+	 */
 	private PlayerMINA playerMINA;
 
+	/**
+	 * Constructs a new player updating task to update
+	 * anything related to the player.
+	 * 
+	 * @param entityUpdate
+	 * 			The entity update to set.
+	 * @param playerMINA
+	 * 			The player to set for updating.
+	 */
 	public PlayerUpdate(EntityUpdate entityUpdate, PlayerMINA playerMINA) {
 		this.setEntityUpdate(entityUpdate);
 		this.setPlayerMINA(playerMINA);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Runnable#run()
+	 */
 	@Override
 	public void run() {
 		if (this.getPlayerMINA().isMapChanging()) {
-			this.getPlayerMINA().getPacketSender().getMapRegion();
+			// this.getPlayerMINA().getPacketSender().getMapRegion();
 		}
 		PacketBuilderMINA updateBlockBuilder = new PacketBuilderMINA();
 		PacketBuilderMINA packetBuilderMINA = new PacketBuilderMINA((short) 81, PacketType.VARIABLE_SHORT);
@@ -78,7 +108,21 @@ public class PlayerUpdate implements Runnable {
 		this.getEntityUpdate().getCountDownLatch().countDown();
 	}
 
-	private void updatePlayer(PacketBuilderMINA packetBuilderMINA, PlayerMINA playerMINA, boolean isAppearance, boolean isNotChatting) {
+	/**
+	 * Update the player with the given "masks" mapped with
+	 * a different update for the player.
+	 * 
+	 * @param packetBuilderMINA
+	 * 			The packet builder to build packets.
+	 * @param playerMINA
+	 * 			The player to update.
+	 * @param isAppearance
+	 * 			Whether or not the player is updating his/her
+	 * 			appearance.
+	 * @param isNotChatting
+	 * 			Whether or not the player is not chatting.
+	 */
+	public void updatePlayer(PacketBuilderMINA packetBuilderMINA, PlayerMINA playerMINA, boolean isAppearance, boolean isNotChatting) {
 		if (!playerMINA.getUpdateFlags().isUpdateRequired() && !isAppearance) {
 			return;
 		}
@@ -164,7 +208,15 @@ public class PlayerUpdate implements Runnable {
 		}
 	}
 
-	private void updateForcedMovement(PacketBuilderMINA packetBuilderMINA, PlayerMINA playerMINA) {
+	/**
+	 * Force the movement for a player.
+	 * 
+	 * @param packetBuilderMINA
+	 * 			The building of the packets to write.
+	 * @param playerMINA
+	 * 			The player to update the movement for.
+	 */
+	public void updateForcedMovement(PacketBuilderMINA packetBuilderMINA, PlayerMINA playerMINA) {
 		ForceMovement forceMovement = playerMINA.getForceMovement();
 		packetBuilderMINA.putByteC(forceMovement.getStartLocation().getX());
 		packetBuilderMINA.putByteS(forceMovement.getStartLocation().getY());
@@ -175,21 +227,53 @@ public class PlayerUpdate implements Runnable {
 		packetBuilderMINA.putByte((byte) forceMovement.getFacingDirection());
 	}
 
-	private void updateGraphic(PacketBuilderMINA packetBuilderMINA, PlayerMINA playerMINA) {
+	/**
+	 * Update the GFX (graphics) for the player.
+	 * 
+	 * @param packetBuilderMINA
+	 * 			The building of the packets to write.
+	 * @param playerMINA
+	 * 			The player to update the graphics for.
+	 */
+	public void updateGraphic(PacketBuilderMINA packetBuilderMINA, PlayerMINA playerMINA) {
 		packetBuilderMINA.putLEShort(playerMINA.getGraphic().getID());
 		packetBuilderMINA.putInt(playerMINA.getGraphic().getDelay());
 	}
 
-	private void updateAnimation(PacketBuilderMINA packetBuilderMINA, PlayerMINA playerMINA) {
+	/**
+	 * Update an animation for the player.
+	 * 
+	 * @param packetBuilderMINA
+	 * 			The building of the packets to write.
+	 * @param playerMINA
+	 * 			The player to update the animation for.
+	 */
+	public void updateAnimation(PacketBuilderMINA packetBuilderMINA, PlayerMINA playerMINA) {
 		packetBuilderMINA.putLEShort(playerMINA.getAnimation().getID());
 		packetBuilderMINA.putByteC(playerMINA.getAnimation().getDelay());
 	}
 
-	private void updateForcedChat(PacketBuilderMINA packetBuilderMINA, PlayerMINA playerMINA) {
+	/**
+	 * Force the chat update.
+	 * 
+	 * @param packetBuilderMINA
+	 * 			The building of the packets to write.
+	 * @param playerMINA
+	 * 			The player to update the animation for.
+	 */
+	public void updateForcedChat(PacketBuilderMINA packetBuilderMINA, PlayerMINA playerMINA) {
 		packetBuilderMINA.putString(playerMINA.getForceChat().getForceText());
 	}
 
-	private void updateChat(PacketBuilderMINA packetBuilderMINA, PlayerMINA playerMINA) {
+	/**
+	 * Update the chat for the player.
+	 * 
+	 * @param packetBuilderMINA
+	 * 			The building of the packets to write.
+	 * @param playerMINA
+	 * 			The player to update the chat for.
+	 */
+	public void updateChat(PacketBuilderMINA packetBuilderMINA, PlayerMINA playerMINA) {
 		packetBuilderMINA.putLEShort(((playerMINA.getChat().getColor() & 0xFF) << 8) | (playerMINA.getChat().getEffects() & 0xFF));
 		packetBuilderMINA.putByte(playerMINA.getRank().getID());
 		packetBuilderMINA.putByteC((byte) playerMINA.getChat().getText().getBytes().length);
@@ -198,12 +282,30 @@ public class PlayerUpdate implements Runnable {
 		}
 	}
 
-	private void updateFaceEntity(PacketBuilderMINA packetBuilderMINA, PlayerMINA playerMINA) {
+	/**
+	 * Update the player's direction of where he/she
+	 * wishes to face an entity.
+	 * 
+	 * @param packetBuilderMINA
+	 * 			The building of the packets to write.
+	 * @param playerMINA
+	 * 			The player to update the facing of the
+	 * 			entity for.
+	 */
+	public void updateFaceEntity(PacketBuilderMINA packetBuilderMINA, PlayerMINA playerMINA) {
 		FaceEntity faceEntity = playerMINA.getFaceEntity();
 		packetBuilderMINA.putLEShort(faceEntity.getFaceEntity() == null ? -1 : faceEntity.getFaceEntity().getIndex());
 	}
 
-	private void updateAppearance(PacketBuilderMINA packetBuilderMINA, PlayerMINA playerMINA) {
+	/**
+	 * Update the player's appearance.
+	 * 
+	 * @param packetBuilderMINA
+	 * 			The building of the packets to write.
+	 * @param playerMINA
+	 * 			The player to update the appearance for.
+	 */
+	public void updateAppearance(PacketBuilderMINA packetBuilderMINA, PlayerMINA playerMINA) {
 		Appearance appearance = playerMINA.getAppearance();
 		// Equipment equipment = player.getEquipment();
 		PacketBuilderMINA playerPropsBuilderMINA = new PacketBuilderMINA();
@@ -289,7 +391,16 @@ public class PlayerUpdate implements Runnable {
 		packetBuilderMINA.putBytes(playerPacketMINA.getIOBuffer());
 	}
 
-	private void updateFaceLocation(PacketBuilderMINA packetBuilderMINA, PlayerMINA playerMINA) {
+	/**
+	 * Update the location to face.
+	 * 
+	 * @param packetBuilderMINA
+	 * 			The building of the packets to write.
+	 * @param playerMINA
+	 * 			The player to update the facing of the
+	 * 			location for.
+	 */
+	public void updateFaceLocation(PacketBuilderMINA packetBuilderMINA, PlayerMINA playerMINA) {
 		if (playerMINA.getFaceLocation() == null) {
 			packetBuilderMINA.putLEShortA(0);
 			packetBuilderMINA.putLEShort(0);
@@ -299,21 +410,43 @@ public class PlayerUpdate implements Runnable {
 		}
 	}
 
-	private void updateHit(PacketBuilderMINA packetBuilderMINA, PlayerMINA playerMINA) {
+	/**
+	 * Update the first hit when in combat.
+	 * 
+	 * @param packetBuilderMINA
+	 * 			The building of the packets to write.
+	 * @param playerMINA
+	 * 			The player to update the hit for.
+	 */
+	public void updateHit(PacketBuilderMINA packetBuilderMINA, PlayerMINA playerMINA) {
 		packetBuilderMINA.putByte(playerMINA.getHit().getDamage());
-		packetBuilderMINA.putByteA((byte) playerMINA.getHit().getHitType().getHitID());
+		packetBuilderMINA.putByteA(playerMINA.getHit().getHitType().getHitID());
 		packetBuilderMINA.putByteC(playerMINA.getSkills()[SkillType.HITPOINT.getID()].getLevel());
 		packetBuilderMINA.putByte((byte) playerMINA.getSkills()[SkillType.HITPOINT.getID()].getExperience());
 	}
 
-	private void updateHitTwo(PacketBuilderMINA packetBuilderMINA, PlayerMINA playerMINA) {
+	/**
+	 * Update the second hit when in combat.
+	 * 
+	 * @param packetBuilderMINA
+	 * 			The building of the packets to write.
+	 * @param playerMINA
+	 * 			The player to update the second hit for.
+	 */
+	public void updateHitTwo(PacketBuilderMINA packetBuilderMINA, PlayerMINA playerMINA) {
 		packetBuilderMINA.putByte(playerMINA.getHitTwo().getDamage());
-		packetBuilderMINA.putByteA((byte) playerMINA.getHitTwo().getHitType().getHitID());
+		packetBuilderMINA.putByteA(playerMINA.getHitTwo().getHitType().getHitID());
 		packetBuilderMINA.putByteC(playerMINA.getSkills()[SkillType.HITPOINT.getID()].getLevel());
 		packetBuilderMINA.putByte((byte) playerMINA.getSkills()[SkillType.HITPOINT.getID()].getExperience());
 	}
 
-	private void updateThisPlayerMovement(PacketBuilderMINA packetBuilderMINA) {
+	/**
+	 * Update the current player's movement (your movement).
+	 * 
+	 * @param packetBuilderMINA
+	 * 			The building of the packets to write.
+	 */
+	public void updateThisPlayerMovement(PacketBuilderMINA packetBuilderMINA) {
 		if (this.getPlayerMINA().isMapChanging() || this.getPlayerMINA().isTeleporting()) {
 			packetBuilderMINA.putBits(1, 1);
 			packetBuilderMINA.putBits(2, 3);
@@ -347,7 +480,15 @@ public class PlayerUpdate implements Runnable {
 		}
 	}
 
-	private void updatePlayerMovement(PacketBuilderMINA packetBuilderMINA, PlayerMINA playerMINA) {
+	/**
+	 * Update the player's movement.
+	 * 
+	 * @param packetBuilderMINA
+	 * 			The building of the packets to write.
+	 * @param playerMINA
+	 * 			The player to update the movement for.
+	 */
+	public void updatePlayerMovement(PacketBuilderMINA packetBuilderMINA, PlayerMINA playerMINA) {
 		if (playerMINA.getWalkingDirection() == -1) {
 			if (this.getPlayerMINA().getUpdateFlags().isUpdateRequired()) {
 				packetBuilderMINA.putBits(1, 1);
@@ -369,18 +510,46 @@ public class PlayerUpdate implements Runnable {
 		}
 	}
 
+	/**
+	 * Sets the entity update for counting down
+	 * the ticks until the next update occurs.
+	 * 
+	 * @param entityUpdate
+	 * 			The entity update to set.
+	 */
 	public void setEntityUpdate(EntityUpdate entityUpdate) {
 		this.entityUpdate = entityUpdate;
 	}
 
+	/**
+	 * Gets the entity update to count down
+	 * the ticks.
+	 * 
+	 * @return entityUpdate
+	 * 			Returns the entity update to get.
+	 */
 	public EntityUpdate getEntityUpdate() {
 		return this.entityUpdate;
 	}
 
+	/**
+	 * Sets the player for the after task of the
+	 * player updating system.
+	 * 
+	 * @param playerMINA
+	 * 			The player to set.
+	 */
 	public void setPlayerMINA(PlayerMINA playerMINA) {
 		this.playerMINA = playerMINA;
 	}
 
+	/**
+	 * Gets the player for the after task of the
+	 * player updating system.
+	 * 
+	 * @return playerMINA
+	 * 			Returns the player to get.
+	 */
 	public PlayerMINA getPlayerMINA() {
 		return this.playerMINA;
 	}
