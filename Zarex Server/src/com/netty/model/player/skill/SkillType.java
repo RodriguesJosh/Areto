@@ -51,6 +51,7 @@ public enum SkillType {
 	 * 
 	 */
 	WOODCUTTING((byte) 8, "Woodcutting"),
+
 	/**
 	 * 
 	 */
@@ -119,7 +120,17 @@ public enum SkillType {
 	/**
 	 * 
 	 */
-	CONSTRUCTION((byte) 22, "Construction");
+	CONSTRUCTION((byte) 22, "Construction"),
+
+	/**
+	 * 
+	 */
+	SUMMONING((byte) 23, "Summoning"),
+
+	/**
+	 * 
+	 */
+	HUNTER((byte) 24, "Hunter");
 
 	/**
 	 * 
