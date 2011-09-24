@@ -1,2 +1,0 @@
-PRINT "Hello - Basic!"
-END
