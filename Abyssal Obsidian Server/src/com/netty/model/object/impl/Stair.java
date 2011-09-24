@@ -1,0 +1,28 @@
+package com.netty.model.object.impl;
+
+import com.netty.model.object.Object;
+import com.netty.world.Location;
+
+/**
+ * 
+ * @author Joshua Rodrigues
+ * @since Sep 21, 2011 11:08:09 AM
+ */
+public class Stair extends Object {
+
+	/**
+	 * 
+	 * @param id
+	 * 			The id to set.
+	 * @param direction
+	 * 			The id to set.
+	 * @param type
+	 * 			The id to set.
+	 * @param location
+	 * 			The id to set.
+	 */
+	public Stair(int id, byte direction, byte type, Location location) {
+		super(id, direction, type);
+		this.setLocation(location);
+	}
+}
