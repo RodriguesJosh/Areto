@@ -1,0 +1,132 @@
+	private void drawChatArea() {
+		this.aRSImageProducer_1166.initDrawingArea();
+		Rasterizer.anIntArray1472 = this.anIntArray1180;
+		this.chatBack.method361(0, 0);
+		if (this.messagePromptRaised) {
+			this.chatTextDrawingArea.drawText(0, this.aString1121, 40, 239);
+			this.chatTextDrawingArea.drawText(128, this.promptInput + "*", 60, 239);
+			// } else if (this.getChat().getChatInputState() == ChatInputState.AMOUNT) {
+			// } else if (this.getChat().getChatInputState() == ChatInputState.NAME) {
+		} else if (this.inputDialogState == 1) {
+			this.chatTextDrawingArea.drawText(0, "Enter amount:", 40, 239);
+			this.chatTextDrawingArea.drawText(128, this.amountOrNameInput + "*", 60, 239);
+		} else if (this.inputDialogState == 2) {
+			this.chatTextDrawingArea.drawText(0, "Enter name:", 40, 239);
+			this.chatTextDrawingArea.drawText(128, this.amountOrNameInput + "*", 60, 239);
+		} else if (this.aString844 != null) {
+			this.chatTextDrawingArea.drawText(0, this.aString844, 40, 239);
+			this.chatTextDrawingArea.drawText(128, "Click to continue", 60, 239);
+		} else if (this.backDialogID != -1) {
+			this.drawInterface(0, 0, RSInterface.interfaceCache[this.backDialogID], 0);
+		} else if (this.dialogID != -1) {
+			this.drawInterface(0, 0, RSInterface.interfaceCache[this.dialogID], 0);
+		} else {
+			RSFont rSFont = this.aTextDrawingArea_1271;
+			int j = 0;
+			DrawingArea.setDrawingArea(77, 0, 463, 0);
+			for (int k = 0; k < 100; k++) {
+				if (this.chatMessages[k] != null) {
+					int l = this.chatTypes[k];
+					int i1 = (70 - (j * 14)) + this.anInt1089;
+					String s1 = this.chatNames[k];
+					byte byte0 = 0;
+					if ((s1 != null) && s1.startsWith("@cr1@")) {
+						s1 = s1.substring(5);
+						byte0 = 1;
+					}
+					if ((s1 != null) && s1.startsWith("@cr2@")) {
+						s1 = s1.substring(5);
+						byte0 = 2;
+					}
+					if (l == 0) {
+						if ((i1 > 0) && (i1 < 110)) {
+							rSFont.method385(0, this.chatMessages[k], i1, 4);
+						}
+						j++;
+					}
+					if (((l == 1) || (l == 2)) && ((l == 1) || (this.publicChatMode == 0) || ((this.publicChatMode == 1) && this.isFriendOrSelf(s1)))) {
+						if ((i1 > 0) && (i1 < 110)) {
+							int j1 = 4;
+							if (byte0 == 1) {
+								this.modIcons[0].method361(j1, i1 - 12);
+								j1 += 14;
+							}
+							if (byte0 == 2) {
+								this.modIcons[1].method361(j1, i1 - 12);
+								j1 += 14;
+							}
+							rSFont.method385(0, s1 + ":", i1, j1);
+							j1 += rSFont.getTextWidth(s1) + 8;
+							rSFont.method385(255, this.chatMessages[k], i1, j1);
+						}
+						j++;
+					}
+					if (((l == 3) || (l == 7)) && (this.splitPrivateChat == 0) && ((l == 7) || (this.privateChatMode == 0) || ((this.privateChatMode == 1) && this.isFriendOrSelf(s1)))) {
+						if ((i1 > 0) && (i1 < 110)) {
+							int k1 = 4;
+							rSFont.method385(0, "From", i1, k1);
+							k1 += rSFont.getTextWidth("From ");
+							if (byte0 == 1) {
+								this.modIcons[0].method361(k1, i1 - 12);
+								k1 += 14;
+							}
+							if (byte0 == 2) {
+								this.modIcons[1].method361(k1, i1 - 12);
+								k1 += 14;
+							}
+							rSFont.method385(0, s1 + ":", i1, k1);
+							k1 += rSFont.getTextWidth(s1) + 8;
+							rSFont.method385(0x800000, this.chatMessages[k], i1, k1);
+						}
+						j++;
+					}
+					if ((l == 4) && ((this.tradeMode == 0) || ((this.tradeMode == 1) && this.isFriendOrSelf(s1)))) {
+						if ((i1 > 0) && (i1 < 110)) {
+							rSFont.method385(0x800080, s1 + " " + this.chatMessages[k], i1, 4);
+						}
+						j++;
+					}
+					if ((l == 5) && (this.splitPrivateChat == 0) && (this.privateChatMode < 2)) {
+						if ((i1 > 0) && (i1 < 110)) {
+							rSFont.method385(0x800000, this.chatMessages[k], i1, 4);
+						}
+						j++;
+					}
+					if ((l == 6) && (this.splitPrivateChat == 0) && (this.privateChatMode < 2)) {
+						if ((i1 > 0) && (i1 < 110)) {
+							rSFont.method385(0, "To " + s1 + ":", i1, 4);
+							rSFont.method385(0x800000, this.chatMessages[k], i1, 12 + rSFont.getTextWidth("To " + s1));
+						}
+						j++;
+					}
+					if ((l == 8) && ((this.tradeMode == 0) || ((this.tradeMode == 1) && this.isFriendOrSelf(s1)))) {
+						if ((i1 > 0) && (i1 < 110)) {
+							rSFont.method385(0x7e3200, s1 + " " + this.chatMessages[k], i1, 4);
+						}
+						j++;
+					}
+				}
+			}
+			DrawingArea.defaultDrawingAreaSize();
+			this.anInt1211 = (j * 14) + 7;
+			if (this.anInt1211 < 78) {
+				this.anInt1211 = 78;
+			}
+			this.drawScrollBar(77, this.anInt1211 - this.anInt1089 - 77, 0, 463, this.anInt1211);
+			String s;
+			if ((Client.myPlayer != null) && (Client.myPlayer.name != null)) {
+				s = Client.myPlayer.name;
+			} else {
+				s = TextClass.fixName(this.myUsername);
+			}
+			rSFont.method385(0, s + ":", 90, 4);
+			rSFont.method385(255, this.inputString + "*", 90, 6 + rSFont.getTextWidth(s + ": "));
+			DrawingArea.method339(77, 0, 479, 0);
+		}
+		if (this.menuOpen && (this.menuScreenArea == 2)) {
+			this.drawMenu();
+		}
+		this.aRSImageProducer_1166.drawGraphics(357, super.graphics, 17);
+		this.aRSImageProducer_1165.initDrawingArea();
+		Rasterizer.anIntArray1472 = this.anIntArray1182;
+	}

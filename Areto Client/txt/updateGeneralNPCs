@@ -1,0 +1,25 @@
+	// Packet 65!
+	private void updateGeneralNPCs(Packet packet, int i) {
+		this.anInt839 = 0;
+		this.anInt893 = 0;
+		this.updateNPCs(packet);
+		this.method46(i, packet);
+		this.npcUpdateMask(packet);
+		for (int k = 0; k < this.anInt839; k++) {
+			int l = this.anIntArray840[k];
+			if (this.npcArray[l].time != Client.loopCycle) {
+				this.npcArray[l].desc = null;
+				this.npcArray[l] = null;
+			}
+		}
+		if (packet.getPosition() != i) {
+			SignLink.reporterror(this.myUsername + " size mismatch in getnpcpos - pos:" + packet.getPosition() + " psize:" + i);
+			throw new RuntimeException("eek");
+		}
+		for (int i1 = 0; i1 < this.npcCount; i1++) {
+			if (this.npcArray[this.npcIndices[i1]] == null) {
+				SignLink.reporterror(this.myUsername + " null entry in npc list - pos:" + i1 + " size:" + this.npcCount);
+				throw new RuntimeException("eek");
+			}
+		}
+	}

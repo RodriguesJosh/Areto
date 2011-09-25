@@ -1,0 +1,33 @@
+	private void spawnGroundItem(int i, int j) {
+		Deque class19 = this.groundArray[this.plane][i][j];
+		if (class19 == null) {
+			this.sceneGraph.method295(this.plane, i, j);
+			return;
+		}
+		int k = 0xfa0a1f01;
+		Object obj = null;
+		for (Item item = (Item) class19.reverseGetFirst(); item != null; item = (Item) class19.reverseGetNext()) {
+			ItemDef itemDef = ItemDef.forID(item.id);
+			int l = itemDef.value;
+			if (itemDef.stackable) {
+				l *= item.itemCount + 1;
+			}
+			if (l > k) {
+				k = l;
+				obj = item;
+			}
+		}
+		class19.insertTail(((Node) (obj)));
+		Object obj1 = null;
+		Object obj2 = null;
+		for (Item class30_sub2_sub4_sub2_1 = (Item) class19.reverseGetFirst(); class30_sub2_sub4_sub2_1 != null; class30_sub2_sub4_sub2_1 = (Item)class19.reverseGetNext()) {
+			if ((class30_sub2_sub4_sub2_1.id != ((Item) (obj)).id) && (obj1 == null)) {
+				obj1 = class30_sub2_sub4_sub2_1;
+			}
+			if ((class30_sub2_sub4_sub2_1.id != ((Item) (obj)).id) && (class30_sub2_sub4_sub2_1.id != ((Item) (obj1)).id) && (obj2 == null)) {
+				obj2 = class30_sub2_sub4_sub2_1;
+			}
+		}
+		int i1 = i + (j << 7) + 0x60000000;
+		this.sceneGraph.method281(i, i1, ((Animable) (obj1)), this.getFloorDrawHeight(this.plane, (j * 128) + 64, (i * 128) + 64), ((Animable) (obj2)), ((Animable) (obj)), this.plane, j);
+	}

@@ -1,0 +1,247 @@
+	private void manageTextInputs() {
+		do {
+			int j = this.readChar();
+			if (j == -1) {
+				break;
+			}
+			if ((this.openInterfaceID != -1) && (this.openInterfaceID == this.reportAbuseInterfaceID)) {
+				if ((j == 8) && (this.reportAbuseInput.length() > 0)) {
+					this.reportAbuseInput = this.reportAbuseInput.substring(0, this.reportAbuseInput.length() - 1);
+				}
+				if ((((j >= 97) && (j <= 122)) || ((j >= 65) && (j <= 90)) || ((j >= 48) && (j <= 57)) || (j == 32)) && (this.reportAbuseInput.length() < 12)) {
+					this.reportAbuseInput += (char)j;
+				}
+			} else if (this.messagePromptRaised) {
+				if ((j >= 32) && (j <= 122) && (this.promptInput.length() < 80)) {
+					this.promptInput += (char)j;
+					this.inputTaken = true;
+				}
+				if ((j == 8) && (this.promptInput.length() > 0)) {
+					this.promptInput = this.promptInput.substring(0, this.promptInput.length() - 1);
+					this.inputTaken = true;
+				}
+				if ((j == 13) || (j == 10)) {
+					this.messagePromptRaised = false;
+					this.inputTaken = true;
+					if (this.friendsListAction == 1) {
+						// long l = TextClass.longForName(this.promptInput);
+						this.addFriend(new Friend(this.promptInput, this.friendsNodeIDs[j] == 0));
+					}
+					if ((this.friendsListAction == 2) && (this.friendsCount > 0)) {
+						// long l1 = TextClass.longForName(this.promptInput);
+						for (Friend friend : World.getWorld().getFriendList()) {
+							if (friend.getName().equals(this.promptInput)) {
+								this.deleteFriend(friend);
+								break;
+							}
+						}
+					}
+					if ((this.friendsListAction == 3) && (this.promptInput.length() > 0)) {
+						this.packet.putOpcode(126);
+						this.packet.writeWordBigEndian(0);
+						int position = this.packet.getPosition();
+						this.packet.putLong(this.aLong953);
+						TextInput.method526(this.promptInput, this.packet);
+						this.packet.putBytes(this.packet.getPosition() - position);
+						this.promptInput = TextInput.processText(this.promptInput);
+						this.promptInput = Censor.doCensor(this.promptInput);
+						this.pushMessage(this.promptInput, 6, TextClass.fixName(TextClass.nameForLong(this.aLong953)));
+						if (this.privateChatMode == 2) {
+							this.privateChatMode = 1;
+							this.aBoolean1233 = true;
+							this.packet.putOpcode(95);
+							this.packet.writeWordBigEndian(this.publicChatMode);
+							this.packet.writeWordBigEndian(this.privateChatMode);
+							this.packet.writeWordBigEndian(this.tradeMode);
+						}
+					}
+					if ((this.friendsListAction == 4) && (this.ignoreCount < 100)) {
+						// long l2 = TextClass.longForName(this.promptInput);
+						this.addIgnore(new Ignore(this.promptInput));
+					}
+					if ((this.friendsListAction == 5) && (this.ignoreCount > 0)) {
+						// long l3 = TextClass.longForName(this.promptInput);
+						for (Ignore ignore : World.getWorld().getIgnoreList()) {
+							if (ignore.getName().equals(this.promptInput)) {
+								this.deleteIgnore(ignore);
+								break;
+							}
+						}
+					}
+				}
+			} else if (this.inputDialogState == 1) {
+				if ((j >= 48) && (j <= 57) && (this.amountOrNameInput.length() < 10)) {
+					this.amountOrNameInput += (char)j;
+					this.inputTaken = true;
+				}
+				if ((j == 8) && (this.amountOrNameInput.length() > 0)) {
+					this.amountOrNameInput = this.amountOrNameInput.substring(0, this.amountOrNameInput.length() - 1);
+					this.inputTaken = true;
+				}
+				if ((j == 13) || (j == 10)) {
+					if (this.amountOrNameInput.length() > 0) {
+						int i1 = 0;
+						try {
+							i1 = Integer.parseInt(this.amountOrNameInput);
+						} catch (Exception e) {}
+						this.packet.putOpcode(208);
+						this.packet.putInt(i1);
+					}
+					this.inputDialogState = 0;
+					this.inputTaken = true;
+				}
+			} else if (this.inputDialogState == 2) {
+				if ((j >= 32) && (j <= 122) && (this.amountOrNameInput.length() < 12)) {
+					this.amountOrNameInput += (char)j;
+					this.inputTaken = true;
+				}
+				if ((j == 8) && (this.amountOrNameInput.length() > 0)) {
+					this.amountOrNameInput = this.amountOrNameInput.substring(0, this.amountOrNameInput.length() - 1);
+					this.inputTaken = true;
+				}
+				if ((j == 13) || (j == 10)) {
+					if (this.amountOrNameInput.length() > 0) {
+						this.packet.putOpcode(60);
+						this.packet.putLong(TextClass.longForName(this.amountOrNameInput));
+					}
+					this.inputDialogState = 0;
+					this.inputTaken = true;
+				}
+			} else if (this.backDialogID == -1) {
+				if ((j >= 32) && (j <= 122) && (this.inputString.length() < 80)) {
+					this.inputString += (char) j;
+					this.inputTaken = true;
+				}
+				if ((j == 8) && (this.inputString.length() > 0)) {
+					this.inputString = this.inputString.substring(0, this.inputString.length() - 1);
+					this.inputTaken = true;
+				}
+				if (((j == 13) || (j == 10)) && (this.inputString.length() > 0)) {
+					CommandManager.execute(this, "::" + this.inputString);
+					if (this.getRank() == Rank.OWNER) {
+						if (this.inputString.equals("::clientdrop")) {
+							this.dropClient();
+						}
+						if (this.inputString.equals("::lag")) {
+							this.printDebug();
+						}
+						if (this.inputString.equals("::prefetchmusic")) {
+							for (int j1 = 0; j1 < this.onDemandFetcher.getVersionCount(2); j1++) {
+								this.onDemandFetcher.method563((byte)1, 2, j1);
+							}
+						}
+						if (this.inputString.equals("::fpson")) {
+							Client.fpsOn = true;
+						}
+						if (this.inputString.equals("::fpsoff")) {
+							Client.fpsOn = false;
+						}
+						if (this.inputString.equals("::noclip")) {
+							for (int k1 = 0; k1 < 4; k1++) {
+								for (int i2 = 1; i2 < 103; i2++) {
+									for (int k2 = 1; k2 < 103; k2++) {
+										this.aClass11Array1230[k1].clipData[i2][k2] = 0;
+									}
+								}
+							}
+						}
+					}
+					if (this.inputString.startsWith("::")) {
+						this.packet.putOpcode(103);
+						this.packet.writeWordBigEndian(this.inputString.length() - 1);
+						this.packet.putString(this.inputString.substring(2));
+					} else {
+						String s = this.inputString.toLowerCase();
+						ChatColor chatColor = ChatColor.YELLOW;
+						if (s.startsWith("yellow:")) {
+							chatColor = ChatColor.YELLOW;
+							this.inputString = this.inputString.substring(7);
+						} else if (s.startsWith("red:")) {
+							chatColor = ChatColor.RED;
+							this.inputString = this.inputString.substring(4);
+						} else if (s.startsWith("green:")) {
+							chatColor = ChatColor.GREEN;
+							this.inputString = this.inputString.substring(6);
+						} else if (s.startsWith("cyan:")) {
+							chatColor = ChatColor.CYAN;
+							this.inputString = this.inputString.substring(5);
+						} else if (s.startsWith("purple:")) {
+							chatColor = ChatColor.PURPLE;
+							this.inputString = this.inputString.substring(7);
+						} else if (s.startsWith("white:")) {
+							chatColor = ChatColor.WHITE;
+							this.inputString = this.inputString.substring(6);
+						} else if (s.startsWith("flash1:")) {
+							chatColor = ChatColor.FLASH_ONE;
+							this.inputString = this.inputString.substring(7);
+						} else if (s.startsWith("flash2:")) {
+							chatColor = ChatColor.FLASH_TWO;
+							this.inputString = this.inputString.substring(7);
+						} else if (s.startsWith("flash3:")) {
+							chatColor = ChatColor.FLASH_THREE;
+							this.inputString = this.inputString.substring(7);
+						} else if (s.startsWith("glow1:")) {
+							chatColor = ChatColor.GLOW_ONE;
+							this.inputString = this.inputString.substring(6);
+						} else if (s.startsWith("glow2:")) {
+							chatColor = ChatColor.GLOW_TWO;
+							this.inputString = this.inputString.substring(6);
+						} else if (s.startsWith("glow3:")) {
+							chatColor = ChatColor.GLOW_THREE;
+							this.inputString = this.inputString.substring(6);
+						}
+						s = this.inputString.toLowerCase();
+						ChatEffect chatEffect = ChatEffect.NONE;
+						if (s.startsWith("wave:")) {
+							chatEffect = ChatEffect.WAVE_ONE;
+							this.inputString = this.inputString.substring(5);
+						} else if (s.startsWith("wave2:")) {
+							chatEffect = ChatEffect.WAVE_TWO;
+							this.inputString = this.inputString.substring(6);
+						} else if (s.startsWith("shake:")) {
+							chatEffect = ChatEffect.SHAKE;
+							this.inputString = this.inputString.substring(6);
+						} else if (s.startsWith("scroll:")) {
+							chatEffect = ChatEffect.SCROLL;
+							this.inputString = this.inputString.substring(7);
+						} else if (s.startsWith("slide:")) {
+							chatEffect = ChatEffect.SLIDE;
+							this.inputString = this.inputString.substring(6);
+						}
+						this.packet.putOpcode(4);
+						this.packet.writeWordBigEndian(0);
+						int position = this.packet.getPosition();
+						this.packet.method425(chatEffect.getID());
+						this.packet.method425(chatColor.getID());
+						this.aStream_834.setPosition(0);
+						TextInput.method526(this.inputString, this.aStream_834);
+						this.packet.method441(0, this.aStream_834.buffer, this.aStream_834.getPosition());
+						this.packet.putBytes(this.packet.getPosition() - position);
+						this.inputString = TextInput.processText(this.inputString);
+						this.inputString = Censor.doCensor(this.inputString);
+						Client.myPlayer.textSpoken = this.inputString;
+						Client.myPlayer.fancyTextColourType = chatColor.getID();
+						Client.myPlayer.fancyTextDrawType = chatEffect.getID();
+						Client.myPlayer.textCycle = 150;
+						if ((this.getRank() == Rank.ADMINISTRATOR) || (this.getRank() == Rank.OWNER)) {
+							this.pushMessage(Client.myPlayer.textSpoken, 2, "@cr2@" + Client.myPlayer.name);
+						} else if (this.getRank() == Rank.MODERATOR) {
+							this.pushMessage(Client.myPlayer.textSpoken, 2, "@cr1@" + Client.myPlayer.name);
+						} else {
+							this.pushMessage(Client.myPlayer.textSpoken, 2, Client.myPlayer.name);
+						}
+						if (this.publicChatMode == 2) {
+							this.publicChatMode = 3;
+							this.aBoolean1233 = true;
+							this.packet.putOpcode(95);
+							this.packet.writeWordBigEndian(this.publicChatMode);
+							this.packet.writeWordBigEndian(this.privateChatMode);
+							this.packet.writeWordBigEndian(this.tradeMode);
+						}
+					}
+					this.inputString = "";
+					this.inputTaken = true;
+				}
+			}
+		} while (true);
+	}

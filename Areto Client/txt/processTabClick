@@ -1,0 +1,74 @@
+	private void processTabClick() {
+		if (super.mouseButtonPressed == 1) {
+			if ((super.saveClickX >= 539) && (super.saveClickX <= 573) && (super.saveClickY >= 169) && (super.saveClickY < 205) && (this.tabInterfaceIDs[0] != -1)) {
+				this.needDrawTabArea = true;
+				this.tabID = 0;
+				this.tabAreaAltered = true;
+			}
+			if ((super.saveClickX >= 569) && (super.saveClickX <= 599) && (super.saveClickY >= 168) && (super.saveClickY < 205) && (this.tabInterfaceIDs[1] != -1)) {
+				this.needDrawTabArea = true;
+				this.tabID = 1;
+				this.tabAreaAltered = true;
+			}
+			if ((super.saveClickX >= 597) && (super.saveClickX <= 627) && (super.saveClickY >= 168) && (super.saveClickY < 205) && (this.tabInterfaceIDs[2] != -1)) {
+				this.needDrawTabArea = true;
+				this.tabID = 2;
+				this.tabAreaAltered = true;
+			}
+			if ((super.saveClickX >= 625) && (super.saveClickX <= 669) && (super.saveClickY >= 168) && (super.saveClickY < 203) && (this.tabInterfaceIDs[3] != -1)) {
+				this.needDrawTabArea = true;
+				this.tabID = 3;
+				this.tabAreaAltered = true;
+			}
+			if ((super.saveClickX >= 666) && (super.saveClickX <= 696) && (super.saveClickY >= 168) && (super.saveClickY < 205) && (this.tabInterfaceIDs[4] != -1)) {
+				this.needDrawTabArea = true;
+				this.tabID = 4;
+				this.tabAreaAltered = true;
+			}
+			if ((super.saveClickX >= 694) && (super.saveClickX <= 724) && (super.saveClickY >= 168) && (super.saveClickY < 205) && (this.tabInterfaceIDs[5] != -1)) {
+				this.needDrawTabArea = true;
+				this.tabID = 5;
+				this.tabAreaAltered = true;
+			}
+			if ((super.saveClickX >= 722) && (super.saveClickX <= 756) && (super.saveClickY >= 169) && (super.saveClickY < 205) && (this.tabInterfaceIDs[6] != -1)) {
+				this.needDrawTabArea = true;
+				this.tabID = 6;
+				this.tabAreaAltered = true;
+			}
+			if ((super.saveClickX >= 540) && (super.saveClickX <= 574) && (super.saveClickY >= 466) && (super.saveClickY < 502) && (this.tabInterfaceIDs[7] != -1)) {
+				this.needDrawTabArea = true;
+				this.tabID = 7;
+				this.tabAreaAltered = true;
+			}
+			if ((super.saveClickX >= 572) && (super.saveClickX <= 602) && (super.saveClickY >= 466) && (super.saveClickY < 503) && (this.tabInterfaceIDs[8] != -1)) {
+				this.needDrawTabArea = true;
+				this.tabID = 8;
+				this.tabAreaAltered = true;
+			}
+			if ((super.saveClickX >= 599) && (super.saveClickX <= 629) && (super.saveClickY >= 466) && (super.saveClickY < 503) && (this.tabInterfaceIDs[9] != -1)) {
+				this.needDrawTabArea = true;
+				this.tabID = 9;
+				this.tabAreaAltered = true;
+			}
+			if ((super.saveClickX >= 627) && (super.saveClickX <= 671) && (super.saveClickY >= 467) && (super.saveClickY < 502) && (this.tabInterfaceIDs[10] != -1)) {
+				this.needDrawTabArea = true;
+				this.tabID = 10;
+				this.tabAreaAltered = true;
+			}
+			if ((super.saveClickX >= 669) && (super.saveClickX <= 699) && (super.saveClickY >= 466) && (super.saveClickY < 503) && (this.tabInterfaceIDs[11] != -1)) {
+				this.needDrawTabArea = true;
+				this.tabID = 11;
+				this.tabAreaAltered = true;
+			}
+			if ((super.saveClickX >= 696) && (super.saveClickX <= 726) && (super.saveClickY >= 466) && (super.saveClickY < 503) && (this.tabInterfaceIDs[12] != -1)) {
+				this.needDrawTabArea = true;
+				this.tabID = 12;
+				this.tabAreaAltered = true;
+			}
+			if ((super.saveClickX >= 724) && (super.saveClickX <= 758) && (super.saveClickY >= 466) && (super.saveClickY < 502) && (this.tabInterfaceIDs[13] != -1)) {
+				this.needDrawTabArea = true;
+				this.tabID = 13;
+				this.tabAreaAltered = true;
+			}
+		}
+	}

@@ -1,0 +1,19 @@
+	private void drawScrollBar(int j, int k, int l, int i1, int j1) {
+		this.scrollBar1.method361(i1, l);
+		this.scrollBar2.method361(i1, (l + j) - 16);
+		DrawingArea.method336(j - 32, l + 16, i1, this.anInt1002, 16);
+		int k1 = ((j - 32) * j) / j1;
+		if (k1 < 8) {
+			k1 = 8;
+		}
+		int l1 = ((j - 32 - k1) * k) / (j1 - j);
+		DrawingArea.method336(k1, l + 16 + l1, i1, this.anInt1063, 16);
+		DrawingArea.method341(l + 16 + l1, this.anInt902, k1, i1);
+		DrawingArea.method341(l + 16 + l1, this.anInt902, k1, i1 + 1);
+		DrawingArea.method339(l + 16 + l1, this.anInt902, 16, i1);
+		DrawingArea.method339(l + 17 + l1, this.anInt902, 16, i1);
+		DrawingArea.method341(l + 16 + l1, this.anInt927, k1, i1 + 15);
+		DrawingArea.method341(l + 17 + l1, this.anInt927, k1 - 1, i1 + 14);
+		DrawingArea.method339(l + 15 + l1 + k1, this.anInt927, 16, i1);
+		DrawingArea.method339(l + 14 + l1 + k1, this.anInt927, 15, i1 + 1);
+	}

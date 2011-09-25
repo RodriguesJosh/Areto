@@ -1,0 +1,14 @@
+	private void loadError() {
+		String s = "ondemand";
+		System.out.println(s);
+		try {
+			this.getAppletContext().showDocument(new URL(this.getCodeBase(), "loaderror_" + s + ".html"));
+		} catch (Exception exception) {
+			exception.printStackTrace();
+		}
+		do {
+			try {
+				Thread.sleep(1000L);
+			} catch (Exception e) {}
+		} while (true);
+	}

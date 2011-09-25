@@ -1,0 +1,107 @@
+	private void drawMinimap() {
+		this.aRSImageProducer_1164.initDrawingArea();
+		if (this.anInt1021 == 2) {
+			byte abyte0[] = this.mapBack.imgPixels;
+			int ai[] = DrawingArea.pixels;
+			int k2 = abyte0.length;
+			for (int i5 = 0; i5 < k2; i5++) {
+				if (abyte0[i5] == 0) {
+					ai[i5] = 0;
+				}
+			}
+			this.compass.method352(33, this.minimapInt1, this.anIntArray1057, 256, this.anIntArray968, 25, 0, 0, 33, 25);
+			this.aRSImageProducer_1165.initDrawingArea();
+			return;
+		}
+		int i = (this.minimapInt1 + this.minimapInt2) & 0x7ff;
+		int j = 48 + (Client.myPlayer.x / 32);
+		int l2 = 464 - (Client.myPlayer.y / 32);
+		this.aClass30_Sub2_Sub1_Sub1_1263.method352(151, i, this.anIntArray1229, 256 + this.minimapInt3, this.anIntArray1052, l2, 5, 25, 146, j);
+		this.compass.method352(33, this.minimapInt1, this.anIntArray1057, 256, this.anIntArray968, 25, 0, 0, 33, 25);
+		for (int j5 = 0; j5 < this.anInt1071; j5++) {
+			int k = ((this.anIntArray1072[j5] * 4) + 2) - (Client.myPlayer.x / 32);
+			int i3 = ((this.anIntArray1073[j5] * 4) + 2) - (Client.myPlayer.y / 32);
+			this.markMinimap(this.aClass30_Sub2_Sub1_Sub1Array1140[j5], k, i3);
+		}
+		for (int k5 = 0; k5 < 104; k5++) {
+			for (int l5 = 0; l5 < 104; l5++) {
+				Deque class19 = this.groundArray[this.plane][k5][l5];
+				if (class19 != null) {
+					int l = ((k5 * 4) + 2) - (Client.myPlayer.x / 32);
+					int j3 = ((l5 * 4) + 2) - (Client.myPlayer.y / 32);
+					this.markMinimap(this.mapDotItem, l, j3);
+				}
+			}
+		}
+		for (int i6 = 0; i6 < this.npcCount; i6++) {
+			NPC npc = this.npcArray[this.npcIndices[i6]];
+			if ((npc != null) && npc.isVisible()) {
+				EntityDef entityDef = npc.desc;
+				if (entityDef.childrenIDs != null) {
+					entityDef = entityDef.method161();
+				}
+				if ((entityDef != null) && entityDef.drawMinimapDot && entityDef.clickable) {
+					int i1 = (npc.x / 32) - (Client.myPlayer.x / 32);
+					int k3 = (npc.y / 32) - (Client.myPlayer.y / 32);
+					this.markMinimap(this.mapDotNPC, i1, k3);
+				}
+			}
+		}
+		for (int j6 = 0; j6 < World.getWorld().getPlayerList().size(); j6++) {
+			Player player = World.getWorld().getPlayerList().get(j6);
+			if ((player != null) && player.isVisible()) {
+				int j1 = (player.x / 32) - (Client.myPlayer.x / 32);
+				int l3 = (player.y / 32) - (Client.myPlayer.y / 32);
+				boolean flag1 = false;
+				String name = player.name;
+				for (int k6 = 0; k6 < this.friendsCount; k6++) {
+					if ((name != World.getWorld().getIgnoreList().get(j6).getName()) || (this.friendsNodeIDs[k6] == 0)) {
+						continue;
+					}
+					flag1 = true;
+					break;
+				}
+				boolean flag2 = false;
+				if ((Client.myPlayer.team != 0) && (player.team != 0) && (Client.myPlayer.team == player.team)) {
+					flag2 = true;
+				}
+				if (flag1) {
+					this.markMinimap(this.mapDotFriend, j1, l3);
+				} else if (flag2) {
+					this.markMinimap(this.mapDotTeam, j1, l3);
+				} else {
+					this.markMinimap(this.mapDotPlayer, j1, l3);
+				}
+			}
+		}
+		if ((this.anInt855 != 0) && ((Client.loopCycle % 20) < 10)) {
+			if ((this.anInt855 == 1) && (this.anInt1222 >= 0) && (this.anInt1222 < this.npcArray.length)) {
+				NPC class30_sub2_sub4_sub1_sub1_1 = this.npcArray[this.anInt1222];
+				if (class30_sub2_sub4_sub1_sub1_1 != null) {
+					int k1 = (class30_sub2_sub4_sub1_sub1_1.x / 32) - (Client.myPlayer.x / 32);
+					int i4 = (class30_sub2_sub4_sub1_sub1_1.y / 32) - (Client.myPlayer.y / 32);
+					this.refreshMiniMap(this.mapMarker, i4, k1);
+				}
+			}
+			if (this.anInt855 == 2) {
+				int l1 = (((this.anInt934 - this.baseX) * 4) + 2) - (Client.myPlayer.x / 32);
+				int j4 = (((this.anInt935 - this.baseY) * 4) + 2) - (Client.myPlayer.y / 32);
+				this.refreshMiniMap(this.mapMarker, j4, l1);
+			}
+			if ((this.anInt855 == 10) && (this.anInt933 >= 0) && (this.anInt933 < World.getWorld().getPlayerList().size())) {
+				Player player = World.getWorld().getPlayerList().get(this.anInt933);
+				if (player != null) {
+					int i2 = (player.x / 32) - (Client.myPlayer.x / 32);
+					int k4 = (player.y / 32) - (Client.myPlayer.y / 32);
+					this.refreshMiniMap(this.mapMarker, k4, i2);
+				}
+			}
+		}
+		if (this.destX != 0) {
+			int j2 = ((this.destX * 4) + 2) - (Client.myPlayer.x / 32);
+			int l4 = ((this.destY * 4) + 2) - (Client.myPlayer.y / 32);
+			this.markMinimap(this.mapFlag, j2, l4);
+		}
+		DrawingArea.method336(3, 78, 97, 0xffffff, 3);
+		this.aRSImageProducer_1165.initDrawingArea();
+	}

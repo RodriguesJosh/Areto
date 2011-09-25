@@ -1,0 +1,8 @@
+	@Override
+	public void run() {
+		if (this.drawFlames) {
+			this.drawFlames();
+		} else {
+			super.run();
+		}
+	}

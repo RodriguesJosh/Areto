@@ -1,0 +1,7 @@
+	@Override
+	public AppletContext getAppletContext() {
+		if (SignLink.mainapp != null) {
+			return SignLink.mainapp.getAppletContext();
+		}
+		return super.getAppletContext();
+	}

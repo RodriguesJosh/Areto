@@ -1,0 +1,43 @@
+	private void updatePlayerMovement(Packet packet) {
+		packet.startBitAccess();
+		int j = packet.putBits(1);
+		if (j == 0) {
+			return;
+		}
+		int k = packet.putBits(2);
+		if (k == 0) {
+			// this.anIntArray894[this.anInt893++] = this.myPlayerIndex;
+			return;
+		}
+		if (k == 1) {
+			int l = packet.putBits(3);
+			Client.myPlayer.moveInDir(false, l);
+			int k1 = packet.putBits(1);
+			if (k1 == 1) {
+				// this.anIntArray894[this.anInt893++] = this.myPlayerIndex;
+			}
+			return;
+		}
+		if (k == 2) {
+			int i1 = packet.putBits(3);
+			Client.myPlayer.moveInDir(true, i1);
+			int l1 = packet.putBits(3);
+			Client.myPlayer.moveInDir(true, l1);
+			int j2 = packet.putBits(1);
+			if (j2 == 1) {
+				// this.anIntArray894[this.anInt893++] = this.myPlayerIndex;
+			}
+			return;
+		}
+		if (k == 3) {
+			this.plane = packet.putBits(2);
+			int j1 = packet.putBits(1);
+			int i2 = packet.putBits(1);
+			if (i2 == 1) {
+				// this.anIntArray894[this.anInt893++] = this.myPlayerIndex;
+			}
+			int k2 = packet.putBits(7);
+			int l2 = packet.putBits(7);
+			Client.myPlayer.setPos(l2, k2, j1 == 1);
+		}
+	}

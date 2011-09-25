@@ -1,0 +1,14 @@
+	@Override
+	public void processDrawing() {
+		if (this.rsAlreadyLoaded || this.loadingError || this.genericLoadingError) {
+			this.showErrorScreen();
+			return;
+		}
+		Client.anInt1061++;
+		if (!this.loggedIn) {
+			this.drawLoginScreen(false);
+		} else {
+			this.drawGameScreen();
+		}
+		this.anInt1213 = 0;
+	}

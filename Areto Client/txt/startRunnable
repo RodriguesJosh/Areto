@@ -1,0 +1,11 @@
+	@Override
+	public void startRunnable(Runnable runnable, int i) {
+		if (i > 10) {
+			i = 10;
+		}
+		if (SignLink.mainapp != null) {
+			SignLink.startthread(runnable, i);
+		} else {
+			super.startRunnable(runnable, i);
+		}
+	}

@@ -1,0 +1,21 @@
+	private void loadingStages() {
+		if (Client.lowMem && (this.loadingStage == 2) && (MapRegion.anInt131 != this.plane)) {
+			this.aRSImageProducer_1165.initDrawingArea();
+			this.aTextDrawingArea_1271.drawText(0, "Loading - please wait.", 151, 257);
+			this.aTextDrawingArea_1271.drawText(0xffffff, "Loading - please wait.", 150, 256);
+			this.aRSImageProducer_1165.drawGraphics(4, super.graphics, 4);
+			this.loadingStage = 1;
+			this.aLong824 = System.currentTimeMillis();
+		}
+		if (this.loadingStage == 1) {
+			int j = this.method54();
+			if ((j != 0) && ((System.currentTimeMillis() - this.aLong824) > 0x57e40L)) {
+				SignLink.reporterror(this.myUsername + " glcfb " + this.aLong1215 + "," + j + "," + Client.lowMem + "," + this.jagexResourceCaches[0] + "," + this.onDemandFetcher.getNodeCount() + "," + this.plane + "," + this.anInt1069 + "," + this.anInt1070);
+				this.aLong824 = System.currentTimeMillis();
+			}
+		}
+		if ((this.loadingStage == 2) && (this.plane != this.anInt985)) {
+			this.anInt985 = this.plane;
+			this.method24(this.plane);
+		}
+	}

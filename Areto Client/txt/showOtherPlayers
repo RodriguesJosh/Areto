@@ -1,0 +1,44 @@
+	private void showOtherPlayers(boolean flag) {
+		if (((Client.myPlayer.x >> 7) == this.destX) && ((Client.myPlayer.y >> 7) == this.destY)) {
+			this.destX = 0;
+		}
+		int j = World.getWorld().getPlayerList().size();
+		if (flag) {
+			j = 1;
+		}
+		for (int l = 0; l < j; l++) {
+			Player player;
+			int i1 = 0;
+			if (flag) {
+				player = Client.myPlayer;
+				// i1 = this.myPlayerIndex << 14;
+			} else {
+				player = World.getWorld().getPlayerList().get(l);
+				i1 = l << 14;
+			}
+			if ((player == null) || !player.isVisible()) {
+				continue;
+			}
+			int size = World.getWorld().getPlayerList().size();
+			player.aBoolean1699 = ((Client.lowMem && (size > 50)) || (size > 200)) && !flag && (player.anInt1517 == player.standAnimIndex);
+			int j1 = player.x >> 7;
+			int k1 = player.y >> 7;
+			if ((j1 < 0) || (j1 >= 104) || (k1 < 0) || (k1 >= 104)) {
+				continue;
+			}
+			if ((player.aModel_1714 != null) && (Client.loopCycle >= player.anInt1707) && (Client.loopCycle < player.anInt1708)) {
+				player.aBoolean1699 = false;
+				player.drawHeight = this.getFloorDrawHeight(this.plane, player.y, player.x);
+				this.sceneGraph.method286(this.plane, player.y, player, player.currentRotation, player.anInt1722, player.x, player.drawHeight, player.anInt1719, player.anInt1721, i1, player.anInt1720);
+				continue;
+			}
+			if (((player.x & 0x7f) == 64) && ((player.y & 0x7f) == 64)) {
+				if (this.anIntArrayArray929[j1][k1] == this.anInt1265) {
+					continue;
+				}
+				this.anIntArrayArray929[j1][k1] = this.anInt1265;
+			}
+			player.drawHeight = this.getFloorDrawHeight(this.plane, player.y, player.x);
+			this.sceneGraph.method285(this.plane, player.currentRotation, player.drawHeight, i1, player.y, 60, player.x, player, player.aBoolean1541);
+		}
+	}

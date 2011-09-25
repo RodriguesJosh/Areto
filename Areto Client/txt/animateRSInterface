@@ -1,0 +1,37 @@
+	private boolean animateRSInterface(int i, int id) {
+		boolean flag1 = false;
+		RSInterface class9 = RSInterface.interfaceCache[id];
+		for (int k = 0; k < class9.children.length; k++) {
+			if (class9.children[k] == -1) {
+				break;
+			}
+			RSInterface class9_1 = RSInterface.interfaceCache[class9.children[k]];
+			if (class9_1.type == 1) {
+				flag1 |= this.animateRSInterface(i, class9_1.id);
+			}
+			if ((class9_1.type == 6) && ((class9_1.animationConditionFalse != -1) || (class9_1.animationConditionTrue != -1))) {
+				boolean flag2 = this.interfaceIsSelected(class9_1);
+				int l;
+				if (flag2) {
+					l = class9_1.animationConditionTrue;
+				} else {
+					l = class9_1.animationConditionFalse;
+				}
+				if (l != -1) {
+					Sequence sequence = Sequence.anims[l];
+					for (class9_1.duration += i; class9_1.duration > sequence.method258(class9_1.animFrame);) {
+						class9_1.duration -= sequence.method258(class9_1.animFrame) + 1;
+						class9_1.animFrame++;
+						if (class9_1.animFrame >= sequence.frameCount) {
+							class9_1.animFrame -= sequence.frameStep;
+							if ((class9_1.animFrame < 0) || (class9_1.animFrame >= sequence.frameCount)) {
+								class9_1.animFrame = 0;
+							}
+						}
+						flag1 = true;
+					}
+				}
+			}
+		}
+		return flag1;
+	}

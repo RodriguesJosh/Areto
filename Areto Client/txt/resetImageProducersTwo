@@ -1,0 +1,27 @@
+	private void resetImageProducersTwo() {
+		if (this.aRSImageProducer_1166 != null) {
+			return;
+		}
+		this.nullLoader();
+		super.fullGameScreen = null;
+		this.aRSImageProducer_1107 = null;
+		this.aRSImageProducer_1108 = null;
+		this.aRSImageProducer_1109 = null;
+		this.aRSImageProducer_1110 = null;
+		this.aRSImageProducer_1111 = null;
+		this.aRSImageProducer_1112 = null;
+		this.aRSImageProducer_1113 = null;
+		this.aRSImageProducer_1114 = null;
+		this.aRSImageProducer_1115 = null;
+		this.aRSImageProducer_1166 = new GraphicsBuffer(479, 96, this.getGameComponent());
+		this.aRSImageProducer_1164 = new GraphicsBuffer(172, 156, this.getGameComponent());
+		DrawingArea.setAllPixelsToZero();
+		this.mapBack.method361(0, 0);
+		this.aRSImageProducer_1163 = new GraphicsBuffer(190, 261, this.getGameComponent());
+		this.aRSImageProducer_1165 = new GraphicsBuffer(512, 334, this.getGameComponent());
+		DrawingArea.setAllPixelsToZero();
+		this.aRSImageProducer_1123 = new GraphicsBuffer(496, 50, this.getGameComponent());
+		this.aRSImageProducer_1124 = new GraphicsBuffer(269, 37, this.getGameComponent());
+		this.aRSImageProducer_1125 = new GraphicsBuffer(249, 45, this.getGameComponent());
+		this.welcomeScreenRaised = true;
+	}

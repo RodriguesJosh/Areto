@@ -1,0 +1,7 @@
+	private static void setHighMem() {
+		SceneGraph.lowMem = false;
+		Rasterizer.lowMem = false;
+		Client.lowMem = false;
+		MapRegion.lowMem = false;
+		ObjectDef.lowMem = false;
+	}

@@ -1,0 +1,10 @@
+	@Override
+	Component getGameComponent() {
+		if (SignLink.mainapp != null) {
+			return SignLink.mainapp;
+		}
+		if (super.gameFrame != null) {
+			return super.gameFrame;
+		}
+		return this;
+	}

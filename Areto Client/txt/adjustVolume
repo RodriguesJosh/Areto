@@ -1,0 +1,6 @@
+	private void adjustVolume(boolean flag, int volume) {
+		SignLink.midivol = volume;
+		if (flag) {
+			SignLink.midi = "voladjust";
+		}
+	}

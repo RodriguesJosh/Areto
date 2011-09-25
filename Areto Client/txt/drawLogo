@@ -1,0 +1,52 @@
+	private void drawLogo() {
+		byte abyte0[] = this.titleStreamLoader.getDataForName("title.dat");
+		RGBImage rGBImage = new RGBImage(abyte0, this);
+		this.aRSImageProducer_1110.initDrawingArea();
+		rGBImage.method346(0, 0);
+		this.aRSImageProducer_1111.initDrawingArea();
+		rGBImage.method346(-637, 0);
+		this.aRSImageProducer_1107.initDrawingArea();
+		rGBImage.method346(-128, 0);
+		this.aRSImageProducer_1108.initDrawingArea();
+		rGBImage.method346(-202, -371);
+		this.aRSImageProducer_1109.initDrawingArea();
+		rGBImage.method346(-202, -171);
+		this.aRSImageProducer_1112.initDrawingArea();
+		rGBImage.method346(0, -265);
+		this.aRSImageProducer_1113.initDrawingArea();
+		rGBImage.method346(-562, -265);
+		this.aRSImageProducer_1114.initDrawingArea();
+		rGBImage.method346(-128, -171);
+		this.aRSImageProducer_1115.initDrawingArea();
+		rGBImage.method346(-562, -171);
+		int ai[] = new int[rGBImage.myWidth];
+		for (int j = 0; j < rGBImage.myHeight; j++) {
+			for (int k = 0; k < rGBImage.myWidth; k++) {
+				ai[k] = rGBImage.myPixels[(rGBImage.myWidth - k - 1) + (rGBImage.myWidth * j)];
+			}
+			System.arraycopy(ai, 0, rGBImage.myPixels, rGBImage.myWidth * j, rGBImage.myWidth);
+		}
+		this.aRSImageProducer_1110.initDrawingArea();
+		rGBImage.method346(382, 0);
+		this.aRSImageProducer_1111.initDrawingArea();
+		rGBImage.method346(-255, 0);
+		this.aRSImageProducer_1107.initDrawingArea();
+		rGBImage.method346(254, 0);
+		this.aRSImageProducer_1108.initDrawingArea();
+		rGBImage.method346(180, -371);
+		this.aRSImageProducer_1109.initDrawingArea();
+		rGBImage.method346(180, -171);
+		this.aRSImageProducer_1112.initDrawingArea();
+		rGBImage.method346(382, -265);
+		this.aRSImageProducer_1113.initDrawingArea();
+		rGBImage.method346(-180, -265);
+		this.aRSImageProducer_1114.initDrawingArea();
+		rGBImage.method346(254, -171);
+		this.aRSImageProducer_1115.initDrawingArea();
+		rGBImage.method346(-180, -171);
+		rGBImage = new RGBImage(this.titleStreamLoader, "logo", 0);
+		this.aRSImageProducer_1107.initDrawingArea();
+		rGBImage.drawSprite(382 - (rGBImage.myWidth / 2) - 128, 18);
+		rGBImage = null;
+		System.gc();
+	}

@@ -1,0 +1,6 @@
+	private String interfaceIntToString(int j) {
+		if (j < 0x3b9ac9ff) {
+			return String.valueOf(j);
+		}
+		return "*";
+	}

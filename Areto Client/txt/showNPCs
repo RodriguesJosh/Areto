@@ -1,0 +1,24 @@
+	private void showNPCs(boolean flag) {
+		for (int j = 0; j < this.npcCount; j++) {
+			NPC npc = this.npcArray[this.npcIndices[j]];
+			int k = 0x20000000 + (this.npcIndices[j] << 14);
+			if ((npc == null) || !npc.isVisible() || (npc.desc.aBoolean93 != flag)) {
+				continue;
+			}
+			int l = npc.x >> 7;
+			int i1 = npc.y >> 7;
+			if ((l < 0) || (l >= 104) || (i1 < 0) || (i1 >= 104)) {
+				continue;
+			}
+			if ((npc.boundDim == 1) && ((npc.x & 0x7f) == 64) && ((npc.y & 0x7f) == 64)) {
+				if (this.anIntArrayArray929[l][i1] == this.anInt1265) {
+					continue;
+				}
+				this.anIntArrayArray929[l][i1] = this.anInt1265;
+			}
+			if (!npc.desc.clickable) {
+				k += 0x80000000;
+			}
+			this.sceneGraph.method285(this.plane, npc.currentRotation, this.getFloorDrawHeight(this.plane, npc.y, npc.x), k, npc.y, ((npc.boundDim - 1) * 64) + 60, npc.x, npc, npc.aBoolean1541);
+		}
+	}

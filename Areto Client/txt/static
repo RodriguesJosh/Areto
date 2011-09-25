@@ -1,0 +1,17 @@
+	static {
+		anIntArray1019 = new int[99];
+		int i = 0;
+		for (int j = 0; j < 99; j++) {
+			int l = j + 1;
+			int i1 = (int) (l + (300D * Math.pow(2D, l / 7D)));
+			i += i1;
+			Client.anIntArray1019[j] = i / 4;
+		}
+		Client.anIntArray1232 = new int[32];
+		i = 2;
+		for (int k = 0; k < 32; k++) {
+			Client.anIntArray1232[k] = i - 1;
+			i += i;
+		}
+		// Levels..
+	}

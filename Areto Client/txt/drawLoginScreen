@@ -1,0 +1,71 @@
+	private void drawLoginScreen(boolean flag) {
+		this.resetImageProducers();
+		this.aRSImageProducer_1109.initDrawingArea();
+		this.aBackground_966.method361(0, 0);
+		char c = '\u0168';
+		char c1 = '\310';
+		if (this.loginScreenState == 0) {
+			int i = (c1 / 2) + 80;
+			this.aTextDrawingArea_1270.method382(0x75a9a9, c / 2, this.onDemandFetcher.statusString, i, true);
+			i = (c1 / 2) - 20;
+			this.chatTextDrawingArea.method382(0xffff00, c / 2, "Welcome to RuneScape", i, true);
+			i += 30;
+			int l = (c / 2) - 80;
+			int k1 = (c1 / 2) + 20;
+			this.aBackground_967.method361(l - 73, k1 - 20);
+			this.chatTextDrawingArea.method382(0xffffff, l, "New User", k1 + 5, true);
+			l = (c / 2) + 80;
+			this.aBackground_967.method361(l - 73, k1 - 20);
+			this.chatTextDrawingArea.method382(0xffffff, l, "Existing User", k1 + 5, true);
+		}
+		if (this.loginScreenState == 2) {
+			int j = (c1 / 2) - 40;
+			if (this.loginMessage1.length() > 0) {
+				this.chatTextDrawingArea.method382(0xffff00, c / 2, this.loginMessage1, j - 15, true);
+				this.chatTextDrawingArea.method382(0xffff00, c / 2, this.loginMessage2, j, true);
+				j += 30;
+			} else {
+				this.chatTextDrawingArea.method382(0xffff00, c / 2, this.loginMessage2, j - 7, true);
+				j += 30;
+			}
+			this.chatTextDrawingArea.method389(true, (c / 2) - 90, 0xffffff, "Username: " + this.myUsername + ((this.loginScreenCursorPos == 0) & ((Client.loopCycle % 40) < 20) ? "@yel@|" : ""), j);
+			j += 15;
+			this.chatTextDrawingArea.method389(true, (c / 2) - 88, 0xffffff, "Password: " + TextClass.passwordAsterisks(this.myPassword) + ((this.loginScreenCursorPos == 1) & ((Client.loopCycle % 40) < 20) ? "@yel@|" : ""), j);
+			j += 15;
+			if (!flag) {
+				int i1 = (c / 2) - 80;
+				int l1 = (c1 / 2) + 50;
+				this.aBackground_967.method361(i1 - 73, l1 - 20);
+				this.chatTextDrawingArea.method382(0xffffff, i1, "Login", l1 + 5, true);
+				i1 = (c / 2) + 80;
+				this.aBackground_967.method361(i1 - 73, l1 - 20);
+				this.chatTextDrawingArea.method382(0xffffff, i1, "Cancel", l1 + 5, true);
+			}
+		}
+		if (this.loginScreenState == 3) {
+			this.chatTextDrawingArea.method382(0xffff00, c / 2, "Create a free account", (c1 / 2) - 60, true);
+			int k = (c1 / 2) - 35;
+			this.chatTextDrawingArea.method382(0xffffff, c / 2, "To create a new account you need to", k, true);
+			k += 15;
+			this.chatTextDrawingArea.method382(0xffffff, c / 2, "go back to the main RuneScape webpage", k, true);
+			k += 15;
+			this.chatTextDrawingArea.method382(0xffffff, c / 2, "and choose the red 'create account'", k, true);
+			k += 15;
+			this.chatTextDrawingArea.method382(0xffffff, c / 2, "button at the top right of that page.", k, true);
+			k += 15;
+			int j1 = c / 2;
+			int i2 = (c1 / 2) + 50;
+			this.aBackground_967.method361(j1 - 73, i2 - 20);
+			this.chatTextDrawingArea.method382(0xffffff, j1, "Cancel", i2 + 5, true);
+		}
+		this.aRSImageProducer_1109.drawGraphics(171, super.graphics, 202);
+		if (this.welcomeScreenRaised) {
+			this.welcomeScreenRaised = false;
+			this.aRSImageProducer_1107.drawGraphics(0, super.graphics, 128);
+			this.aRSImageProducer_1108.drawGraphics(371, super.graphics, 202);
+			this.aRSImageProducer_1112.drawGraphics(265, super.graphics, 0);
+			this.aRSImageProducer_1113.drawGraphics(265, super.graphics, 562);
+			this.aRSImageProducer_1114.drawGraphics(171, super.graphics, 128);
+			this.aRSImageProducer_1115.drawGraphics(171, super.graphics, 562);
+		}
+	}

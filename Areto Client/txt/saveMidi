@@ -1,0 +1,4 @@
+	private void saveMidi(boolean flag, byte abyte0[]) {
+		SignLink.midifade = flag ? 1 : 0;
+		SignLink.midisave(abyte0, abyte0.length);
+	}

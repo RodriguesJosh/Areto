@@ -1,0 +1,20 @@
+	private void resetLogout() {
+		try {
+			if (this.socketStream != null) {
+				this.socketStream.close();
+			}
+		} catch (Exception e) {}
+		this.socketStream = null;
+		this.loggedIn = false;
+		this.loginScreenState = 0;
+		this.unlinkMRUNodes();
+		this.sceneGraph.initToNull();
+		for (int i = 0; i < 4; i++) {
+			this.aClass11Array1230[i].method210();
+		}
+		System.gc();
+		this.stopMidi();
+		this.currentSong = -1;
+		this.nextSong = -1;
+		this.prevSong = 0;
+	}

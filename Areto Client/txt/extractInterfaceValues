@@ -1,0 +1,128 @@
+	private int extractInterfaceValues(RSInterface class9, int j) {
+		if ((class9.dynamicValueFormulas == null) || (j >= class9.dynamicValueFormulas.length)) {
+			return -2;
+		}
+		try {
+			int ai[] = class9.dynamicValueFormulas[j];
+			int k = 0;
+			int l = 0;
+			int i1 = 0;
+			do {
+				int j1 = ai[l++];
+				int k1 = 0;
+				byte byte0 = 0;
+				if (j1 == 0) {
+					return k;
+				}
+				if (j1 == 1) {
+					k1 = this.currentStats[ai[l++]];
+				}
+				if (j1 == 2) {
+					k1 = this.maxStats[ai[l++]];
+				}
+				if (j1 == 3) {
+					k1 = this.currentExp[ai[l++]];
+				}
+				if (j1 == 4) {
+					RSInterface class9_1 = RSInterface.interfaceCache[ai[l++]];
+					int k2 = ai[l++];
+					if ((k2 >= 0) && (k2 < ItemDef.totalItems) && (!ItemDef.forID(k2).membersObject || Client.isMembers)) {
+						for (int j3 = 0; j3 < class9_1.inv.length; j3++) {
+							if (class9_1.inv[j3] == (k2 + 1)) {
+								k1 += class9_1.invStackSizes[j3];
+							}
+						}
+					}
+				}
+				if (j1 == 5) {
+					k1 = this.variousSettings[ai[l++]];
+				}
+				if (j1 == 6) {
+					k1 = Client.anIntArray1019[this.maxStats[ai[l++]] - 1];
+				}
+				if (j1 == 7) {
+					k1 = (this.variousSettings[ai[l++]] * 100) / 46875;
+				}
+				if (j1 == 8) {
+					k1 = Client.myPlayer.combatLevel;
+				}
+				if (j1 == 9) {
+					for (int l1 = 0; l1 < Constants.MAX_SKILLS; l1++) {
+						if (Skills.skillEnabled[l1]) {
+							k1 += this.maxStats[l1];
+						}
+					}
+				}
+				if (j1 == 10) {
+					RSInterface class9_2 = RSInterface.interfaceCache[ai[l++]];
+					int l2 = ai[l++] + 1;
+					if ((l2 >= 0) && (l2 < ItemDef.totalItems) && (!ItemDef.forID(l2).membersObject || Client.isMembers)) {
+						for (int k3 = 0; k3 < class9_2.inv.length; k3++) {
+							if (class9_2.inv[k3] != l2) {
+								continue;
+							}
+							k1 = 0x3b9ac9ff;
+							break;
+						}
+					}
+				}
+				if (j1 == 11) {
+					k1 = this.energy;
+				}
+				if (j1 == 12) {
+					k1 = this.weight;
+				}
+				if (j1 == 13) {
+					int i2 = this.variousSettings[ai[l++]];
+					int i3 = ai[l++];
+					k1 = (i2 & (1 << i3)) == 0 ? 0 : 1;
+				}
+				if (j1 == 14) {
+					int j2 = ai[l++];
+					VarBit varBit = VarBit.cache[j2];
+					int l3 = varBit.configID;
+					int i4 = varBit.leastSignificantBit;
+					int j4 = varBit.mostSignificantBit;
+					int k4 = Client.anIntArray1232[j4 - i4];
+					k1 = (this.variousSettings[l3] >> i4) & k4;
+				}
+				if (j1 == 15) {
+					byte0 = 1;
+				}
+				if (j1 == 16) {
+					byte0 = 2;
+				}
+				if (j1 == 17) {
+					byte0 = 3;
+				}
+				if (j1 == 18) {
+					k1 = (Client.myPlayer.x >> 7) + this.baseX;
+				}
+				if (j1 == 19) {
+					k1 = (Client.myPlayer.y >> 7) + this.baseY;
+				}
+				if (j1 == 20) {
+					k1 = ai[l++];
+				}
+				if (byte0 == 0) {
+					if (i1 == 0) {
+						k += k1;
+					}
+					if (i1 == 1) {
+						k -= k1;
+					}
+					if ((i1 == 2) && (k1 != 0)) {
+						k /= k1;
+					}
+					if (i1 == 3) {
+						k *= k1;
+					}
+					i1 = 0;
+				} else {
+					i1 = byte0;
+				}
+			} while (true);
+		} catch (Exception _ex) {
+			return -1;
+		}
+	}

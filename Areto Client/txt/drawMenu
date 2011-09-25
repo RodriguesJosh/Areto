@@ -1,0 +1,33 @@
+	private void drawMenu() {
+		int i = this.menuOffsetX;
+		int j = this.menuOffsetY;
+		int k = this.menuWidth;
+		int l = this.anInt952;
+		int i1 = 0x5d5447;
+		DrawingArea.method336(l, j, i, i1, k);
+		DrawingArea.method336(16, j + 1, i + 1, 0, k - 2);
+		DrawingArea.fillPixels(i + 1, k - 2, l - 19, 0, j + 18);
+		this.chatTextDrawingArea.method385(i1, "Choose Option", j + 14, i + 3);
+		int j1 = super.mouseX;
+		int k1 = super.mouseY;
+		if (this.menuScreenArea == 0) {
+			j1 -= 4;
+			k1 -= 4;
+		}
+		if (this.menuScreenArea == 1) {
+			j1 -= 553;
+			k1 -= 205;
+		}
+		if (this.menuScreenArea == 2) {
+			j1 -= 17;
+			k1 -= 357;
+		}
+		for (int l1 = 0; l1 < this.menuActionRow; l1++) {
+			int i2 = j + 31 + ((this.menuActionRow - 1 - l1) * 15);
+			int j2 = 0xffffff;
+			if ((j1 > i) && (j1 < (i + k)) && (k1 > (i2 - 13)) && (k1 < (i2 + 3))) {
+				j2 = 0xffff00;
+			}
+			this.chatTextDrawingArea.method389(true, i + 3, j2, this.menuActionName[l1], i2);
+		}
+	}

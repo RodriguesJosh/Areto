@@ -1,0 +1,46 @@
+	private void processOnDemandQueue() {
+		do {
+			OnDemandData onDemandData;
+			do {
+				onDemandData = this.onDemandFetcher.getNextNode();
+				if (onDemandData == null) {
+					return;
+				}
+				if (onDemandData.dataType == 0) {
+					Model.readHeader(onDemandData.buffer, onDemandData.id);
+					if ((this.onDemandFetcher.getModelIndex(onDemandData.id) & 0x62) != 0) {
+						this.needDrawTabArea = true;
+						if (this.backDialogID != -1) {
+							this.inputTaken = true;
+						}
+					}
+				}
+				if ((onDemandData.dataType == 1) && (onDemandData.buffer != null)) {
+					Animation.method529(onDemandData.buffer);
+				}
+				if ((onDemandData.dataType == 2) && (onDemandData.id == this.nextSong) && (onDemandData.buffer != null)) {
+					this.saveMidi(this.songChanging, onDemandData.buffer);
+				}
+				if ((onDemandData.dataType == 3) && (this.loadingStage == 1)) {
+					for (int i = 0; i < this.aByteArrayArray1183.length; i++) {
+						if (this.anIntArray1235[i] == onDemandData.id) {
+							this.aByteArrayArray1183[i] = onDemandData.buffer;
+							if (onDemandData.buffer == null) {
+								this.anIntArray1235[i] = -1;
+							}
+							break;
+						}
+						if (this.anIntArray1236[i] != onDemandData.id) {
+							continue;
+						}
+						this.aByteArrayArray1247[i] = onDemandData.buffer;
+						if (onDemandData.buffer == null) {
+							this.anIntArray1236[i] = -1;
+						}
+						break;
+					}
+				}
+			} while ((onDemandData.dataType != 93) || !this.onDemandFetcher.method564(onDemandData.id));
+			MapRegion.method173(new Packet(onDemandData.buffer), this.onDemandFetcher);
+		} while (true);
+	}

@@ -1,0 +1,25 @@
+	private boolean interfaceIsSelected(RSInterface class9) {
+		if (class9.conditionType == null) {
+			return false;
+		}
+		for (int i = 0; i < class9.conditionType.length; i++) {
+			int j = this.extractInterfaceValues(class9, i);
+			int k = class9.conditionValueToCompare[i];
+			if (class9.conditionType[i] == 2) {
+				if (j >= k) {
+					return false;
+				}
+			} else if (class9.conditionType[i] == 3) {
+				if (j <= k) {
+					return false;
+				}
+			} else if (class9.conditionType[i] == 4) {
+				if (j == k) {
+					return false;
+				}
+			} else if (j != k) {
+				return false;
+			}
+		}
+		return true;
+	}
