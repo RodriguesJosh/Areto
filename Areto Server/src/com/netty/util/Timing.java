@@ -52,6 +52,6 @@ public class Timing {
 	 */
 	@Override
 	public String toString() {
-		return (System.currentTimeMillis() - this.getStartTime()) + "ms";
+		return ((System.currentTimeMillis() - this.getStartTime()) / 1000000.0) + "ms";
 	}
 }
