@@ -1,4 +1,0 @@
-	private int rotateFlamesColor(int i, int j, int k) {
-		int l = 256 - k;
-		return (((((i & 0xff00ff) * l) + ((j & 0xff00ff) * k)) & 0xff00ff00) + ((((i & 0xff00) * l) + ((j & 0xff00) * k)) & 0xff0000)) >> 8;
-	}

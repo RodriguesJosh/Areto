@@ -1,9 +1,0 @@
-	private void unlinkMRUNodes() {
-		ObjectDef.modelCache.unlinkAll();
-		ObjectDef.modelCache2.unlinkAll();
-		EntityDef.modelCache.unlinkAll();
-		ItemDef.modelCache.unlinkAll();
-		ItemDef.rgbImageCache.unlinkAll();
-		Player.modelCache.unlinkAll();
-		SpotAnim.memoryCache.unlinkAll();
-	}

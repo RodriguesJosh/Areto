@@ -1,7 +1,0 @@
-	@Override
-	public String getParameter(String s) {
-		if (SignLink.mainapp != null) {
-			return SignLink.mainapp.getParameter(s);
-		}
-		return super.getParameter(s);
-	}

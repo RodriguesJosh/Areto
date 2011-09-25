@@ -1,3 +1,0 @@
-	private void setWaveVolume(int volume) {
-		SignLink.wavevol = volume;
-	}

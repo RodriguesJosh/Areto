@@ -1,3 +1,0 @@
-	private boolean saveWave(byte abyte0[], int i) {
-		return (abyte0 == null) || SignLink.wavesave(abyte0, i);
-	}

@@ -1,2 +1,0 @@
-class Flower:
-	DAISY = "daisy"

@@ -1,6 +1,0 @@
-	public Socket openSocket(int i) throws IOException {
-		if (SignLink.mainapp != null) {
-			return SignLink.opensocket(i);
-		}
-		return new Socket(InetAddress.getByName(this.getCodeBase().getHost()), i);
-	}

@@ -1,9 +1,0 @@
-	private static String intToKOrMil(int j) {
-		if (j < 0x186a0) {
-			return String.valueOf(j);
-		}
-		if (j < 0x989680) {
-			return (j / 1000) + "K";
-		}
-		return (j / 0xf4240) + "M";
-	}
